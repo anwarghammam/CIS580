@@ -1,0 +1,114 @@
+<div class="main-content">
+    <div class="container-fluid">
+       
+       <div class="row">
+          <div class="col-md-4">
+                <div style = "width: 400px; height: 250px;" >
+                    <canvas baseChart 
+                           [data]="pieChartData" 
+   
+                             [labels]="pieChartLabels" 
+                              [chartType]="pieChartType"
+                             [options]="pieChartOptions"
+                              [plugins]="pieChartPlugins"
+                            [legend]="pieChartLegend">
+                      </canvas>
+                </div>
+            </div>
+            <div class="col-md-3" style="margin-top: 50px;">
+            
+                <div style = "width: 500px; height: 250px;" >
+                  <google-chart 
+            #googlechart
+            [title]="chart3.title"
+            
+            [type]="chart3.type"
+            [data]="chart3.data"
+            [options]="chart3.options">
+            </google-chart>
+              
+            </div>
+           
+
+            </div>
+      
+
+        <div class="col-md-5">
+          <div style = "width: 200px; height: 250px;" >
+           
+            <google-chart #chart
+          [title]="title1"
+          [type]="type1"
+          [data]="data1"
+        
+          [options]="options1"
+          [width]="width1"
+          [height]="height1">
+       </google-chart>
+           
+        </div>
+     </div>
+          
+    </div>
+
+          
+       <div class="row">
+        
+           <div class="col-md-3">
+            <div style = "width: 500px; height: 400px;" >
+                           
+              <google-chart 
+              #googlechart
+              [title]="chart1.title"
+              [type]="chart1.type"
+              [data]="chart1.data"
+             
+              [options]="chart1.options">
+            </google-chart>
+                                        </div>
+                                      
+           </div>
+           <div class="col-md-3">
+            <div style = "width: 500px; height: 400px;" >
+           <google-chart 
+           #googlechart
+           [title]="chart2.title"
+           [type]="chart2.type"
+           [data]="chart2.data"
+           [options]="chart2.options">
+           </google-chart>
+
+              </div>
+              </div>
+              <div class="col-md-6" >
+                <div style = "width: 300px; height: 200px;" >
+        
+                  <google-chart #chart
+                  [title]="title3"
+                  [type]="type3"
+                 
+                  [data]="data3"
+                 
+                  [options]="options3"
+                  [width]="width3"
+                  [height]="height3">
+               </google-chart>
+        
+                    </div>
+                </div>
+        </div>
+
+   
+        
+
+    <div class="row">
+      
+      
+  
+
+    </div>    
+        
+    </div>
+    
+</div>
+
