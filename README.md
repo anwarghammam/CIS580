@@ -19,3 +19,10 @@ TODO
 ## Usage
 
 TODO
+
+## Authors
+
+* **Anwar Ghammam** - *Initial work*
+
+See also the list of [contributors](https://github.com/iselab-dearborn/many-objective-container-rescheduling/graphs/contributors) who participated in this project.
+
