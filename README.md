@@ -1,10 +1,10 @@
-# Many-objective Container Rescheduling
+# Many-objective Container Scheduling
 
-Many-objective Container Rescheduling
+Many-objective Container Scheduling
 
-[![GitHub Release](https://img.shields.io/github/release/iselab-dearborn/many-objective-container-rescheduling.svg)](https://github.com/iselab-dearborn/many-objective-container-rescheduling/releases/latest)
-[![GitHub contributors](https://img.shields.io/github/contributors/iselab-dearborn/many-objective-container-rescheduling.svg)](https://github.com/iselab-dearborn/many-objective-container-rescheduling/graphs/contributors)
-[![GitHub stars](https://img.shields.io/github/stars/iselab-dearborn/many-objective-container-rescheduling.svg)](https://github.com/iselab-dearborn/many-objective-container-rescheduling)
+[![GitHub Release](https://img.shields.io/github/release/iselab-dearborn/many-objective-container-scheduling.svg)](https://github.com/iselab-dearborn/many-objective-container-scheduling/releases/latest)
+[![GitHub contributors](https://img.shields.io/github/contributors/iselab-dearborn/many-objective-container-scheduling.svg)](https://github.com/iselab-dearborn/many-objective-container-scheduling/graphs/contributors)
+[![GitHub stars](https://img.shields.io/github/stars/iselab-dearborn/many-objective-container-scheduling.svg)](https://github.com/iselab-dearborn/many-objective-container-scheduling)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
@@ -22,7 +22,7 @@ TODO
 
 ## Questions or Suggestions
 
-Feel free to create <a href="https://github.com/iselab-dearborn/many-objective-container-rescheduling/issues">issues</a> here as you need
+Feel free to create <a href="https://github.com/iselab-dearborn/many-objective-container-scheduling/issues">issues</a> here as you need
 
 ## Contribute
 
@@ -32,7 +32,7 @@ Contributions to the this project are very welcome! We can't do this alone! Feel
 
 * **Anwar Ghammam** - *Initial work*
 
-See also the list of [contributors](https://github.com/iselab-dearborn/many-objective-container-rescheduling/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/iselab-dearborn/many-objective-container-scheduling/graphs/contributors) who participated in this project.
 
 ## License
 
