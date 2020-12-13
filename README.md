@@ -42,6 +42,47 @@ Next, you can check the swarm members using
 docker node ls
 ```
 
+Now we have to install some services for Docker Swarm monitoring (to expose Docker engine and container metrics in our project)
+
+<p> Services </p> :
+
+* prometheus (metrics database) `http://<swarm-ip>:9090`
+* node-exporter (host metrics collector)
+* cadvisor (containers metrics collector)
+* dockerd-exporter (Docker daemon metrics collector)
+* grafana (visualize metrics) http://<swarm-ip>:3000
+    
+## Install
+```
+$ git clone https://github.com/anwarghammam/Prometheus-Monitoring-for-Docker-Swarm
+$ cd Prometheus-Monitoring-for-Docker-Swarm/
+$ docker stack --compose-file docker-compose.yml p1
+```
+you can check the containers in every machine using 
+
+```
+docker ps
+```
+
+
+
+
+Clone this repository and run the monitoring stack:
+
+```bash
+$ git clone https://github.com/stefanprodan/swarmprom.git
+$ cd swarmprom
+
+ADMIN_USER=admin \
+ADMIN_PASSWORD=admin \
+SLACK_URL=https://hooks.slack.com/services/TOKEN \
+SLACK_CHANNEL=devops-alerts \
+SLACK_USER=alertmanager \
+docker stack deploy -c docker-compose.yml mon
+```
+
+
+
 ## Usage
 
 TODO
