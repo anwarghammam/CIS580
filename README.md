@@ -86,8 +86,8 @@ $
 ```
 ## FrontEnd
 Before running the app, there are some changes that you have to do since you are using your own docker machines.
-Please go to src/app/home/chart.js and replace the variable url with "http://manager-ip:9090".
-Also, go to src/app/api.service.ts and replace the variable url with "http://manager-ip:9090" and the three variables manager_id,worker1_id and worker2_id with your nodes ids that you can find by running the command <strong> docker node ls </strong> on the manager. 
+Please go to src/app/home/chart.js and replace the variable url with "http://your_manager-ip:9090".
+Also, go to src/app/api.service.ts and replace the variable url with "http://your_manager-ip:9090" and the three variables manager_id,worker1_id and worker2_id with your nodes ids that you can find by running the command <strong> docker node ls </strong> on the manager. 
     
 
 
