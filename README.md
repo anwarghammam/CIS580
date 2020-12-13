@@ -14,7 +14,7 @@ The original paper was published at:
 
 ## How to Install
 
-This project is built based on basically three technologies described as follows:
+This project is built based on basically two technologies described as follows:
 * Python
 * Angular 
 
@@ -29,8 +29,8 @@ You can verify the creation of the machines by running
 docker-machine ls"
 ```
 
-At this point, we have to create a swarn where one of the machine is a manager and the two others are workers (or nodes)
-After choosing the manager, connect to it using <p> docker-machine ssh "its name" <p>
+At this point, we have to create a swarn where one of the machine is a manager and the two others are workers (or nodes).
+After choosing the manager, connect to it using <p> docker-machine ssh "its name" <p> .
 Then, to create the swarm, you have first to get the IP address of your manager using "ifconfig" and then run the following command 
 ```
 docker swarm init --advertise-addr ip-adress
