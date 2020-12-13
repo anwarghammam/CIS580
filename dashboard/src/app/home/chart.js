@@ -8,6 +8,7 @@ function all(){
  var ctx4 = document.getElementById('myChart4').getContext('2d');
  var ctx5 = document.getElementById('myChart5').getContext('2d');
  var ctx6 = document.getElementById('myChart6').getContext('2d');
+ url="http://192.168.99.100:9090/"
  const query1='100 - (avg(irate(node_cpu_seconds_total{mode="idle"}[5m])  * on(instance) group_left(node_name) node_meta * 100) by (node_name))';
  const query2 = 'sum(node_load5 * on(instance) group_left(node_name) node_meta) by (node_name)';
  
@@ -48,7 +49,7 @@ const query6="sum(rate(container_network_transmit_bytes_total [5m]) * on(contain
         plugins: {
             'datasource-prometheus': {
                 prometheus: {
-                    endpoint: "http://ec2-54-87-55-164.compute-1.amazonaws.com:9090",
+                    endpoint: url,
                    
                 },
                 query: query1,
@@ -117,7 +118,7 @@ const query6="sum(rate(container_network_transmit_bytes_total [5m]) * on(contain
          plugins: {
              'datasource-prometheus': {
                  prometheus: {
-                     endpoint: "http://ec2-54-87-55-164.compute-1.amazonaws.com:9090",
+                     endpoint: url ,
                     
                  },
                  query: query2,
@@ -198,7 +199,7 @@ const query6="sum(rate(container_network_transmit_bytes_total [5m]) * on(contain
         plugins: {
             'datasource-prometheus': {
                 prometheus: {
-                    endpoint: "http://ec2-54-87-55-164.compute-1.amazonaws.com:9090",
+                    endpoint: url ,
                    
                 },
                 query: query3,
@@ -273,7 +274,7 @@ var myChart4 = new Chart(ctx4, {
         plugins: {
             'datasource-prometheus': {
                 prometheus: {
-                    endpoint: "http://ec2-54-87-55-164.compute-1.amazonaws.com:9090",
+                    endpoint: url ,
                    
                 },
                 query: query4,
@@ -356,7 +357,7 @@ var myChart5 = new Chart(ctx5, {
         plugins: {
             'datasource-prometheus': {
                 prometheus: {
-                    endpoint: "http://ec2-54-87-55-164.compute-1.amazonaws.com:9090",
+                    endpoint: url,
                    
                 },
                 query: query5,
@@ -432,7 +433,7 @@ var myChart6 = new Chart(ctx6, {
         plugins: {
             'datasource-prometheus': {
                 prometheus: {
-                    endpoint: "http://ec2-54-87-55-164.compute-1.amazonaws.com:9090",
+                    endpoint:url ,
                    
                 },
                 query: query6,
