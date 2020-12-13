@@ -56,18 +56,39 @@ Now we have to install some services for Docker Swarm monitoring (to expose Dock
 ```bash
 $ git clone https://github.com/anwarghammam/Prometheus-Monitoring-for-Docker-Swarm
 $ cd Prometheus-Monitoring-for-Docker-Swarm/
-$ docker stack --compose-file docker-compose.yml p1
+$ docker stack --compose-file docker-compose.yml prom
 ```
 you can check the containers in every machine using 
 
 ```
 docker ps
 ```
+## using an example of a docker project
+Now, you will create a docker project on the cluster using the yaml file cbe-app.yml that exists on the Prometheus-Monitoring-for-Docker-Swarm repository 
+```bash
 
+$ cd Prometheus-Monitoring-for-Docker-Swarm/
+$ docker stack deploy --compose-file cbe-app.yml p1
+```
+PS: you can always supervise the services you have on your cluster by using:
 
+```bash
 
+$ docker service ls
+$ 
+```
+Or the containers that are allocated to a specific node using:
 
+```bash
 
+$ docker ps
+$ 
+```
+## FrontEnd
+Before running the app, there are some changes that you have to do since you are using your own docker machines.
+Please go to src/app/home/chart.js and replace the variable url with "http://<manager-ip>:9090".
+Also, go to src/app/api.service.ts and replace the variable url with "http://<manager-ip>:9090" and the three variables manager_id,worker1_id and worker2_id with your nodes ids that you can find by running the command <p> docker node ls </p> on the manager. 
+    
 
 
 ## Usage
