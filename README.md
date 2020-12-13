@@ -17,6 +17,7 @@ The original paper was published at:
 This project is built based on basically three technologies described as follows:
 * Python
 * Angular 
+
 Also, this project is based on 3 docker machines so we will be using a VMware to create them , thus please install VMware Workstation on your machine first.
 
 To create a docker machine, please run the following command on your cmd:
