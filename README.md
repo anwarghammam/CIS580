@@ -53,7 +53,7 @@ Now we have to install some services for Docker Swarm monitoring (to expose Dock
 * grafana (visualize metrics) http://<swarm-ip>:3000
     
 ## Install
-```
+```bash
 $ git clone https://github.com/anwarghammam/Prometheus-Monitoring-for-Docker-Swarm
 $ cd Prometheus-Monitoring-for-Docker-Swarm/
 $ docker stack --compose-file docker-compose.yml p1
@@ -67,19 +67,6 @@ docker ps
 
 
 
-Clone this repository and run the monitoring stack:
-
-```bash
-$ git clone https://github.com/stefanprodan/swarmprom.git
-$ cd swarmprom
-
-ADMIN_USER=admin \
-ADMIN_PASSWORD=admin \
-SLACK_URL=https://hooks.slack.com/services/TOKEN \
-SLACK_CHANNEL=devops-alerts \
-SLACK_USER=alertmanager \
-docker stack deploy -c docker-compose.yml mon
-```
 
 
 
