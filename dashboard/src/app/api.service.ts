@@ -7,7 +7,7 @@ import { forkJoin } from 'rxjs';
 })
 
 export class ApiService {
- url="http://192.168.99.100:9090/"
+ url="http://192.168.99.101:9090/"
  manager_id="2obmatsgr0jh0gd7xmbvdhlfl"
  worker1_id="a0rltj1fq6e0hw6f1ukxevhw3"
  worker2_id="kou3p86e5k9xaithdo5rky9w2"
