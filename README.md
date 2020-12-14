@@ -99,7 +99,7 @@ $ ng serve
 Please access on your browser http://localhost:4200. If it is everything working well, you are going to see the following webpage.
 <div align="center">
     <kbd>
-        <img src="https://github.com/iselab-dearborn/many-objective-container-scheduling/blob/master/dashboard.jpg"/>
+        <img src="https://github.com/iselab-dearborn/many-objective-container-scheduling/tree/main/screenshots/dashboard.jpg"/>
     </kbd>
     <br/><br/>
 </div>
