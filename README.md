@@ -18,29 +18,30 @@ This project is built based on basically two technologies described as follows:
 * Python
 * Angular 
 
-Also, this project is based on 3 docker machines so we will be using a VMware to create them , thus please install VMware Workstation on your machine first.
+Also, it is based on 3 docker machines so we will be using a VMware to create them , thus please install VMware Workstation on your host first.
 
 To create a docker machine, please run the following command on your cmd:
 ```
 docker-machine create "the machine's name" 
 ```
 Please make sure to give the following names to the created machines : "Manager" , "Worker1", "Worker2" since we used them in our code.
-You can verify the creation of the machines by running 
+<br> </br>
+You can verify the creation of the machines by running:
 ```
-docker-machine ls"
+$ docker-machine ls
 ```
 
-At this point, we have to create a swarn where one of the machine is a manager and the two others are workers (or nodes).
-After choosing the manager, connect to it using <p> docker-machine ssh "its name" <p> .
-Then, to create the swarm, you have first to get the IP address of your manager using "ifconfig" and then run the following command 
+At this point, we have to create a swarm where one of the machine is a manager and the two others are workers (or nodes).
+First, connect to the manager using <strong> docker-machine ssh "its name" </strong> .
+Then, to create the swarm, you have first to get the IP address of your manager using <strong> "ifconfig" </strong> and then run the following command:
 ```
-docker swarm init --advertise-addr ip-adress
+$ docker swarm init --advertise-addr ip-adress
 ```
-To add workers to this swarm, run the command provided in the output on each machine you want to add after connecting to it. (In our case we want to add 2 workers)
+To add workers to this swarm, please run the command provided in the output on each machine you want to add after connecting to it. (In our case we want to add 2 workers)
 
-Next, you can check the swarm members using 
+Next, you can check the swarm members using:
 ```
-docker node ls
+$ docker node ls
 ```
 
 Now we have to install some services for Docker Swarm monitoring (to expose Docker engine and container metrics in our project)
