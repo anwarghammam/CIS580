@@ -89,7 +89,7 @@ Before running the app, there are some changes that you have to do since you are
 Please go to src/app/home/chart.js and replace the variable url with "http://your_manager-ip:9090".
 Also, go to src/app/api.service.ts and replace the variable url with "http://your_manager-ip:9090" and the three variables manager_id,worker1_id and worker2_id with your nodes ids that you can find by running the command <strong> docker node ls </strong> on the manager. 
 
-
+ <br/><br/>
 Now, clone a terminal on the dashboard project and run the following command:
 ```bash
 
@@ -99,8 +99,8 @@ $ ng serve
 Please access on your browser http://localhost:4200. If everything is working well, you are going to see the following webpage.
 <div align="center">
     <kbd>
-        ![alt text](https://github.com/iselab-dearborn/many-objective-container-scheduling/tree/main/screenshots/dashboard.png?raw=true)
-        <img src="https://github.com/iselab-dearborn/many-objective-container-scheduling/tree/main/screenshots/dashboard.png"/>
+      
+        <img src="https://github.com/iselab-dearborn/many-objective-container-scheduling/blob/main/screenshots/dashboard.png">
     </kbd>
     <br/><br/>
 </div>
