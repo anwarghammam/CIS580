@@ -90,9 +90,9 @@ $ docker ps
 <br>
 Before running the app, there are some changes that you have to do since you are using your own docker machines.
 <br> </br>
-Please go to <strong> src/app/home/chart.js </strong> and replace the variable <strong> url</strong> with "http://your-manager-ip:9090".
+Please go to <strong> src/app/home/chart.js </strong> and replace the variable <strong> url </strong> with "http://your-manager-ip:9090".
  <br> </br>   
-Also, go to <strong> src/app/api.service.ts </strong> and replace the variable <strong> url</strong> with "http://your_manager-ip:9090" and the three variables <strong> manager_id,worker1_id and worker2_id</strong> with your nodes ids that you can find by running the command <strong> docker node ls </strong> on the manager. 
+Also, go to <strong> src/app/api.service.ts </strong> and replace the variable <strong> url </strong> with "http://your_manager-ip:9090" and the three variables <strong> manager_id, worker1_id  and  worker2_id</strong> with your nodes ids that you can find by running the command <strong> docker node ls </strong> on the manager. 
 
  <br/><br/>
 Now, open a terminal on the dashboard project and run the following command:
