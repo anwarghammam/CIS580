@@ -15,8 +15,8 @@
 ,stencila/hub,stencila,hub,https://github.com/stencila/hub,,,,,,,,,,,11,11
 ,dockerwest/compose-magento,dockerwest,compose-magento,https://github.com/dockerwest/compose-magento,,,,,,,,,,,6,6
 ,dotnet-architecture/eShopModernizing,dotnet-architecture,eShopModernizing,https://github.com/dotnet-architecture/eShopModernizing,,,,,,,,,,,4,4
-,sameersbn/docker-gitlab,sameersbn,docker-gitlab,https://github.com/sameersbn/docker-gitlab,,,,,,,,,,4,4
-,hcxp/hcxp,hcxp,hcxp,https://github.com/hcxp/hcxp,,,,,,,,,,6,6
-,changami/froghouse-lightning-talk-docker,changami,froghouse-lightning-talk-docker,https://github.com/changami/froghouse-lightning-talk-docker,,,,,,,,,,3,3
-,Hygieia/Hygieia,Hygieia,Hygieia,https://github.com/Hygieia/Hygieia,,,,,,,,,,4,4
-,bartTC/dpaste,bartTC,dpaste,,,,,,,,,,,3,2
+,sameersbn/docker-gitlab,sameersbn,docker-gitlab,https://github.com/sameersbn/docker-gitlab,,,,,,,,,,,4,4
+,hcxp/hcxp,hcxp,hcxp,https://github.com/hcxp/hcxp,,,,,,,,,,,6,6
+,changami/froghouse-lightning-talk-docker,changami,froghouse-lightning-talk-docker,https://github.com/changami/froghouse-lightning-talk-docker,,,,,,,,,,,3,3
+,Hygieia/Hygieia,Hygieia,Hygieia,https://github.com/Hygieia/Hygieia,,,,,,,,,,,4,4
+,bartTC/dpaste,bartTC,dpaste,,,,,,,,,,,3,3
