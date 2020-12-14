@@ -107,12 +107,15 @@ Please access on your browser http://localhost:4200. If everything is working we
     <br/><br/>
 </div>
 ## BackEnd
-<br>
-Now, you need to run the backend (in the Jmetal repository). Please go to you Anaconda Prompt (Anaconda needs to be installed on your host) and run the <strong> app.py </strong> fie using the following command:
+<br> </br>
+Now, you need to run the backend (in the Jmetal repository). Please go to you Anaconda Prompt (Anaconda needs to be installed on your host) and run the <strong> app.py </strong> file using the following command:
+<br> </br>
 ```
-python app.py 
+python app.py
 ```
+
 This will run our Api !
+<br></br>
 And now everything is ready! you can test the demo in the dashboard.
 
 ## Usage
