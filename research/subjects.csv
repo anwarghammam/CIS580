@@ -7,4 +7,9 @@
 19327261,blacktop/docker-bro,blacktop,docker-bro,https://github.com/blacktop/docker-bro,2014-04-30T21:06:00Z,2020-12-06T09:50:32Z,2417,79,79787,125,2,0,3,,3,3
 4726428,miso-lims/miso-lims,miso-lims,miso-lims,https://github.com/miso-lims/miso-lims,2012-06-20T13:17:28Z,2020-12-04T11:02:44Z,3097,101,128907,123,13,431,13,,4,4
 5169716,Screenly/screenly-ose,Screenly,screenly-ose,https://github.com/Screenly/screenly-ose,2012-07-24T18:48:50Z,2020-12-09T13:56:33Z,3063,100,19081,1123,48,16,49,,5,5
-,,,docker-flow-letsencrypt,https://github.com/hamburml/docker-flow-letsencrypt,,,,,,,,,,,3,4
+,hamburml/docker-flow-letsencrypt,hamburml,docker-flow-letsencrypt,https://github.com/hamburml/docker-flow-letsencrypt,,,,,,,,,,,3,4
+,LaVestima/hanna-agency,LaVestima,hanna-agency,https://github.com/LaVestima/hanna-agency,,,,,,,,,,,6,6
+,ucan-lab/docker-laravel,ucan-lab,https://github.com/ucan-lab/docker-laravel,,,,,,,,,,,3,3
+,FedorSelitsky/eventrack,FedorSelitsky,https://github.com/FedorSelitsky/eventrack,,,,,,,,,,,5,5
+,MassDistributionMedia/rc-ca-blinds,rc-ca-blinds,https://github.com/MassDistributionMedia/rc-ca-blinds,,,,,,,,,,,3,3
+,stencila/hub,hub,https://github.com/stencila/hub,,,,,,,,,,,11,11
