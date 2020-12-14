@@ -97,10 +97,10 @@ $ npm install
 $ ng serve 
 ```
 Please access on your browser http://localhost:4200. If everything is working well, you are going to see the following webpage.
+
 <div align="center">
     <kbd>
-      
-        <img src="https://github.com/iselab-dearborn/many-objective-container-scheduling/blob/main/screenshots/dashboard.png">
+        <img src="https://github.com/iselab-dearborn/many-objective-container-scheduling/blob/main/screenshots/dashboard.png"/>
     </kbd>
     <br/><br/>
 </div>
