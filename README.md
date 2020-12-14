@@ -46,40 +46,40 @@ $ docker node ls
 
 Now we have to install some services for Docker Swarm monitoring (to expose Docker engine and container metrics in our project)
 
-<p> Services </p> :
+<p> Services :</p> 
 
 * prometheus (metrics database) `http://<swarm-ip>:9090`
 * node-exporter (host metrics collector)
 * cadvisor (containers metrics collector)
 * dockerd-exporter (Docker daemon metrics collector)
-* grafana (visualize metrics) http://<swarm-ip>:3000
+* grafana (visualize metrics) `http://<swarm-ip>:3000`
     
 ## Install
 ```bash
-$ git clone https://github.com/anwarghammam/Prometheus-Monitoring-for-Docker-Swarm
-$ cd Prometheus-Monitoring-for-Docker-Swarm/
+$ git clone https://github.com/anwarghammam/Monitoring-Docker-Swarm
+$ cd Monitoring-Docker-Swarm/
 $ docker stack --compose-file docker-compose.yml prom
 ```
-you can check the containers in every machine using 
+you can check the containers in every machine using: 
 
 ```
 docker ps
 ```
-## using an example of a docker project
-Now, you will create a docker project on the cluster using the yaml file cbe-app.yml that exists on the Prometheus-Monitoring-for-Docker-Swarm repository 
+## Using an example of a docker project
+Now, you will create a docker project on the cluster using the yaml file cbe-app.yml that exists on the Monitoring-Docker-Swarm repository 
 ```bash
 
-$ cd Prometheus-Monitoring-for-Docker-Swarm/
+$ cd Monitoring-Docker-Swarm/
 $ docker stack deploy --compose-file cbe-app.yml p1
 ```
-PS: you can always supervise the services you have on your cluster by using:
+<strong> PS: you can always check the services you have on your cluster using: <strong>
 
 ```bash
 
 $ docker service ls
-$ 
+
 ```
-Or the containers that are allocated to a specific node using:
+<strong> Or the containers that are allocated to a specific node using: <strong>
 
 ```bash
 
@@ -89,11 +89,13 @@ $ docker ps
 ## FrontEnd
 <br>
 Before running the app, there are some changes that you have to do since you are using your own docker machines.
-Please go to src/app/home/chart.js and replace the variable url with "http://your_manager-ip:9090".
-Also, go to src/app/api.service.ts and replace the variable url with "http://your_manager-ip:9090" and the three variables manager_id,worker1_id and worker2_id with your nodes ids that you can find by running the command <strong> docker node ls </strong> on the manager. 
+<br> </br>
+Please go to <strong> src/app/home/chart.js <strong> and replace the variable <strong> url<strong> with "http://your-manager-ip:9090".
+ <br> </br>   
+Also, go to <strong> src/app/api.service.ts <strong> and replace the variable <strong> url<strong> with "http://your_manager-ip:9090" and the three variables <strong> manager_id,worker1_id and worker2_id<strong> with your nodes ids that you can find by running the command <strong> docker node ls </strong> on the manager. 
 
  <br/><br/>
-Now, clone a terminal on the dashboard project and run the following command:
+Now, open a terminal on the dashboard project and run the following command:
 ```bash
 
 $ npm install
@@ -107,15 +109,18 @@ Please access on your browser http://localhost:4200. If everything is working we
     </kbd>
     <br/><br/>
 </div>
+<br> </br>
+
 ## BackEnd
 <br> </br>
 Now, you need to run the backend (in the Jmetal repository). Please go to you Anaconda Prompt (Anaconda needs to be installed on your host) and run the <strong> app.py </strong> file using the following command:
 <br> </br>
-```
-python app.py
+```bash
+
+$ python app.py
 ```
 
-This will run our Api !
+It will run our Api !
 <br></br>
 And now everything is ready! you can test the demo in the dashboard.
 
