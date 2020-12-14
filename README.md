@@ -24,6 +24,7 @@ To create a docker machine, please run the following command on your cmd:
 ```
 docker-machine create "the machine's name" 
 ```
+Please make sure to give the following names to the created machines : "Manager" , "Worker1", "Worker2" since we used them in our code.
 You can verify the creation of the machines by running 
 ```
 docker-machine ls"
@@ -104,6 +105,14 @@ Please access on your browser http://localhost:4200. If everything is working we
     </kbd>
     <br/><br/>
 </div>
+## BackEnd
+Now, you need to run the backend (in the Jmetal repository). Please go to you Anaconda Prompt (Anaconda needs to be installed on your host) and run the <strong> app.py </strong> fie using the following command:
+```bash
+
+python app.py 
+```
+This will run our Api !
+And now everything is ready! you can test the demo in the dashboard.
 
 ## Usage
 
