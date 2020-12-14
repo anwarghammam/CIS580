@@ -15,7 +15,7 @@ api = Api(app)
 class fct(Resource):
     def get(self):
         
-        cmd = ('docker-machine ssh manager3 docker stack deploy --compose-file docker-compose.yml p1').split()
+        cmd = ('docker-machine ssh Manager docker stack deploy --compose-file Monitoring-Docker-Swarm/cbe-app.yml p1').split()
 
         p = subprocess.Popen(cmd,stdout = subprocess.PIPE)
         output, errors = p.communicate()
@@ -28,7 +28,7 @@ class fct(Resource):
 class fct1(Resource):
     def get(self):
         #transform()
-        cmd = ('docker-machine ssh manager3 docker stack deploy --compose-file docker-compose1.yml p1').split()
+        cmd = ('docker-machine ssh Manager docker stack deploy --compose-file Monitoring-Docker-Swarm/final.yml p1').split()
 
         p = subprocess.Popen(cmd,stdout = subprocess.PIPE)
         output, errors = p.communicate()
