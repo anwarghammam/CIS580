@@ -18,11 +18,28 @@ This project is built based on basically two technologies described as follows:
 * Python
 * Angular 
 
-Also, it is based on 3 docker machines so we will be using a VMware to create them , thus please install VMware Workstation on your host first.
+Also, it is based on 3 docker machines so we will be using a VMware to create them , thus please run the following instructions:
 
-To create a docker machine, please run the following command on your cmd:
+## for Ubuntu 
+
+```bash
+$ sudo apt-get install virtualbox
+$ curl -L https://github.com/docker/machine/releases/download/v0.16.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine &&
+chmod +x /tmp/docker-machine && sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
+
 ```
-docker-machine create "the machine's name" 
+## for Windows
+
+```bash
+$ sudo apt-get install virtualbox
+$ curl -L https://github.com/docker/machine/releases/download/v0.16.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine &&
+chmod +x /tmp/docker-machine && sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
+
+```
+
+Now, you are ready create a docker machine, please run the following command on your cmd:
+```
+docker-machine create --driver virtualbox "the machine's name" 
 ```
 Please make sure to give the following names to the created machines : "Manager" , "Worker1", "Worker2" since we used them in our code.
 <br> </br>
