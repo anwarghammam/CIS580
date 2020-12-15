@@ -29,13 +29,8 @@ chmod +x /tmp/docker-machine && sudo cp /tmp/docker-machine /usr/local/bin/docke
 
 ```
 ## for Windows
-
-```bash
-$ sudo apt-get install virtualbox
-$ curl -L https://github.com/docker/machine/releases/download/v0.16.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine &&
-chmod +x /tmp/docker-machine && sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
-
-```
+If you have not yet installed Docker for Windows, please see this link https://docs.docker.com/docker-for-windows/install/ for an explanation.
+To Create machines locally using VirtualBox https://www.virtualbox.org/. This driver requires VirtualBox 5+ to be installed on your host. Using VirtualBox 4.3+ should work but will give you a warning. Older versions will refuse to work. 
 
 Now, you are ready create a docker machine, please run the following command on your cmd:
 ```
