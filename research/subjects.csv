@@ -26,6 +26,7 @@
 ,Djacket/djacket,Djacket,djacket,https://github.com/Djacket/djacket,,,,,,,,,,,3,3
 ,p6spy/p6spy,p6spy,p6spy,https://github.com/p6spy/p6spy,,,,,,,,,,,5,5
 ,memodir/cv,memodir,cv,https://github.com/memodir/cv,,,,,,,,,,,3,3
+,marinanierod/docker_prestashop,marinanierod,docker_prestashop,https://github.com/marinanierod/docker_prestashop,,,,,,,,,,,11,11
 ,jfrog/artifactory-docker-examples,jfrog,artifactory-docker-examples,https://github.com/jfrog/artifactory-docker-examples,,,,,,,,,,,2,2
 ,zentby/dockerspace,zentby,dockerspace,https://github.com/zentby/dockerspace,,,,,,,,,,,3,3
 ,zengoma/docker-magento2-apache-dev,zengoma,docker-magento2-apache-dev,https://github.com/zengoma/docker-magento2-apache-dev,,,,,,,,,,,2,2
@@ -45,3 +46,7 @@
 ,rodrigogs/github-metrics,rodrigogs,github-metrics,https://github.com/rodrigogs/github-metrics,,,,,,,,,,,2,2
 ,Zappelphilipp/docker-graylog-kibana-nginx-stack,Zappelphilipp,docker-graylog-kibana-nginx-stack,https://github.com/Zappelphilipp/docker-graylog-kibana-nginx-stack,,,,,,,,,,,5,5
 ,shin-/sakuya-blog,shin-,sakuya-blog,https://github.com/shin-/sakuya-blog,,,,,,,,,,,2,2
+,netresearch/timetracker,netresearch,timetracker,https://github.com/netresearch/timetracker,,,,,,,,,,,3,3
+,chiefy/terraform-linode-nextcloud,chiefy,terraform-linode-nextcloud,https://github.com/chiefy/terraform-linode-nextcloud,,,,,,,,,,,9,9
+,rammygit/mewbase,rammygit,mewbase,https://github.com/rammygit/mewbase,,,,,,,,,,,2,2
+
