@@ -4,7 +4,7 @@ digraph G {
     layout="circo";
 
     graph[bgcolor=transparent]
-    edge [color="#8aa9c0", penwidth=2]
+    edge [color="#8aa9c0", penwidth=3]
 
     node [style=filled, fillcolor="#9e77a180", color="#9e77a1", penwidth=2, fontname = "helvetica"]
 
