@@ -145,8 +145,20 @@ The following steps are just another version on how to install this project in y
 3. Install Docker Desktop
 4. Install [Docker Machine](https://docs.docker.com/machine/install-machine/))
 5. Please ake sure you have VT-X/AMD-v enabled on your BIOS. This is mandatory. It is possible to face some problems if Hyper-V is enabled on Windows. Then, keep it disabled since it may have some conflict with Virtualbox
-6. Install
-    * test 
+6. Creating machines on Virtualbox. Run the following commands:
+    * `docker-machine.exe create --virtualbox-no-vtx-check "manager"`
+    * `docker-machine.exe create --virtualbox-no-vtx-check "worker1"`
+    * `docker-machine.exe create --virtualbox-no-vtx-check "worker2"`
+7. You need to install Docker Swarm in a "manager" node. So access the manager node
+    * `docker-machine.exe ssh "manager"`
+8. Install Docker Swarm. You need to know what is the manager's IP
+    * `docker swarm init --advertise-addr 192.168.99.100`
+9. When Swarm is successfully started, you need to "connect" or "add" nodes to it. Use the command displayed to access each created node and run it. This command looks the following:
+    * `docker swarm join --token <TOKE> 192.168.99.100:2377`
+10.
+
+
+
 
 
 ## Questions or Suggestions
