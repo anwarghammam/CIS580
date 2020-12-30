@@ -141,15 +141,10 @@ And now everything is ready! you can test the demo in the dashboard.
 The following steps are just another version on how to install this project in your machine. This is made based on a Windows machine. Other operating systems are supposed to be a bit different.
 
 1. Install Virtualbox and its extension pack 
-
 2. Install Python 
-
 3. Install Docker Desktop
-
 4. Install [Docker Machine](https://docs.docker.com/machine/install-machine/))
-
 5. Please ake sure you have VT-X/AMD-v enabled on your BIOS. This is mandatory. It is possible to face some problems if Hyper-V is enabled on Windows. Then, keep it disabled since it may have some conflict with Virtualbox
-
 6. Install
     * test 
 
