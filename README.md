@@ -139,6 +139,7 @@ Now, you need to run the backend (in the Jmetal repository). Please go to you An
 
 $ python app.py
 ```
+Please change as well the paths for the files (such as tghe docker-compose files) with your own paths
 
 It will run our Api !
 <br></br>
