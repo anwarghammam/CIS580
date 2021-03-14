@@ -71,7 +71,7 @@ export class InfoComponent implements OnInit {
         title: 'services',
         type: 'Gauge',
         data:[ [
-          'services',78,
+          'services',10,
           
         
         ]],
@@ -107,7 +107,7 @@ export class InfoComponent implements OnInit {
   public consumed_cpu_w2
   public consumed_cpu_m
   public data3
-public pieChartData=[6,5,4]
+public pieChartData=[6,4,4]
   infos:JSON[]
   public data = [
     ['manager', 45.0],
@@ -297,7 +297,7 @@ public pieChartData=[6,5,4]
      this.api.nb_con_manager2()
     .subscribe(
       resp => {
-        
+        console.log(resp)
        result=(parseInt(resp.body['data']['result']['0']['value']['1']));
        this.con_manager2=result
        console.log("con manager "+this.con_manager2)

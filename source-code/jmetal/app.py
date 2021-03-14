@@ -7,15 +7,14 @@ Created on Wed Sep 30 19:58:26 2020
 from flask import Flask, jsonify
 from flask_restful import Resource, Api
 import subprocess
-#from NSGAIII import transform
-#from flask-jsonpify import jsonify
+from NSGAIII import transform
 app = Flask(__name__)
 api = Api(app)
 
-class fct(Resource):
+class default_scheduler(Resource):
     def get(self):
         
-        cmd = ('docker-machine ssh Manager docker stack deploy --compose-file Monitoring-Docker-Swarm/cbe-app.yml p1').split()
+        cmd = ('ssh root@manager docker stack deploy --compose-file docker-compose_initial.yml p1').split()
 
         p = subprocess.Popen(cmd,stdout = subprocess.PIPE)
         output, errors = p.communicate()
@@ -25,16 +24,23 @@ class fct(Resource):
         result=jsonify("done")
        
         return (result)
-class fct1(Resource):
+class new_approach(Resource):
     def get(self):
-        #transform()
-        cmd = ('docker-machine ssh Manager docker stack deploy --compose-file Monitoring-Docker-Swarm/final.yml p1').split()
+        transform()
+        cmd = ('ssh root@manager docker stack deploy --compose-file docker-compose1.yml p1 ').split()
 
-        p = subprocess.Popen(cmd,stdout = subprocess.PIPE)
-        output, errors = p.communicate()
+        p = subprocess.Popen(cmd)
+        output, errors = p.communicate() 
        
         print(output)
         print(errors)
+#        ssh.connect(hostname='ec2-54-87-55-164.compute-1.amazonaws.com', username='ubuntu',pkey=privkey)
+#        #ssh.connect("ubuntu@ec2-54-87-55-164.compute-1.amazonaws.com",)
+#        stdin, stdout, stderr=ssh.exec_command('rmdir test')
+#        print (stdout.read())
+#        print(stderr.read())
+       
+
        
         result=jsonify("done")
        
@@ -43,8 +49,8 @@ class fct1(Resource):
     
         
         
-api.add_resource(fct, '/fct') # Route_1
-api.add_resource(fct1, '/fct1')
+api.add_resource(default_scheduler, '/default') # Route_1
+api.add_resource(new_approach, '/new')
 
 #
 #

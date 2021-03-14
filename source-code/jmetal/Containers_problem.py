@@ -10,13 +10,14 @@ from abc import ABC
 from jmetal.core.problem import IntegerProblem
 from jmetal.core.solution import IntegerSolution
 import collections
-from extract_data import create , keep_trace1,keep_trace2
+import math
+from extract_data import get_data,get_dependencies
 
 
 
-containers,initial_state,machines=create()
-keep_trace1(containers,initial_state,machines)
-n_nodes=3
+images,containers,initial_state,machines=get_data()
+#keep_trace1(containers,initial_state,machines)
+n_nodes=len(machines)
 class MOOC(IntegerProblem,ABC):
     """ Problem MOOC.
     .. note::  The default number of variables is 30.
@@ -27,14 +28,14 @@ class MOOC(IntegerProblem,ABC):
         """ :param number_of_variables: Number of decision variables of the problem.
         """
         super(MOOC, self).__init__()
-        self.dependencies=keep_trace2()
+        self.dependencies=get_dependencies()
         self.initial_state=initial_state
         self.number_of_variables = len(containers)
         self.number_of_objectives = 5
         self.number_of_constraints =0
 
         self.obj_directions = [self.MINIMIZE,self.MINIMIZE,self.MAXIMIZE,self.MINIMIZE,self.MINIMIZE]
-        self.obj_labels = ['nb_nodes','max_nb_containers_per_node','cohesion','coupling','nb_changes']
+        self.obj_labels = ['nb_nodes','average_nb_containers_per_node','cohesion','coupling','nb_changes']
 
         self.lower_bound = self.number_of_variables * [0.0]
         self.upper_bound = self.number_of_variables * [n_nodes-1]
@@ -48,65 +49,58 @@ class MOOC(IntegerProblem,ABC):
 
         solution.objectives[0] = nb_nodes
         solution.objectives[1] = nb_containers_per_node
-        solution.objectives[2]=-1*cohesion
+        solution.objectives[2]= cohesion
         solution.objectives[3]=coupling
         solution.objectives[4]=nb_changes
         
      
         return solution
-
-#    def __evaluate_constraints(self, solution: IntegerSolution) -> None:
-#        constraints = [0.0 for _ in range(self.number_of_constraints)]
-#
-#        constraints[0] = 2
-#        
-#
-#        solution.constraints = constraints
-
-       
-    
     
     def eval_number_nodes(self, solution: IntegerSolution):
-        nb_nodes = len(set(solution.variables))
+        nb_selected_nodes = len(set(solution.variables))
 
-        
-
-        return nb_nodes
+        return (nb_selected_nodes/n_nodes)
 
     def eval_nb_containers_per_node(self, solution: IntegerSolution):
         
         occurences=[]
-    
+        total=0
         for val in collections.Counter(solution.variables).values() :
             
-            occurences.append(val)
-            average =sum(occurences)/ len(occurences)
+            occurences.append(val/len(solution.variables))
+        average =sum(occurences)/ len(occurences)
+        for oc in occurences:
+            total+=(oc-average)*(oc-average)
+            
       
-        return (average)
+        return(math.sqrt(total/len(occurences)) )  
     def eval_cohesion_coupling(self,solution:IntegerSolution):
         
         intra_dependencies=0
         inter_dependencies=0
         for dep in self.dependencies:
+            
             if(solution.variables[dep[0]]==solution.variables[dep[1]]):
                 intra_dependencies+=1
             else :
                  inter_dependencies+=1
-        return  intra_dependencies,inter_dependencies
+        cohesion=1-(intra_dependencies/len(self.dependencies)) 
+        coupling=inter_dependencies/len(self.dependencies)
+        return  cohesion,coupling
     def eval_nb_changes(self ,solution:IntegerSolution)   :
         changes=0
-        initial_set=set(self.initial_state)
-        solution_set=set(solution.variables)
-        for i in initial_set:
-            if i not in solution_set:
-                changes+=1
+        # initial_set=set(self.initial_state)
+        # solution_set=set(solution.variables)
+        # for i in initial_set:
+        #     if i not in solution_set:
+        #         changes+=1
 #        for i in solution_set:
 #            if i not in initial_set:
 #                changes+=1        
         for i in range(len(self.initial_state)):
             if (self.initial_state[i]!=solution.variables[i]):
-                changes+=2
-                
+                changes+=1
+        changes=changes/len(solution.variables)        
         return(changes)        
         
         

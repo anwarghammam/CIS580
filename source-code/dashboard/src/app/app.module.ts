@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 import { ChartsModule } from 'ng2-charts';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { NgChartjsModule } from 'ng-chartjs';
+import { AlertsComponent } from './alerts/alerts.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   imports: [
   
@@ -24,10 +26,12 @@ import { NgChartjsModule } from 'ng-chartjs';
     SidebarModule,
     AppRoutingModule,
     NgChartjsModule,
+    NgbModule,
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    AlertsComponent,
    
     
   ],

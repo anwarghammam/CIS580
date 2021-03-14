@@ -53,7 +53,7 @@ export class NavbarComponent implements OnInit{
             this.api.getSmartphone1()
             .subscribe(
               resp => {
-                  console.log(resp);
+                  console.log("default"+ resp);
               
                 });
                 window.location.reload()
@@ -80,7 +80,7 @@ export class NavbarComponent implements OnInit{
                 this.api.getSmartphone()
                   .subscribe(
                     resp => {
-                        console.log(resp);
+                        console.log("approach"+resp);
                     
                       });
                      window.location.reload()
