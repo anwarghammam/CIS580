@@ -124,6 +124,13 @@ Please access on your browser http://localhost:4200. If everything is working we
 <br> </br>
 
 ## BackEnd
+First we will need to access the machines using ssh root@the_machine_name so first go to /etc/hosts in your host and add for each @ip the vm's name. For example :
+```bash
+
+ 192.168.1.19 manager
+ 192.168.1.20 worker1
+ etc..
+```
 <br> </br>
 Now, you need to run the backend (in the Jmetal repository). Please go to you Anaconda Prompt (Anaconda needs to be installed on your host) and run the <strong> app.py </strong> file using the following command:
 <br> </br>
