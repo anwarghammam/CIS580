@@ -72,7 +72,7 @@ $ git clone https://github.com/anwarghammam/docker-swarm-monitoring-arm64
 $ cd docker-swarm-monitoring-arm64/
 $ docker stack deploy --compose-file docker-compose.yml prom
 ```
-# If your machines support the arm32 architecture change the prometheus image in docker-compose from anwargh/prometheus:arch64 to anwargh/prometheus:arch32
+### If your machines support the arm32 architecture change the prometheus image in docker-compose from anwargh/prometheus:arch64 to anwargh/prometheus:arch32
 you can check the containers in every machine using: 
 
 ```
