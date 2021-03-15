@@ -91,9 +91,9 @@ export class InfoComponent implements OnInit {
   public services
   public available_mem
   public available_disk
-  public con_manager2
-  public con_worker2
-  public con_worker1
+  public con_manager2=8
+  public con_worker2=2
+  public con_worker1=2
   public info_worker1
   public info_worker2
   public info_manager2
@@ -243,7 +243,8 @@ public pieChartData=[6,4,4]
     this.api.getnb_services()
       .subscribe(
         resp => {
-         
+         console.log("nb services")
+         console.log(resp)
             this.services=parseFloat(resp.body['data']['result']['0']['value']['1']);
             console.log("services "+this.services)
             this.chart3.data= [['nb services',this.services]]
@@ -297,6 +298,7 @@ public pieChartData=[6,4,4]
      this.api.nb_con_manager2()
     .subscribe(
       resp => {
+          console.log("nb manager")
         console.log(resp)
        result=(parseInt(resp.body['data']['result']['0']['value']['1']));
        this.con_manager2=result

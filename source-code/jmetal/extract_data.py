@@ -45,7 +45,7 @@ def get_nodes():
     
     
     
-    del machines[-1]
+    
     return machines
 
 def get_data():
@@ -97,7 +97,10 @@ def get_data():
             del containers1[images1.index('anwargh/prometheus:arch64')]
             del images1[images1.index('anwargh/prometheus:arch64')]      
             
-            
+        if( 'anwargh/prometheus:arch32' in images1):
+            del containers1[images1.index('anwargh/prometheus:arch32')]
+            del images1[images1.index('anwargh/prometheus:arch32')]      
+                
      
    
         for container in containers1:

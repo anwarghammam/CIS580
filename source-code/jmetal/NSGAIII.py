@@ -20,7 +20,7 @@ from extract_data import get_data , keep_trace1
 import subprocess
 solutions=[]
 problem = MOOC()
-all2=np.zeros([2,5])
+all2=np.zeros([31,5])
 all3=[]
 
 algorithm1= NSGAIII(
@@ -38,7 +38,7 @@ algorithm1.observable.register(progress_bar)
 print("NSGAiii")
 def transform():
     
-    for i in range(2):
+    for i in range(31):
        
     
         algorithm1.run()
@@ -53,7 +53,7 @@ def transform():
         resultat=[]
         for solution in front:
             res=0
-            res=solution.objectives[0]*0.1+solution.objectives[1]*0.4+solution.objectives[2]*0.2+solution.objectives[3]*0.2+solution.objectives[4]*0.1
+            res=solution.objectives[0]*0.2+solution.objectives[1]*0.2+solution.objectives[2]*0.2+solution.objectives[3]*0.2+solution.objectives[4]*0.2
             resultat.append(res)
     
             front_sol1.append(solution.objectives)
@@ -62,10 +62,10 @@ def transform():
        
         all2[i]=front[best_sol].objectives
     
-    # print_function_values_to_file(front,r"C:\Users\User\Desktop\MOOC\NSGAIII\function_values.txt")
-    # print_variables_to_file(front, r"C:\Users\User\Desktop\MOOC\NSGAIII\VARMOOC.txt")
-        # print_function_values_to_screen(front)
-        # print_variables_to_screen(front)
+        print_function_values_to_file(front,r"/home/anwar/Desktop/NSGAIII\function_values"+str(i)+".txt")
+        print_variables_to_file(front, r"/home/anwar/Desktop/NSGAIII\variables"+str(i)+".txt")
+        print_function_values_to_screen(front)
+        print_variables_to_screen(front)
 
 
 #    plot_front = Plot(title='Pareto front approximation', axis_labels=['nb_nodes','max_containers/node','cohesion','coupling','changes'])
@@ -77,7 +77,7 @@ def transform():
     #     print("objectives")
     # 
         
-    state=all3[1].variables
+    state=all3[15].variables
     print("candidate solution : ")
     print()
     
@@ -86,11 +86,11 @@ def transform():
 
     images,containers,initial_state,machines=get_data()
     
-    keep_trace1(containers,initial_state,machines,r'/home/anwar/Desktop/docker-compose1.yml')
+    keep_trace1(containers,initial_state,machines,r'/home/anwar/Desktop/docker-compose.yml')
     keep_trace1(containers,state,machines,r'/home/anwar/Desktop/docker-compose1.yml')
     
     
     
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 
-#transform()
+transform()

@@ -50,13 +50,13 @@ export class NavbarComponent implements OnInit{
                     align: align
                 }
             });
-            this.api.getSmartphone1()
+            this.api.default()
             .subscribe(
               resp => {
                   console.log("default"+ resp);
               
                 });
-                window.location.reload()
+                /** window.location.reload() **/
               }
         
         showNotification2(from, align) {
@@ -77,13 +77,13 @@ export class NavbarComponent implements OnInit{
                 }
             });
             
-                this.api.getSmartphone()
+                this.api.newapproach()
                   .subscribe(
                     resp => {
                         console.log("approach"+resp);
                     
                       });
-                     window.location.reload()
+                    /**  window.location.reload() */
                     }
                  
                     

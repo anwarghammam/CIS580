@@ -13,10 +13,10 @@ export class ApiService {
  worker2_id="3s37cf8tgz163z58o7qsi9umg"
  
  constructor(private http: HttpClient)  { }
- getSmartphone():Observable<HttpResponse<any>>{
+ default():Observable<HttpResponse<any>>{
    return this.http.get<any>("http://localhost:5002/default", { observe: 'response' });
  }
- getSmartphone1():Observable<HttpResponse<any>>{
+ newapproach():Observable<HttpResponse<any>>{
    return this.http.get<any>("http://localhost:5002/new", { observe: 'response' });
  }
  getnb_nodes()
