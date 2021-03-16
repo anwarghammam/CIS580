@@ -101,7 +101,7 @@ export class InfoComponent implements OnInit {
   public info =[]
   public nodes_ids=[]
   public nodes_names=[]
-public pieChartData=[]
+  public pieChartData:any[]=[3,3,3,3,3,3]
   infos:JSON[]
   public data= [];
  
@@ -111,9 +111,9 @@ public pieChartData=[]
   constructor(private api: ApiService) { 
    
   }
+  
 
   ngOnInit() {
-    
     this.nb_info()
     
 
@@ -125,19 +125,19 @@ public pieChartData=[]
   this.nb_total_mem()  
   this.get_available_mem()
   this.get_available_disk()
+  console.log("oie  "+   this.pieChartData)
+    
   
         }
     
         consumed_ressources(){
-          for (var val of this.data1){
-            
-         
+          this.data1.forEach(val=>{
+            console.log("anwar 1  " + val)      
           this.api.consumed_mem_node(String(val[1])).subscribe(
             resp => {
-              console.log(val)
-                console.log(resp)
+              console.log("anwar 2  " + val) 
                 this.consumed_mem=parseFloat(resp.body['data']['result']['0']['value']['1']);
-                console.log(this.consumed_mem)
+              
               
                
           
@@ -146,7 +146,8 @@ public pieChartData=[]
                  
           this.api.consumed_cpu_node(String(val[1])).subscribe(
                 resp => {
-                  console.log("anwar  "+val[0])
+                  console.log("anwar 3  " + val) 
+                  
               this.consumed_cpu=parseFloat(resp.body['data']['result']['0']['value']['1']);
                          
                 this.data3.push(
@@ -157,27 +158,27 @@ public pieChartData=[]
                       
                           });
                         
-                        }
-                        console.log(this.data3)
+                        })
+                     
             
         }
         nb_con(){
-          let i=-1
-          
-           for (var val of this.nodes_ids){
-            i=i+1
-             
+         
+         
+          this.nodes_ids.forEach(val=>{
+            
+            this.pieChartData=[]
            this.api.nb_con_node(String(val))
            .subscribe(
              resp => {
-                console.log(resp)
+               
                  this.con=resp.body['data']['result']['0']['value']['1'];
-                 console.log(this.con)
+                
                  this.pieChartData.push(this.con)
                  this.data.push([val,this.con])
               
                })
-              ;}
+              ;})
        
          }
   
@@ -192,7 +193,7 @@ public pieChartData=[]
     this.api.getnb_services()
       .subscribe(
         resp => {
-       
+           
             this.services=parseFloat(resp.body['data']['result']['0']['value']['1']);
             this.chart3.data= [['nb services',this.services]]
         
@@ -217,7 +218,7 @@ public pieChartData=[]
        
           this.available_disk=100-parseFloat(resp.body['data']['result']['0']['value']['1']);
         
-          this.chart2.data= [['consumed disk',this.available_disk]]
+          this.chart2.data= [['consumed CPU',this.available_disk]]
         });
 
   }
@@ -274,7 +275,7 @@ public pieChartData=[]
     responsive: true,
   };
   public pieChartLabels: Label[] = this.nodes_names;
-  public pieChartType: ChartType = 'pie';
+  public pieChartType:string = 'pie';
   public pieChartLegend = true;
   
   public pieChartPlugins = [];
