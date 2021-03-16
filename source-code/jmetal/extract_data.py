@@ -45,7 +45,7 @@ def get_nodes():
     
     
     
-    
+    del machines[-1]
     return machines
 
 def get_data():

@@ -62,8 +62,8 @@ def transform():
        
         all2[i]=front[best_sol].objectives
     
-        print_function_values_to_file(front,r"/home/anwar/Desktop/NSGAIII\function_values"+str(i)+".txt")
-        print_variables_to_file(front, r"/home/anwar/Desktop/NSGAIII\variables"+str(i)+".txt")
+        print_function_values_to_file(front,r"/home/anwar/Desktop/NSGAIII/function_values"+str(i)+".txt")
+        print_variables_to_file(front, r"/home/anwar/Desktop/NSGAIII/variables"+str(i)+".txt")
         print_function_values_to_screen(front)
         print_variables_to_screen(front)
 

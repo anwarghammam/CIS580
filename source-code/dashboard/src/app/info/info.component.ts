@@ -24,7 +24,7 @@ export class InfoComponent implements OnInit {
   chart1 = {
 		title: 'Total memory',
 		type: 'Gauge',
-		data:[ ["memory",78
+		data:[ ["memory",0
       
      
 		
@@ -47,7 +47,7 @@ export class InfoComponent implements OnInit {
       title: 'Total disk',
       type: 'Gauge',
       data:[ [
-        'disk',78,
+        'disk',0,
        
       
       ]],
@@ -71,7 +71,7 @@ export class InfoComponent implements OnInit {
         title: 'services',
         type: 'Gauge',
         data:[ [
-          'services',10,
+          'services',0,
           
         
         ]],
@@ -87,155 +87,104 @@ export class InfoComponent implements OnInit {
          
         }}
        
-  public node  =0
+  public node =0
   public services
   public available_mem
   public available_disk
-  public con_manager2=8
-  public con_worker2=2
-  public con_worker1=2
-  public info_worker1
-  public info_worker2
-  public info_manager2
+  public con
   public total_memory
   public total_disque
-  public data1
-  public consumed_mem_w1
-  public consumed_mem_w2
-  public consumed_mem_m
-  public consumed_cpu_w1
-  public consumed_cpu_w2
-  public consumed_cpu_m
-  public data3
-public pieChartData=[6,4,4]
+  public data1=[]
+  public consumed_mem
+  public consumed_cpu
+  public data3=[]
+  public info =[]
+  public nodes_ids=[]
+  public nodes_names=[]
+public pieChartData=[]
   infos:JSON[]
-  public data = [
-    ['manager', 45.0],
-    ['worker1', 26.8],
-    ['worker2', 12.8],
-   
- ];
+  public data= [];
+ 
 
 
   
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService) { 
+   
+  }
 
   ngOnInit() {
-    this.number_node()
-  this.consumed_mem()
-  this.nb_con_manager2()
-  this.nb_con_worker1()
-  this.nb_total_dis() /* */
+    
+    this.nb_info()
+    
+
+  this.nb_total_dis() 
   
-  this.nb_con_worker2() 
-  this.nb_info()   
-  this.nb_services() /* */
-  this.nb_total_mem()  /* */
+ 
+   
+  this.nb_services() 
+  this.nb_total_mem()  
   this.get_available_mem()
   this.get_available_disk()
   
         }
     
-    
-  
-   
-        consumed_mem(){
-          this.api.consumed_mem_worker1().subscribe(
+        consumed_ressources(){
+          for (var val of this.data1){
+            
+         
+          this.api.consumed_mem_node(String(val[1])).subscribe(
             resp => {
-              console.log("anwar")
-              console.log(resp)
-                this.consumed_mem_w1=parseFloat(resp.body['data']['result']['0']['value']['1']);
-                console.log("w1 "+this.consumed_mem_w1)
-                this.data3 = [
-                  ["worker1    (cpu,mem)",this.consumed_cpu_w1, this.consumed_mem_w1],
-                  ["manager(cpu,mem)",this.consumed_cpu_m,this.consumed_mem_m],
-                  ["worker2(cpu,mem)",this.consumed_cpu_w2, this.consumed_mem_w2],
-                 
-               ];
+              console.log(val)
+                console.log(resp)
+                this.consumed_mem=parseFloat(resp.body['data']['result']['0']['value']['1']);
+                console.log(this.consumed_mem)
+              
+               
           
               });
-              this.api.consumed_mem_worker2().subscribe(
+           
+                 
+          this.api.consumed_cpu_node(String(val[1])).subscribe(
                 resp => {
-                  console.log("anwar")
-                  console.log(resp)
-                    this.consumed_mem_w2=parseFloat(resp.body['data']['result']['0']['value']['1']);
-                    console.log("w1 "+this.consumed_mem_w2)
-                    this.data3 = [
-                      ["worker1    (cpu,mem)",this.consumed_cpu_w1, this.consumed_mem_w1],
-                      ["manager(cpu,mem)",this.consumed_cpu_m,this.consumed_mem_m],
-                      ["worker2(cpu,mem)",this.consumed_cpu_w2, this.consumed_mem_w2],
-                     
-                   ];
-                  });
-                  this.api.consumed_mem_manager().subscribe(
-                    resp => {
-                      console.log("anwar")
-                      console.log(resp)
-                        this.consumed_mem_m=parseFloat(resp.body['data']['result']['0']['value']['1']);
-                        console.log("w1 "+this.consumed_mem_m)
-                        this.data3 = [
-                          ["worker1    (cpu,mem)",this.consumed_cpu_w1, this.consumed_mem_w1],
-                          ["manager(cpu,mem)",this.consumed_cpu_m,this.consumed_mem_m],
-                          ["worker2(cpu,mem)",this.consumed_cpu_w2, this.consumed_mem_w2],
+                  console.log("anwar  "+val[0])
+              this.consumed_cpu=parseFloat(resp.body['data']['result']['0']['value']['1']);
                          
-                       ];
-                  
-                      });
-                      this.api.consumed_cpu_manager().subscribe(
-                        resp => {
-                          console.log("anwar")
-                          console.log(resp)
-                            this.consumed_cpu_m=parseFloat(resp.body['data']['result']['0']['value']['1']);
-                            console.log("cpu m "+this.consumed_cpu_m)
-                            this.data3 = [
-                              ["worker1    (cpu,mem)",this.consumed_cpu_w1, this.consumed_mem_w1],
-                              ["manager(cpu,mem)",this.consumed_cpu_m,this.consumed_mem_m],
-                              ["worker2(cpu,mem)",this.consumed_cpu_w2, this.consumed_mem_w2],
+                this.data3.push(
+                              [String(val[0])+" (cpu,mem)",this.consumed_cpu, this.consumed_mem])
+                              
                              
-                           ];
+                           ;
                       
                           });
-                          this.api.consumed_cpu_worker1().subscribe(
-                            resp => {
-                              console.log("anwar")
-                              console.log(resp)
-                                this.consumed_cpu_w1=parseFloat(resp.body['data']['result']['0']['value']['1']);
-                                console.log("cpu "+this.consumed_cpu_w1)
-                                this.data3 = [
-                                  ["worker1    (cpu,mem)",this.consumed_cpu_w1, this.consumed_mem_w1],
-                                  ["manager(cpu,mem)",this.consumed_cpu_m,this.consumed_mem_m],
-                                  ["worker2(cpu,mem)",this.consumed_cpu_w2, this.consumed_mem_w2],
-                                 
-                               ];
-                          
-                              });
-                              this.api.consumed_cpu_worker2().subscribe(
-                                resp => {
-                                  console.log("anwar******")
-                                  console.log(resp)
-                                    this.consumed_cpu_w2=parseFloat(resp.body['data']['result']['0']['value']['1']);
-                                    console.log("w2 ***** "+this.consumed_cpu_w2)
-                                    this.data3 = [
-                                      ["worker1    (cpu,mem)",this.consumed_cpu_w1, this.consumed_mem_w1],
-                                      ["manager(cpu,mem)",this.consumed_cpu_m,this.consumed_mem_m],
-                                      ["worker2(cpu,mem)",this.consumed_cpu_w2, this.consumed_mem_w2],
-                                     
-                                   ];
-                              
-                                  });
+                        
+                        }
+                        console.log(this.data3)
             
         }
+        nb_con(){
+          let i=-1
+          
+           for (var val of this.nodes_ids){
+            i=i+1
+             
+           this.api.nb_con_node(String(val))
+           .subscribe(
+             resp => {
+                console.log(resp)
+                 this.con=resp.body['data']['result']['0']['value']['1'];
+                 console.log(this.con)
+                 this.pieChartData.push(this.con)
+                 this.data.push([val,this.con])
+              
+               })
+              ;}
+       
+         }
   
-  
-    
   number_node(){
     this.api.getnb_nodes().subscribe(
       resp => {
-        console.log("anwar")
-        console.log(resp)
           this.node=resp.body['data']['result']['0']['value']['1'];
-         console.log("inside fonction  "+this.node)
-		
         });
       
   }
@@ -243,10 +192,8 @@ public pieChartData=[6,4,4]
     this.api.getnb_services()
       .subscribe(
         resp => {
-         console.log("nb services")
-         console.log(resp)
+       
             this.services=parseFloat(resp.body['data']['result']['0']['value']['1']);
-            console.log("services "+this.services)
             this.chart3.data= [['nb services',this.services]]
         
           });
@@ -256,9 +203,9 @@ public pieChartData=[6,4,4]
     this.api.get_available_mem()
     .subscribe(
       resp => {
-        console.log("anwar")
+       
           this.available_mem=100-parseFloat(resp.body['data']['result']['0']['value']['1']);
-      console.log("available mem "+this.available_mem)
+     
       this.chart1.data= [['consumed Memory',this.available_mem]]
         });
      
@@ -267,98 +214,41 @@ public pieChartData=[6,4,4]
     this.api.get_available_disk()
     .subscribe(
       resp => {
-        console.log("anwar")
+       
           this.available_disk=100-parseFloat(resp.body['data']['result']['0']['value']['1']);
-          console.log("available dek "+this.available_disk)
+        
           this.chart2.data= [['consumed disk',this.available_disk]]
         });
 
   }
-  nb_con_worker2(){
-    this.api.nb_con_worker2()
-    .subscribe(
-      resp => {
-        console.log("anwar")
-        console.log(resp)
-          this.con_worker2=resp.body['data']['result']['0']['value']['1'];
-          console.log("con worker2  "+this.con_worker2)
-          this.data = [
-            ['manager', this.con_manager2],
-            ['worker1',this.con_worker1],
-            ['worker2',this.con_worker2],
-           
-         ];
-         this.pieChartData=[this.con_manager2,this.con_worker1,this.con_worker2]
-        });
-
-  }
-  public nb_con_manager2() {
-  
-    let result
-     this.api.nb_con_manager2()
-    .subscribe(
-      resp => {
-          console.log("nb manager")
-        console.log(resp)
-       result=(parseInt(resp.body['data']['result']['0']['value']['1']));
-       this.con_manager2=result
-       console.log("con manager "+this.con_manager2)
-       this.data = [
-        ['manager', this.con_manager2],
-        ['worker1',this.con_worker1],
-        ['worker2',this.con_worker2],
-       
-     ];
-     this.pieChartData=[this.con_manager2,this.con_worker1,this.con_worker2]
-        });
-       
-    
-    
-  }
-  nb_con_worker1(){
-    this.api.nb_con_worker1()
-    .subscribe(
-      resp => {
-        console.log(resp)
-         this.con_worker1=resp.body['data']['result']['0']['value']['1'];
-         console.log("con worker1 "+this.con_worker1)
-         this.data = [
-          ['manager', this.con_manager2],
-          ['worker1',this.con_worker1],
-          ['worker2',this.con_worker2],
-         
-       ];
-       this.pieChartData=[this.con_manager2,this.con_worker1,this.con_worker2]
-        });
-
-  }
+ 
   nb_info(){
     this.api.nb_info()
     .subscribe(
       resp => {
-        console.log(resp)
-        this.info_worker2=resp.body['data']['result']['0']['metric'];
-        this.info_manager2=resp.body['data']['result']['1']['metric'];
-        this.info_worker1=resp.body['data']['result']['2']['metric'];
-        console.log("info worker2 "+this.info_worker2['instance'])
-        this.data1 = [
-          [this.info_manager2['node_name'],this.info_manager2['node_id'],this.info_manager2['instance']],
-          [this.info_worker1['node_name'],this.info_worker1['node_id'],this.info_worker1['instance']],
-          [this.info_worker2['node_name'],this.info_worker2['node_id'],this.info_worker2['instance']],
-          
-       ];
+        this.info=resp.body['data']['result']
+        
+       for (var val of this.info){
+         
+        this.nodes_ids.push(val['metric']['node_id'])
+        this.nodes_names.push(val['metric']['node_name'])
+        this.data1.push([val['metric']['node_name'],val['metric']['node_id'],val['metric']['instance']])
+      }
+      this.consumed_ressources()
+        this.nb_con()
+       
         });
-
+       
+      console.log(this.data1)
+     
   }
   nb_total_mem(){
     this.api.nb_totalmem()
     .subscribe(
       resp => {
-        console.log("anwar")
+      
          this.total_memory=parseFloat((resp.body['data']['result']['0']['value']['1']));
-         console.log("totzl mem"+this.total_memory)
         
-         
         
         });
 
@@ -368,10 +258,9 @@ public pieChartData=[6,4,4]
     this.api.nb_total_disk()
     .subscribe(
       resp => {
-        console.log("chouf")
-        console.log(resp)
+        
          this.total_disque=parseFloat(resp.body['data']['result']['0']['value']['1']);
-         console.log("totzl disque"+this.total_disque)
+        
        
         });
 
@@ -384,7 +273,7 @@ public pieChartData=[6,4,4]
     },
     responsive: true,
   };
-  public pieChartLabels: Label[] = ["manager","worker1","worker2"];
+  public pieChartLabels: Label[] = this.nodes_names;
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   
@@ -392,7 +281,7 @@ public pieChartData=[6,4,4]
 
 
 
-  /* etheni */
+  /*  */
   title = 'number of containers per node';
    type = 'PieChart';
    
