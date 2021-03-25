@@ -86,12 +86,32 @@ export class InfoComponent implements OnInit {
           
          
         }}
+        chart4 = {
+          title: 'number of containers',
+          type: 'Gauge',
+          data:[ [
+            'containers',0,
+            
+          
+          ]],
+          options: {
+            width: 400,
+            height: 150,
+           
+            blueFrom: 0,
+            blueTo: 100,
+            
+            minorTicks: 5
+            
+           
+          }}
        
   public node =0
   public services
   public available_mem
   public available_disk
   public con
+  public total_containers:number=0
   public total_memory
   public total_disque
   public data1=[]
@@ -101,7 +121,7 @@ export class InfoComponent implements OnInit {
   public info =[]
   public nodes_ids=[]
   public nodes_names=[]
-  public pieChartData:any[]=[3,3,3,3,3,3]
+  public pieChartData=[3,3,3,3,3,3]
   infos:JSON[]
   public data= [];
  
@@ -132,10 +152,10 @@ export class InfoComponent implements OnInit {
     
         consumed_ressources(){
           this.data1.forEach(val=>{
-            console.log("anwar 1  " + val)      
+            
           this.api.consumed_mem_node(String(val[1])).subscribe(
             resp => {
-              console.log("anwar 2  " + val) 
+              
                 this.consumed_mem=parseFloat(resp.body['data']['result']['0']['value']['1']);
               
               
@@ -173,13 +193,17 @@ export class InfoComponent implements OnInit {
              resp => {
                
                  this.con=resp.body['data']['result']['0']['value']['1'];
-                
+                 console.log(this.con)
+                 this.total_containers+=parseInt(resp.body['data']['result']['0']['value']['1']);
+                 console.log("total containers  "+ this.total_containers)
                  this.pieChartData.push(this.con)
                  this.data.push([val,this.con])
+                 this.chart4.data= [['number of containers',this.total_containers]]
               
                })
               ;})
-       
+              console.log("total containers  "+ this.total_containers)
+              
          }
   
   number_node(){
