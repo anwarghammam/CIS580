@@ -9,7 +9,7 @@ Created on Sun Mar 21 12:15:24 2021
 from typing import TypeVar, List
 from numpy.linalg import LinAlgError
 from jmetal.core.solution import IntegerSolution
-from extract_data import get_data,get_constraints,constraints_violated
+from extract_data import constraints_violated
 import numpy as np
 from jmetal.algorithm.multiobjective.nsgaii import NSGAII
 from jmetal.config import store
@@ -22,12 +22,12 @@ from jmetal.util.evaluator import Evaluator
 from jmetal.util.generator import Generator
 from jmetal.util.ranking import FastNonDominatedRanking
 from jmetal.util.termination_criterion import TerminationCriterion
-
+from data import data
 S = TypeVar('S')
 R = TypeVar('R')
 
-
-images,containers,roles,initial_state,machines=get_data()
+images,containers,roles,initial_state,machines,constraints,dependencies=data()
+#images,containers,roles,initial_state,machines=get_data()
 class NSGAIII(NSGAII):
 
     def __init__(self,
@@ -79,7 +79,7 @@ class NSGAIII(NSGAII):
         while (len(solutions)!=self.population_size):
             sol=self.population_generator.new(self.problem)
         
-            if (constraints_violated(sol,get_constraints(machines,roles,images))==False):
+            if (constraints_violated(sol,constraints)==False):
                
                 solutions.append(sol)
        
@@ -104,7 +104,7 @@ class NSGAIII(NSGAII):
             for solution in offspring:
                 self.mutation_operator.execute(solution)
                 # here i will add constraints
-                if(constraints_violated(solution,get_constraints(machines,roles,images))==False):
+                if(constraints_violated(solution,constraints)==False):
                 
                     offspring_population.append(solution)
                 if len(offspring_population) >= self.offspring_population_size:

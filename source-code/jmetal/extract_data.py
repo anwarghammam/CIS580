@@ -22,7 +22,7 @@ def get_nodes():
     with  open(r"/home/anwar/Desktop/test3.txt",'w') as file :
     
     
-        cmd = ('ssh root@manager docker node ls').split()
+        cmd = ('docker-machine ssh s1 docker node ls').split()
 
         p = subprocess.Popen(cmd,stdout=file)
         output, errors = p.communicate()
@@ -64,7 +64,7 @@ def get_data():
         images1=[]
         #please change this path with the right one for you
         with  open(r"/home/anwar/Desktop/test3.txt",'w') as file :
-            cmd = ('ssh root@'+str(machine)+' docker ps ').split()
+            cmd = ('docker-machine ssh '+str(machine)+' docker ps ').split()
 
             p = subprocess.Popen(cmd,stdout=file)
             output, errors = p.communicate()

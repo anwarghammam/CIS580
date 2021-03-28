@@ -9,7 +9,7 @@ from jmetal.algorithm.multiobjective.nsgaiii import NSGAIII, UniformReferenceDir
 from jmetal.operator.crossover import IntegerSBXCrossover
 from jmetal.operator.mutation import IntegerPolynomialMutation
 from  problem3 import MOOC
-from problem2 import MOOC1
+
 from jmetal.util.termination_criterion import StoppingByEvaluations
 from jmetal.util.solution import get_non_dominated_solutions, print_function_values_to_file,print_variables_to_file,print_function_values_to_screen,print_variables_to_screen
 from jmetal.lab.visualization import Plot
@@ -17,7 +17,8 @@ from jmetal.core.quality_indicator import QualityIndicator,FitnessValue,HyperVol
 #from jmetal.util.observer import BasicAlgorithmObserver
 from jmetal.util.observer import  ProgressBarObserver
 import numpy as np
-from extract_data import get_data ,keep_trace1,get_constraints,constraints_violated
+from extract_data import constraints_violated
+from data import data 
 import subprocess
 solutions=[]
 problem3= MOOC()
@@ -31,7 +32,7 @@ algorithm1= NSGAIII(
     problem=problem3,
     population_size=200,
     #offspring_population_size=400,
-    reference_directions=UniformReferenceDirectionFactory(6,n_points=35),
+    reference_directions=UniformReferenceDirectionFactory(6,n_points=199),
     mutation=IntegerPolynomialMutation(probability=1 / problem3.number_of_variables, distribution_index=20),
     crossover=IntegerSBXCrossover(probability=0.9, distribution_index=20),
     termination_criterion=StoppingByEvaluations(max_evaluations=max_evaluations)
@@ -41,19 +42,19 @@ progress_bar = ProgressBarObserver(max=max_evaluations)
 algorithm1.observable.register(progress_bar)    
 print("NSGAiii")
 def transform():
-    images,containers,roles,initial_state,machines=get_data()
+    images,containers,roles,initial_state,machines,constraints,dependencies=data()
    
         
     algorithm1.run()
     front = get_non_dominated_solutions(algorithm1.get_result())
     violated=0
     for sol in front:
-        if(constraints_violated(sol,get_constraints(machines,roles,images))==True):
+        if(constraints_violated(sol,constraints)==True):
             violated+=1
     print("violated solutions are equal to ", violated/len(front) ,"%  for ", len(front)) 
     non_violated_front=[]
     for sol in front:
-        if (constraints_violated(sol,get_constraints(machines,roles,images))==False):
+        if (constraints_violated(sol,constraints)==False):
                
             non_violated_front.append(sol)
         

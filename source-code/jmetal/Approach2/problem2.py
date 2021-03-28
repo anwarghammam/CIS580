@@ -19,11 +19,11 @@ from jmetal.core.problem import IntegerProblem
 from jmetal.core.solution import IntegerSolution
 import collections
 import math
-from extract_data import get_data,get_dependencies,get_constraints,constraints_violated
+from extract_data import constraints_violated
+from data import data
 
-
-
-images,containers,roles,initial_state,machines=get_data()
+images,containers,roles,initial_state,machines,constraints,dependencies=data()
+#images,containers,roles,initial_state,machines=get_data()
 #keep_trace1(containers,initial_state,machines)
 n_nodes=len(machines)
 class MOOC1(IntegerProblem,ABC):
@@ -36,7 +36,7 @@ class MOOC1(IntegerProblem,ABC):
         """ :param number_of_variables: Number of decision variables of the problem.
         """
         super(MOOC1, self).__init__()
-        self.dependencies=get_dependencies(images)
+        self.dependencies=dependencies
         self.initial_state=initial_state
         self.number_of_variables = len(containers)
         self.number_of_objectives = 5
@@ -54,7 +54,7 @@ class MOOC1(IntegerProblem,ABC):
         cohesion,coupling=self.eval_cohesion_coupling(solution)
         nb_changes=self.eval_nb_changes(solution)
        
-        if (constraints_violated(solution,get_constraints(machines,roles,images))==True):
+        if (constraints_violated(solution,constraints)==True):
             solution.objectives[0]=1
             solution.objectives[1]=1
             solution.objectives[2]=1

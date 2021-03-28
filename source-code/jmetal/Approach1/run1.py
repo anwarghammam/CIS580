@@ -18,20 +18,23 @@ from jmetal.core.quality_indicator import QualityIndicator,FitnessValue,HyperVol
 #from jmetal.util.observer import BasicAlgorithmObserver
 from jmetal.util.observer import  ProgressBarObserver
 import numpy as np
-from extract_data import get_data,get_constraints,constraints_violated
+from extract_data import constraints_violated
 import subprocess
+from data import data
 solutions=[]
 problem = MOOC()
 #problem2=MOOC1()
 all2=np.zeros([1,5])
 all3=[]
-images,containers,roles,initial_state,machines=get_data()
-max_evaluations=2200
+images,containers,roles,initial_state,machines,constraints,dependencies=data()
+#images,containers,roles,initial_state,machines=get_data()
+max_evaluations=2500
+
 algorithm1= NSGAIII(
     problem=problem,
     population_size=200,
     #offspring_population_size=400,
-    reference_directions=UniformReferenceDirectionFactory(5,n_points=35),
+    reference_directions=UniformReferenceDirectionFactory(5,n_points=191),
     mutation=IntegerPolynomialMutation(probability=1 / problem.number_of_variables, distribution_index=20),
     crossover=IntegerSBXCrossover(probability=0.9, distribution_index=20),
     termination_criterion=StoppingByEvaluations(max_evaluations=max_evaluations)
@@ -47,9 +50,9 @@ def transform():
     front = get_non_dominated_solutions(algorithm1.get_result())
     violated=0
     for sol in front:
-        if(constraints_violated(sol,get_constraints(machines,roles,images))==True):
+        if(constraints_violated(sol,constraints)==True):
                 violated+=1
-        print("violated solutions are equal to ", violated/len(front) ,"%  for ", len(front))    
+    print("violated solutions are equal to ", violated/len(front) ,"%  for ", len(front))    
 # save to files
         # front_sol1=[]
         # resultat=[]

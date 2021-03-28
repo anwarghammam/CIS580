@@ -10,14 +10,14 @@ from abc import ABC
 from jmetal.core.problem import IntegerProblem
 from jmetal.core.solution import IntegerSolution
 import collections
-from extract_data import get_data,get_dependencies,get_constraints
+#from extract_data import get_data,get_dependencies,get_constraints
+from data import data
 
-
-
-images,containers,roles,initial_state,machines=get_data()
+images,containers,roles,initial_state,machines,constraints,dependencies=data()
+#images,containers,roles,initial_state,machines=get_data()
 #keep_trace1(containers,initial_state,machines)
 n_nodes=len(machines)
-constraints=get_constraints(machines,roles,images)
+#constraints=get_constraints(machines,roles,images)
 class MOOC(IntegerProblem,ABC):
     """ Problem MOOC.
     .. note::  The default number of variables is 30.
@@ -28,7 +28,7 @@ class MOOC(IntegerProblem,ABC):
         """ :param number_of_variables: Number of decision variables of the problem.
         """
         super(MOOC, self).__init__()
-        self.dependencies=get_dependencies(images)
+        self.dependencies=dependencies
         self.initial_state=initial_state
         self.number_of_variables = len(containers)
         self.number_of_objectives = 5
