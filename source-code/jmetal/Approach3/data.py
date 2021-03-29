@@ -7,7 +7,7 @@ Created on Sat Mar 27 11:04:24 2021
 """
 import ast
 def data():
-    file1 = open(r"/home/anwar/Desktop/new.txt", 'r')
+    file1 = open(r"/home/anwar/Desktop/input.txt", 'r')
     Lines = file1.readlines()
     machines=Lines[0]
     machines = ast.literal_eval(Lines[0])
