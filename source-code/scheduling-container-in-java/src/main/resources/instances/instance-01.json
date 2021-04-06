@@ -1,0 +1,40 @@
+{
+    "name": "instance-01",
+    "nodes": [{
+        "id": 0,
+        "name": "manager"
+    }, {
+        "id": 1,
+        "name": "worker1"
+    }, {
+        "id": 2,
+        "name": "worker2"
+    }],
+    "containers": [{
+        "id": 0,
+        "name": "p1_creator",
+        "dependencies": [3],
+        "placements": [0]
+    }, {
+        "id": 1,
+        "name": "p1_web",
+        "dependencies": [3],
+        "placements": []
+    }, {
+        "id": 2,
+        "name": "p1_mongodb",
+        "dependencies": [],
+        "placements": [1, 2]
+    }, {
+        "id": 3,
+        "name": "p1_api",
+        "dependencies": [2],
+        "placements": []
+    }, {
+        "id": 4,
+        "name": "p1_mongodbexpress",
+        "dependencies": [2],
+        "placements": []
+    }],
+    "currentState": [2, 1, 0, 2, 0]
+}
