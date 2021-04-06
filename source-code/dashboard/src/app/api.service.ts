@@ -8,7 +8,7 @@ import { forkJoin } from 'rxjs';
 })
 
 export class ApiService implements OnInit{
- url="http://192.168.179.68:9090/"
+ url="http://192.168.0.2:9090/"
  
  
  constructor(private http: HttpClient)  { 
