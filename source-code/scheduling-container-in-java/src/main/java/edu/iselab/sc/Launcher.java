@@ -18,6 +18,7 @@ import edu.iselab.sc.instance.Instance;
 import edu.iselab.sc.problem.ConstrainedSchedulingProblem;
 import edu.iselab.sc.problem.SchedulingProblem;
 import edu.iselab.sc.util.FileUtils;
+import edu.iselab.sc.util.GraphvizUtils;
 import edu.iselab.sc.util.InstanceUtils;
 import edu.iselab.sc.util.ParetoFrontUtils;
 import picocli.CommandLine;
@@ -37,7 +38,7 @@ public class Launcher implements Callable<Integer> {
     public int populationSize = 100;
 
     @Option(names = { "-it", "--it" }, description = "max iterations")
-    public int iterations = 50000;
+    public int iterations = 10;
     
     @Option(names = { "-cp", "--crossoverProb" }, description = "the crossoser probability")
     public double crossoserProbability = 0.9;
@@ -67,6 +68,8 @@ public class Launcher implements Callable<Integer> {
         Instance instance = InstanceUtils.read(input);
         
         executeNSGAIII(new ConstrainedSchedulingProblem(instance));
+        
+        System.out.println(GraphvizUtils.toString(instance));
         
         System.out.println("Done");
         
