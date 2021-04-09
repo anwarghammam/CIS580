@@ -38,7 +38,7 @@ public class Launcher implements Callable<Integer> {
     public int populationSize = 100;
 
     @Option(names = { "-it", "--it" }, description = "max iterations")
-    public int iterations = 10;
+    public int iterations = 50000;
     
     @Option(names = { "-cp", "--crossoverProb" }, description = "the crossoser probability")
     public double crossoserProbability = 0.9;
