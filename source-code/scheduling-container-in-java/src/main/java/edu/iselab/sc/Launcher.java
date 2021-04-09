@@ -69,7 +69,7 @@ public class Launcher implements Callable<Integer> {
         
         executeNSGAIII(new ConstrainedSchedulingProblem(instance));
         
-        System.out.println(GraphvizUtils.toString(instance));
+        System.out.println(GraphvizUtils.fromPlacements(instance));
         
         System.out.println("Done");
         

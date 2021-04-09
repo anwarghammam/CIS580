@@ -6,9 +6,9 @@ import java.util.List;
 import org.uma.jmetal.solution.integersolution.IntegerSolution;
 import org.uma.jmetal.solution.integersolution.impl.DefaultIntegerSolution;
 
-import edu.iselab.sc.constraint.Constraint;
-import edu.iselab.sc.constraint.InvalidPlacements;
 import edu.iselab.sc.instance.Instance;
+import edu.iselab.sc.problem.constraint.Constraint;
+import edu.iselab.sc.problem.constraint.InvalidPlacements;
 
 public class ConstrainedSchedulingProblem extends SchedulingProblem {
 

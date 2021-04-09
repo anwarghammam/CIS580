@@ -1,4 +1,4 @@
-package edu.iselab.sc.constraint;
+package edu.iselab.sc.problem.constraint;
 
 import java.util.List;
 

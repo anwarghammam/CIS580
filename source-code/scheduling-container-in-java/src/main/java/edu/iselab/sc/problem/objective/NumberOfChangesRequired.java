@@ -1,4 +1,4 @@
-package edu.iselab.sc.objective;
+package edu.iselab.sc.problem.objective;
 
 import java.util.List;
 

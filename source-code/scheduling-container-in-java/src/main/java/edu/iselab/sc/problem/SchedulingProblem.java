@@ -10,12 +10,12 @@ import org.uma.jmetal.problem.integerproblem.impl.AbstractIntegerProblem;
 import org.uma.jmetal.solution.integersolution.IntegerSolution;
 
 import edu.iselab.sc.instance.Instance;
-import edu.iselab.sc.objective.AverageNumberOfContainersPerNode;
-import edu.iselab.sc.objective.NodesCohesion;
-import edu.iselab.sc.objective.NodesCoupling;
-import edu.iselab.sc.objective.NumberOfChangesRequired;
-import edu.iselab.sc.objective.NumberOfSelectedNodes;
-import edu.iselab.sc.objective.Objective;
+import edu.iselab.sc.problem.objective.AverageNumberOfContainersPerNode;
+import edu.iselab.sc.problem.objective.NodesCohesion;
+import edu.iselab.sc.problem.objective.NodesCoupling;
+import edu.iselab.sc.problem.objective.NumberOfChangesRequired;
+import edu.iselab.sc.problem.objective.NumberOfSelectedNodes;
+import edu.iselab.sc.problem.objective.Objective;
 import lombok.Getter;
 
 public class SchedulingProblem extends AbstractIntegerProblem {
