@@ -35,13 +35,13 @@ public class Launcher implements Callable<Integer> {
     @Data
     public static class Params {
 
-        @Option(names = { "-a", "--alg" }, description = "algorithm name")
+        @Option(names = { "-a", "--algorithm" }, description = "algorithm name")
         public AlgorithmName algorithmName = AlgorithmName.NSGA_II;
 
-        @Option(names = { "-p", "--pop" }, description = "population size")
+        @Option(names = { "-p", "--populationSize" }, description = "population size")
         public int populationSize = 100;
 
-        @Option(names = { "-it", "--it" }, description = "max iterations")
+        @Option(names = { "-it", "--iterations" }, description = "max iterations")
         public int iterations = 1000;
     }
 
