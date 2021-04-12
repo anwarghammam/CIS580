@@ -20,6 +20,8 @@ public class ParetoFrontUtils {
         checkNotNull(instance, "instance should not be null");
         checkNotNull(key, "key should not be null");
         
+        outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("fun"));
+        
         Path file = outputFolder.resolve(instance.getName()).resolve(key + "-fun.txt");
                 
         FileUtils.createIfNotExists(file.getParent());
@@ -34,6 +36,8 @@ public class ParetoFrontUtils {
         checkNotNull(instance, "instance should not be null");
         checkNotNull(key, "key should not be null");
         
+        outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("var"));
+        
         Path file = outputFolder.resolve(instance.getName()).resolve(key + "-var.txt");
                 
         FileUtils.createIfNotExists(file.getParent());
@@ -47,6 +51,8 @@ public class ParetoFrontUtils {
         checkNotNull(population, "population should not be null");
         checkNotNull(instance, "instance should not be null");
         checkNotNull(key, "key should not be null");
+        
+        outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("con"));
         
         Path file = outputFolder.resolve(instance.getName()).resolve(key + "-con.txt");
                 

@@ -9,11 +9,13 @@ import java.util.List;
 import org.uma.jmetal.problem.integerproblem.impl.AbstractIntegerProblem;
 import org.uma.jmetal.solution.integersolution.IntegerSolution;
 import org.uma.jmetal.solution.integersolution.impl.DefaultIntegerSolution;
+import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
 import edu.iselab.sc.instance.Container;
 import edu.iselab.sc.instance.Instance;
 import edu.iselab.sc.problem.constraint.Constraint;
 import edu.iselab.sc.problem.constraint.InvalidPlacements;
+import edu.iselab.sc.problem.constraint.JustActivedNodes;
 import edu.iselab.sc.problem.objective.AverageNumberOfContainersPerNode;
 import edu.iselab.sc.problem.objective.NodesCohesion;
 import edu.iselab.sc.problem.objective.NodesCoupling;
@@ -39,7 +41,8 @@ public class ContainerSchedulingProblem extends AbstractIntegerProblem {
 
         this.instance = instance;
         this.constraints = Arrays.asList(
-            new InvalidPlacements()
+            new InvalidPlacements(),
+            new JustActivedNodes()
         );
         this.objectives = Arrays.asList(
             new NumberOfSelectedNodes(), 
@@ -60,24 +63,27 @@ public class ContainerSchedulingProblem extends AbstractIntegerProblem {
 
         for (Container container : instance.getContainers()) {
 
-            List<Integer> placements = container.getPlacements();
-
-            if (placements.isEmpty()) {
-                lowerBounds.add(0);
-                upperBounds.add(instance.getNodes().size() - 1);
-            } else {
-
-                int min = Integer.MAX_VALUE;
-                int max = Integer.MIN_VALUE;
-
-                for (Integer placement : placements) {
-                    min = Math.min(min, placement);
-                    max = Math.max(max, placement);
-                }
-
-                lowerBounds.add(min);
-                upperBounds.add(max);
-            }
+            lowerBounds.add(0);
+            upperBounds.add(instance.getNodes().size() - 1);
+            
+//            List<Integer> placements = container.getPlacements();
+//
+//            if (placements.isEmpty()) {
+//                lowerBounds.add(0);
+//                upperBounds.add(instance.getNodes().size() - 1);
+//            } else {
+//
+//                int min = Integer.MAX_VALUE;
+//                int max = Integer.MIN_VALUE;
+//
+//                for (Integer placement : placements) {
+//                    min = Math.min(min, placement);
+//                    max = Math.max(max, placement);
+//                }
+//
+//                lowerBounds.add(min);
+//                upperBounds.add(max);
+//            }
         }
 
         setVariableBounds(lowerBounds, upperBounds);
@@ -109,6 +115,22 @@ public class ContainerSchedulingProblem extends AbstractIntegerProblem {
     
     @Override
     public IntegerSolution createSolution() {
-        return new DefaultIntegerSolution(getVariableBounds(), getNumberOfObjectives(), getNumberOfConstraints());
+
+        IntegerSolution solution = new DefaultIntegerSolution(
+            getVariableBounds(), 
+            getNumberOfObjectives(),
+            getNumberOfConstraints()
+        );
+
+        for (int i = 0; i < bounds.size(); i++) {
+            
+            List<Integer> validNodes = instance.getValidNodes(i);
+            
+            int index = JMetalRandom.getInstance().nextInt(0, validNodes.size()-1);
+            
+            solution.setVariable(i, validNodes.get(index));
+        }
+
+        return solution;
     }
 }

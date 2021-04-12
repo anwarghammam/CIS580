@@ -36,13 +36,13 @@ public class Launcher implements Callable<Integer> {
     protected Path input = Paths.get("src/main/resources/instances/instance-5n50c.json");
     
     @Option(names = { "-a", "--alg" }, description = "algorithm name")
-    public AlgorithmName algorithmName = AlgorithmName.NSGA_III;
+    public AlgorithmName algorithmName = AlgorithmName.NSGA_II;
     
     @Option(names = { "-p", "--pop" }, description = "population size")
     public int populationSize = 100;
 
     @Option(names = { "-it", "--it" }, description = "max iterations")
-    public int iterations = 100;
+    public int iterations = 1000;
     
     @Option(names = { "-o", "--output" }, description = "the output folder")
     protected Path output = FileUtils.getCurrentDirectory().resolve("output");
@@ -74,6 +74,8 @@ public class Launcher implements Callable<Integer> {
         String key = String.format("%s-%s-%s", algorithm.getName(), populationSize, iterations);
         
         ParetoFrontUtils.writeFUN(output, algorithm.getResult(), problem.getInstance(), key);
+        ParetoFrontUtils.writeVAR(output, algorithm.getResult(), problem.getInstance(), key);
+        ParetoFrontUtils.writeCON(output, algorithm.getResult(), problem.getInstance(), key);
         
         System.out.println("Done");
         

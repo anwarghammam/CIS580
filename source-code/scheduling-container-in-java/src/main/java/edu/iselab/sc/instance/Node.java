@@ -10,6 +10,13 @@ import lombok.NoArgsConstructor;
 public class Node {
 
     protected Integer id;
-    
+
     protected String name;
+
+    protected boolean activated = true;
+
+    public Node(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

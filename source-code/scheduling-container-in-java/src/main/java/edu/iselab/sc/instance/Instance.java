@@ -2,6 +2,7 @@ package edu.iselab.sc.instance;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -52,6 +53,42 @@ public class Instance {
         }
 
         return edges;
+    }
+    
+    @JsonIgnore
+    public List<Integer> getActivedNodes() {
+        
+        return nodes.stream()
+            .filter(e -> e.isActivated())
+            .map(e -> e.getId())
+            .collect(Collectors.toList());
+    }
+    
+    @JsonIgnore
+    public List<Integer> getValidNodes(Integer containerId) {
+
+        Container container = findContainerById(containerId);
+        
+        List<Integer> validNodes = new ArrayList<>();
+
+        if (container.getPlacements().isEmpty()) {
+
+            for (Node node : nodes) {
+                validNodes.add(node.getId());
+            }
+        } else {
+            for (Integer nodeId : container.getPlacements()) {
+                validNodes.add(nodeId);
+            }
+        }
+        
+        for (Node node : nodes) {
+            if (!node.isActivated()) {
+                validNodes.remove(node.getId());
+            }
+        }
+        
+        return validNodes;
     }
     
     public boolean isValidPlacement(int containerId, int nodeId) {
