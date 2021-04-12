@@ -6,11 +6,11 @@
         "activated": true
     }, {
         "id": 1,
-        "name": "worker1",
+        "name": "worker_1",
         "activated": true
     }, {
         "id": 2,
-        "name": "worker2",
+        "name": "worker_2",
         "activated": true
     }],
     "containers": [{
