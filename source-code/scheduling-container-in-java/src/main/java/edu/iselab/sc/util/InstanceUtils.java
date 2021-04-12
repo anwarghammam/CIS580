@@ -54,7 +54,7 @@ public class InstanceUtils {
             container.setPlacements(getPlacements(numberOfNodes)); 
             
             instance.getContainers().add(container);
-            instance.getCurrentState().add(RandomUtils.nextInt(0, numberOfNodes - 1));
+            instance.getCurrentState().add(RandomUtils.randInt(0, numberOfNodes - 1));
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -75,7 +75,7 @@ public class InstanceUtils {
 
         for (int i = 0; i < numberOfContainers; i++) {
 
-            if (i != ignore && RandomUtils.nextDouble() >= 0.995) {
+            if (i != ignore && RandomUtils.randDouble() >= 0.995) {
                 dependencies.add(i);
             }
         }
@@ -91,7 +91,7 @@ public class InstanceUtils {
 
         for (int i = 0; i < numberOfNodes; i++) {
 
-            if (RandomUtils.nextDouble() >= 0.85) {
+            if (RandomUtils.randDouble() >= 0.85) {
                 placements.add(i);
             }
         }

@@ -20,7 +20,7 @@ public class ParetoFrontUtils {
         checkNotNull(instance, "instance should not be null");
         checkNotNull(key, "key should not be null");
         
-        outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("fun"));
+        outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("objectives"));
         
         Path file = outputFolder.resolve(instance.getName()).resolve(key + "-fun.txt");
                 
@@ -36,7 +36,7 @@ public class ParetoFrontUtils {
         checkNotNull(instance, "instance should not be null");
         checkNotNull(key, "key should not be null");
         
-        outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("var"));
+        outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("variables"));
         
         Path file = outputFolder.resolve(instance.getName()).resolve(key + "-var.txt");
                 
@@ -52,7 +52,7 @@ public class ParetoFrontUtils {
         checkNotNull(instance, "instance should not be null");
         checkNotNull(key, "key should not be null");
         
-        outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("con"));
+        outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("constraints"));
         
         Path file = outputFolder.resolve(instance.getName()).resolve(key + "-con.txt");
                 

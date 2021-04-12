@@ -6,12 +6,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import org.uma.jmetal.algorithm.Algorithm;
-import org.uma.jmetal.algorithm.multiobjective.nsgaii.NSGAIIBuilder;
-import org.uma.jmetal.algorithm.multiobjective.nsgaiii.NSGAIIIBuilder;
 import org.uma.jmetal.example.AlgorithmRunner;
-import org.uma.jmetal.operator.crossover.impl.IntegerSBXCrossover;
-import org.uma.jmetal.operator.mutation.impl.IntegerPolynomialMutation;
-import org.uma.jmetal.operator.selection.impl.BinaryTournamentSelection;
 import org.uma.jmetal.solution.integersolution.IntegerSolution;
 
 import edu.iselab.sc.constant.AlgorithmName;
@@ -19,7 +14,6 @@ import edu.iselab.sc.instance.Instance;
 import edu.iselab.sc.problem.ContainerSchedulingProblem;
 import edu.iselab.sc.util.AlgorithmUtils;
 import edu.iselab.sc.util.FileUtils;
-import edu.iselab.sc.util.GraphvizUtils;
 import edu.iselab.sc.util.InstanceUtils;
 import edu.iselab.sc.util.ParetoFrontUtils;
 import picocli.CommandLine;
@@ -33,7 +27,7 @@ import picocli.CommandLine.Option;
 public class Launcher implements Callable<Integer> {
     
     @Option(names = { "-i", "--input" }, description = "the input file")
-    protected Path input = Paths.get("src/main/resources/instances/instance-5n50c.json");
+    protected Path input = Paths.get("src/main/resources/instances/instance-01.json");
     
     @Option(names = { "-a", "--alg" }, description = "algorithm name")
     public AlgorithmName algorithmName = AlgorithmName.NSGA_II;

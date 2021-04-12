@@ -1,16 +1,25 @@
 package edu.iselab.sc.util;
 
-import org.uma.jmetal.util.pseudorandom.impl.JavaRandomGenerator;
+import java.util.List;
+
+import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
 public class RandomUtils {
 
-    private static final JavaRandomGenerator random = new JavaRandomGenerator();
+    private static final JMetalRandom random = JMetalRandom.getInstance();
 
-    public static int nextInt(int lowerBound, int upperBound) {
+    public static int randInt(int lowerBound, int upperBound) {
         return random.nextInt(lowerBound, upperBound);
     }
 
-    public static double nextDouble() {
+    public static double randDouble() {
         return random.nextDouble();
+    }
+
+    public static <T> T randElement(List<T> list) {
+
+        int index = RandomUtils.randInt(0, list.size() - 1);
+
+        return list.get(index);
     }
 }

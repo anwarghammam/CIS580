@@ -70,16 +70,13 @@ public class Instance {
         Container container = findContainerById(containerId);
         
         List<Integer> validNodes = new ArrayList<>();
+        
+        for (Node node : nodes) {
+            validNodes.add(node.getId());
+        }
 
-        if (container.getPlacements().isEmpty()) {
-
-            for (Node node : nodes) {
-                validNodes.add(node.getId());
-            }
-        } else {
-            for (Integer nodeId : container.getPlacements()) {
-                validNodes.add(nodeId);
-            }
+        if (!container.getPlacements().isEmpty()) {
+            validNodes = container.getPlacements();
         }
         
         for (Node node : nodes) {

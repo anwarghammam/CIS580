@@ -16,15 +16,15 @@ public class JustActivedNodes extends Constraint {
         
         List<Integer> activedNodes = instance.getActivedNodes();
         
-        int sum = 0;
+        int invalids = 0;
 
         for (int i = 0; i < variables.size(); i++) {
 
             if (!activedNodes.contains(variables.get(i))) {
-                sum++;
+                invalids++;
             }
         }
 
-        return sum;
+        return invalids;
     }
 }
