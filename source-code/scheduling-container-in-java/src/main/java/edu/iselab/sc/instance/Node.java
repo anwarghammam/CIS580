@@ -13,10 +13,5 @@ public class Node {
 
     protected String name;
 
-    protected boolean activated = true;
-
-    public Node(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    protected boolean activated;
 }

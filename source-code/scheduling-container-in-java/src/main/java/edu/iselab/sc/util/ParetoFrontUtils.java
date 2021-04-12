@@ -33,19 +33,24 @@ public class ParetoFrontUtils {
         return String.format("%s-%s-%s", params.getAlgorithmName(), params.getPopulationSize(), params.getIterations());
     }
     
+    public static Path getFile(Path outputFolder, ParetoFront paretoFront, String folder, String extension) {
+
+        String key = getKey(paretoFront.getParams());
+
+        Path file = outputFolder.resolve(folder).resolve(paretoFront.getInstance().getName()).resolve(key + extension);
+
+        FileUtils.createIfNotExists(file.getParent());
+
+        return file;
+    }
+    
     public static void writeTIME(Path outputFolder, ParetoFront paretoFront) {
         
         checkArgument(FileUtils.isValid(outputFolder), "outputFolder should be valid");
         checkNotNull(paretoFront, "paretoFront should be valid");
         
-        String key = getKey(paretoFront.getParams());
-        
-        outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("times"));
-        
-        Path file = outputFolder.resolve(paretoFront.getInstance().getName()).resolve(key + "-time.txt");
+        Path file = getFile(outputFolder, paretoFront, "times", "-time.txt");
                 
-        FileUtils.createIfNotExists(file.getParent());
-        
         StringBuilder builder = new StringBuilder();
         
         builder.append(paretoFront.getExecutionTime());
@@ -58,14 +63,8 @@ public class ParetoFrontUtils {
         checkArgument(FileUtils.isValid(outputFolder), "outputFolder should be valid");
         checkNotNull(paretoFront, "paretoFront should be valid");
         
-        String key = getKey(paretoFront.getParams());
-        
-        outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("objectives"));
-        
-        Path file = outputFolder.resolve(paretoFront.getInstance().getName()).resolve(key + "-fun.txt");
-                
-        FileUtils.createIfNotExists(file.getParent());
-        
+        Path file = getFile(outputFolder, paretoFront, "objectives", "-fun.txt");
+
         new SolutionListOutput(paretoFront.getSolutions()).printObjectivesToFile(file.toString(), " ");
     }
     
@@ -74,13 +73,7 @@ public class ParetoFrontUtils {
         checkArgument(FileUtils.isValid(outputFolder), "outputFolder should be valid");
         checkNotNull(paretoFront, "paretoFront should be valid");
         
-        String key = getKey(paretoFront.getParams());
-        
-        outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("variables"));
-        
-        Path file = outputFolder.resolve(paretoFront.getInstance().getName()).resolve(key + "-var.txt");
-                
-        FileUtils.createIfNotExists(file.getParent());
+        Path file = getFile(outputFolder, paretoFront, "variables", "-var.txt");
         
         new SolutionListOutput(paretoFront.getSolutions()).printVariablesToFile(file.toString(), " ");
     }
@@ -90,13 +83,7 @@ public class ParetoFrontUtils {
         checkArgument(FileUtils.isValid(outputFolder), "outputFolder should be valid");
         checkNotNull(paretoFront, "paretoFront should be valid");
         
-        String key = getKey(paretoFront.getParams());
-        
-        outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("constraints"));
-        
-        Path file = outputFolder.resolve(paretoFront.getInstance().getName()).resolve(key + "-con.txt");
-                
-        FileUtils.createIfNotExists(file.getParent());
+        Path file = getFile(outputFolder, paretoFront, "constraints", "-con.txt");
         
         StringBuilder builder = new StringBuilder();
         
@@ -105,7 +92,7 @@ public class ParetoFrontUtils {
             IntegerSolution solution = paretoFront.getSolutions().get(i);
 
             for (int j = 0; j < solution.getNumberOfConstraints(); j++) {
-                
+
                 builder.append(solution.getConstraint(j));
 
                 if (j + 1 != solution.getNumberOfConstraints()) {
