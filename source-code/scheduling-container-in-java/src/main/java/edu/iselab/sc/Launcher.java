@@ -56,21 +56,19 @@ public class Launcher implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        
+
         System.out.println("Running");
-        
+
         FileUtils.createIfNotExists(outputFolder);
-        
+
         Instance instance = InstanceUtils.read(input);
-        
+
         ParetoFront paretoFront = AlgorithmUtils.run(instance, params);
-        
-        ParetoFrontUtils.writeFUN(outputFolder, paretoFront);
-        ParetoFrontUtils.writeVAR(outputFolder, paretoFront);
-        ParetoFrontUtils.writeCON(outputFolder, paretoFront);
-        
+
+        ParetoFrontUtils.write(outputFolder, paretoFront);
+
         System.out.println("Done");
-        
+
         return 0;
     }
 }

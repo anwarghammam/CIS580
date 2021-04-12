@@ -1,6 +1,7 @@
 package edu.iselab.sc.util;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -22,15 +23,42 @@ public class ParetoFrontUtils {
         protected Instance instance;
 
         protected Params params;
+        
+        protected long executionTime;
 
-        protected List<IntegerSolution> solutions;
+        protected List<IntegerSolution> solutions;        
+    }
+    
+    public static String getKey(Params params) {
+        return String.format("%s-%s-%s", params.getAlgorithmName(), params.getPopulationSize(), params.getIterations());
+    }
+    
+    public static void writeTIME(Path outputFolder, ParetoFront paretoFront) {
+        
+        checkArgument(FileUtils.isValid(outputFolder), "outputFolder should be valid");
+        checkNotNull(paretoFront, "paretoFront should be valid");
+        
+        String key = getKey(paretoFront.getParams());
+        
+        outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("times"));
+        
+        Path file = outputFolder.resolve(paretoFront.getInstance().getName()).resolve(key + "-time.txt");
+                
+        FileUtils.createIfNotExists(file.getParent());
+        
+        StringBuilder builder = new StringBuilder();
+        
+        builder.append(paretoFront.getExecutionTime());
+        
+        FileUtils.write(file, builder.toString());
     }
 
     public static void writeFUN(Path outputFolder, ParetoFront paretoFront) {
         
         checkArgument(FileUtils.isValid(outputFolder), "outputFolder should be valid");
+        checkNotNull(paretoFront, "paretoFront should be valid");
         
-        String key = String.format("%s-%s-%s", paretoFront.getParams().getAlgorithmName(), paretoFront.getParams().getPopulationSize(), paretoFront.getParams().getIterations());
+        String key = getKey(paretoFront.getParams());
         
         outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("objectives"));
         
@@ -44,8 +72,9 @@ public class ParetoFrontUtils {
     public static void writeVAR(Path outputFolder, ParetoFront paretoFront) {
         
         checkArgument(FileUtils.isValid(outputFolder), "outputFolder should be valid");
+        checkNotNull(paretoFront, "paretoFront should be valid");
         
-        String key = String.format("%s-%s-%s", paretoFront.getParams().getAlgorithmName(), paretoFront.getParams().getPopulationSize(), paretoFront.getParams().getIterations());
+        String key = getKey(paretoFront.getParams());
         
         outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("variables"));
         
@@ -59,8 +88,9 @@ public class ParetoFrontUtils {
     public static void writeCON(Path outputFolder, ParetoFront paretoFront) {
         
         checkArgument(FileUtils.isValid(outputFolder), "outputFolder should be valid");
+        checkNotNull(paretoFront, "paretoFront should be valid");
         
-        String key = String.format("%s-%s-%s", paretoFront.getParams().getAlgorithmName(), paretoFront.getParams().getPopulationSize(), paretoFront.getParams().getIterations());
+        String key = getKey(paretoFront.getParams());
         
         outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("constraints"));
         
@@ -89,5 +119,13 @@ public class ParetoFrontUtils {
         }
         
         FileUtils.write(file, builder.toString());
+    }
+    
+    public static void write(Path outputFolder, ParetoFront paretoFront) {
+
+        ParetoFrontUtils.writeFUN(outputFolder, paretoFront);
+        ParetoFrontUtils.writeVAR(outputFolder, paretoFront);
+        ParetoFrontUtils.writeCON(outputFolder, paretoFront);
+        ParetoFrontUtils.writeTIME(outputFolder, paretoFront);
     }
 }

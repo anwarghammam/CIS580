@@ -66,8 +66,10 @@ public class AlgorithmUtils {
         
         Algorithm<List<IntegerSolution>> algorithm = AlgorithmUtils.getAlgorithm(problem, params);
         
-        new AlgorithmRunner.Executor(algorithm).execute();
+        AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
+
+        long executionTime = algorithmRunner.getComputingTime();
         
-        return new ParetoFront(instance, params, algorithm.getResult());
+        return new ParetoFront(instance, params, executionTime, algorithm.getResult());
     }
 }
