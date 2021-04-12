@@ -2,10 +2,12 @@
     "name": "instance-01",
     "nodes": [{
         "id": 0,
-        "name": "manager"
+        "name": "manager",
+        "activated": true
     }, {
         "id": 1,
-        "name": "worker1"
+        "name": "worker1",
+        "activated": true
     }, {
         "id": 2,
         "name": "worker2",
@@ -25,7 +27,7 @@
         "id": 2,
         "name": "p1_mongodb",
         "dependencies": [],
-        "placements": [1]
+        "placements": [1, 2]
     }, {
         "id": 3,
         "name": "p1_api",

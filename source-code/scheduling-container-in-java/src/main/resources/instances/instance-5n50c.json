@@ -2,19 +2,24 @@
     "name": "instance-5n50c",
     "nodes": [{
         "id": 0,
-        "name": "node_0"
+        "name": "node_0",
+        "activated": true
     }, {
         "id": 1,
-        "name": "node_1"
+        "name": "node_1",
+        "activated": true
     }, {
         "id": 2,
-        "name": "node_2"
+        "name": "node_2",
+        "activated": true
     }, {
         "id": 3,
-        "name": "node_3"
+        "name": "node_3",
+        "activated": true
     }, {
         "id": 4,
-        "name": "node_4"
+        "name": "node_4",
+        "activated": true
     }],
     "containers": [{
         "id": 0,

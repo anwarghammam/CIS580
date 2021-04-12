@@ -2,13 +2,16 @@
     "name": "instance-02",
     "nodes": [{
         "id": 0,
-        "name": "manager"
+        "name": "manager",
+        "activated": true
     }, {
         "id": 1,
-        "name": "worker1"
+        "name": "worker1",
+        "activated": true
     }, {
         "id": 2,
-        "name": "worker2"
+        "name": "worker2",
+        "activated": true
     }],
     "containers": [{
         "id": 0,
