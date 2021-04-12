@@ -2,21 +2,18 @@ package edu.iselab.sc;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.concurrent.Callable;
-
-import org.uma.jmetal.algorithm.Algorithm;
-import org.uma.jmetal.example.AlgorithmRunner;
-import org.uma.jmetal.solution.integersolution.IntegerSolution;
 
 import edu.iselab.sc.constant.AlgorithmName;
 import edu.iselab.sc.instance.Instance;
-import edu.iselab.sc.problem.ContainerSchedulingProblem;
 import edu.iselab.sc.util.AlgorithmUtils;
 import edu.iselab.sc.util.FileUtils;
 import edu.iselab.sc.util.InstanceUtils;
 import edu.iselab.sc.util.ParetoFrontUtils;
+import edu.iselab.sc.util.ParetoFrontUtils.ParetoFront;
+import lombok.Data;
 import picocli.CommandLine;
+import picocli.CommandLine.ArgGroup;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
@@ -29,17 +26,24 @@ public class Launcher implements Callable<Integer> {
     @Option(names = { "-i", "--input" }, description = "the input file")
     protected Path input = Paths.get("src/main/resources/instances/instance-01.json");
     
-    @Option(names = { "-a", "--alg" }, description = "algorithm name")
-    public AlgorithmName algorithmName = AlgorithmName.NSGA_II;
-    
-    @Option(names = { "-p", "--pop" }, description = "population size")
-    public int populationSize = 100;
-
-    @Option(names = { "-it", "--it" }, description = "max iterations")
-    public int iterations = 1000;
-    
     @Option(names = { "-o", "--output" }, description = "the output folder")
-    protected Path output = FileUtils.getCurrentDirectory().resolve("output");
+    protected Path outputFolder = FileUtils.getCurrentDirectory().resolve("output");
+    
+    @ArgGroup(exclusive = false, multiplicity = "0..1")
+    protected Params params = new Params();
+
+    @Data
+    public static class Params {
+
+        @Option(names = { "-a", "--alg" }, description = "algorithm name")
+        public AlgorithmName algorithmName = AlgorithmName.NSGA_II;
+
+        @Option(names = { "-p", "--pop" }, description = "population size")
+        public int populationSize = 100;
+
+        @Option(names = { "-it", "--it" }, description = "max iterations")
+        public int iterations = 1000;
+    }
 
     public static void main(String[] args) {
 
@@ -55,21 +59,15 @@ public class Launcher implements Callable<Integer> {
         
         System.out.println("Running");
         
-        FileUtils.createIfNotExists(output);
+        FileUtils.createIfNotExists(outputFolder);
         
         Instance instance = InstanceUtils.read(input);
         
-        ContainerSchedulingProblem problem = new ContainerSchedulingProblem(instance);
+        ParetoFront paretoFront = AlgorithmUtils.run(instance, params);
         
-        Algorithm<List<IntegerSolution>> algorithm = AlgorithmUtils.getAlgorithm(problem, algorithmName, populationSize, iterations);
-        
-        new AlgorithmRunner.Executor(algorithm).execute();
-        
-        String key = String.format("%s-%s-%s", algorithm.getName(), populationSize, iterations);
-        
-        ParetoFrontUtils.writeFUN(output, algorithm.getResult(), problem.getInstance(), key);
-        ParetoFrontUtils.writeVAR(output, algorithm.getResult(), problem.getInstance(), key);
-        ParetoFrontUtils.writeCON(output, algorithm.getResult(), problem.getInstance(), key);
+        ParetoFrontUtils.writeFUN(outputFolder, paretoFront);
+        ParetoFrontUtils.writeVAR(outputFolder, paretoFront);
+        ParetoFrontUtils.writeCON(outputFolder, paretoFront);
         
         System.out.println("Done");
         

@@ -1,7 +1,6 @@
 package edu.iselab.sc.util;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -9,60 +8,71 @@ import java.util.List;
 import org.uma.jmetal.solution.integersolution.IntegerSolution;
 import org.uma.jmetal.util.fileoutput.SolutionListOutput;
 
+import edu.iselab.sc.Launcher.Params;
 import edu.iselab.sc.instance.Instance;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 public class ParetoFrontUtils {
+    
+    @Data
+    @AllArgsConstructor
+    public static class ParetoFront {
+        
+        protected Instance instance;
 
-    public static void writeFUN(Path outputFolder, List<IntegerSolution> population, Instance instance, String key) {
+        protected Params params;
+
+        protected List<IntegerSolution> solutions;
+    }
+
+    public static void writeFUN(Path outputFolder, ParetoFront paretoFront) {
         
         checkArgument(FileUtils.isValid(outputFolder), "outputFolder should be valid");
-        checkNotNull(population, "population should not be null");
-        checkNotNull(instance, "instance should not be null");
-        checkNotNull(key, "key should not be null");
+        
+        String key = String.format("%s-%s-%s", paretoFront.getParams().getAlgorithmName(), paretoFront.getParams().getPopulationSize(), paretoFront.getParams().getIterations());
         
         outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("objectives"));
         
-        Path file = outputFolder.resolve(instance.getName()).resolve(key + "-fun.txt");
+        Path file = outputFolder.resolve(paretoFront.getInstance().getName()).resolve(key + "-fun.txt");
                 
         FileUtils.createIfNotExists(file.getParent());
         
-        new SolutionListOutput(population).printObjectivesToFile(file.toString(), " ");
+        new SolutionListOutput(paretoFront.getSolutions()).printObjectivesToFile(file.toString(), " ");
     }
     
-    public static void writeVAR(Path outputFolder, List<IntegerSolution> population, Instance instance, String key) {
+    public static void writeVAR(Path outputFolder, ParetoFront paretoFront) {
         
         checkArgument(FileUtils.isValid(outputFolder), "outputFolder should be valid");
-        checkNotNull(population, "population should not be null");
-        checkNotNull(instance, "instance should not be null");
-        checkNotNull(key, "key should not be null");
+        
+        String key = String.format("%s-%s-%s", paretoFront.getParams().getAlgorithmName(), paretoFront.getParams().getPopulationSize(), paretoFront.getParams().getIterations());
         
         outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("variables"));
         
-        Path file = outputFolder.resolve(instance.getName()).resolve(key + "-var.txt");
+        Path file = outputFolder.resolve(paretoFront.getInstance().getName()).resolve(key + "-var.txt");
                 
         FileUtils.createIfNotExists(file.getParent());
         
-        new SolutionListOutput(population).printVariablesToFile(file.toString(), " ");
+        new SolutionListOutput(paretoFront.getSolutions()).printVariablesToFile(file.toString(), " ");
     }
     
-    public static void writeCON(Path outputFolder, List<IntegerSolution> population, Instance instance, String key) {
+    public static void writeCON(Path outputFolder, ParetoFront paretoFront) {
         
         checkArgument(FileUtils.isValid(outputFolder), "outputFolder should be valid");
-        checkNotNull(population, "population should not be null");
-        checkNotNull(instance, "instance should not be null");
-        checkNotNull(key, "key should not be null");
+        
+        String key = String.format("%s-%s-%s", paretoFront.getParams().getAlgorithmName(), paretoFront.getParams().getPopulationSize(), paretoFront.getParams().getIterations());
         
         outputFolder = FileUtils.createIfNotExists(outputFolder.resolve("constraints"));
         
-        Path file = outputFolder.resolve(instance.getName()).resolve(key + "-con.txt");
+        Path file = outputFolder.resolve(paretoFront.getInstance().getName()).resolve(key + "-con.txt");
                 
         FileUtils.createIfNotExists(file.getParent());
         
         StringBuilder builder = new StringBuilder();
         
-        for (int i = 0; i < population.size(); i++) {
+        for (int i = 0; i < paretoFront.getSolutions().size(); i++) {
 
-            IntegerSolution solution = population.get(i);
+            IntegerSolution solution = paretoFront.getSolutions().get(i);
 
             for (int j = 0; j < solution.getNumberOfConstraints(); j++) {
                 
@@ -73,7 +83,7 @@ public class ParetoFrontUtils {
                 }
             }
 
-            if (i + 1 != population.size()) {
+            if (i + 1 != paretoFront.getSolutions().size()) {
                 builder.append("\n");
             }
         }
