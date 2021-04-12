@@ -55,8 +55,4 @@ public class AlgorithmUtils {
             .setNumberOfDivisions(5)
             .build();
     }
-
-    
-
-    
 }
