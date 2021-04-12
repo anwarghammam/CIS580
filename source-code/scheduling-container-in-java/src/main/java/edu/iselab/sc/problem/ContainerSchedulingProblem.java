@@ -1,9 +1,12 @@
 package edu.iselab.sc.problem;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.uma.jmetal.problem.integerproblem.impl.AbstractIntegerProblem;
 import org.uma.jmetal.solution.integersolution.IntegerSolution;
 import org.uma.jmetal.solution.integersolution.impl.DefaultIntegerSolution;
 
@@ -11,26 +14,49 @@ import edu.iselab.sc.instance.Container;
 import edu.iselab.sc.instance.Instance;
 import edu.iselab.sc.problem.constraint.Constraint;
 import edu.iselab.sc.problem.constraint.InvalidPlacements;
+import edu.iselab.sc.problem.objective.AverageNumberOfContainersPerNode;
+import edu.iselab.sc.problem.objective.NodesCohesion;
+import edu.iselab.sc.problem.objective.NodesCoupling;
+import edu.iselab.sc.problem.objective.NumberOfChangesRequired;
+import edu.iselab.sc.problem.objective.NumberOfSelectedNodes;
+import edu.iselab.sc.problem.objective.Objective;
+import lombok.Getter;
 
-public class ConstrainedSchedulingProblem extends SchedulingProblem {
+public class ContainerSchedulingProblem extends AbstractIntegerProblem {
 
     private static final long serialVersionUID = 3276083658332850716L;
+    
+    @Getter
+    protected Instance instance;
+    
+    protected List<Objective> objectives;
 
     protected List<Constraint> constraints;
     
-    public ConstrainedSchedulingProblem(Instance instance) {
-        super(instance);
+    public ContainerSchedulingProblem(Instance instance) {
+        
+        checkNotNull(instance, "instance should not be null");
 
-        constraints = Arrays.asList(
+        this.instance = instance;
+        this.constraints = Arrays.asList(
             new InvalidPlacements()
+        );
+        this.objectives = Arrays.asList(
+            new NumberOfSelectedNodes(), 
+            new AverageNumberOfContainersPerNode(),
+            new NodesCohesion(),
+            new NodesCoupling(),
+            new NumberOfChangesRequired()
         );
 
         // JMetal's Settings
+        setNumberOfVariables(instance.getContainers().size());
+        setNumberOfObjectives(objectives.size());
         setNumberOfConstraints(constraints.size());
-        setName("constrained-scheduling-problem");
+        setName(ContainerSchedulingProblem.class.getSimpleName());
         
-        List<Integer> lowerBounds = new ArrayList<>(instance.getContainers().size());
-        List<Integer> upperBounds = new ArrayList<>(instance.getContainers().size());
+        List<Integer> lowerBounds = new ArrayList<>();
+        List<Integer> upperBounds = new ArrayList<>();
 
         for (Container container : instance.getContainers()) {
 
@@ -58,7 +84,10 @@ public class ConstrainedSchedulingProblem extends SchedulingProblem {
     }
     
     public void evaluate(IntegerSolution solution) {
-        super.evaluate(solution);
+        
+        for (int i = 0; i < objectives.size(); i++) {
+            solution.setObjective(i, objectives.get(i).evaluate(instance, solution.getVariables()));
+        }
 
         for (int i = 0; i < constraints.size(); i++) {
             solution.setConstraint(i, constraints.get(i).evaluate(instance, solution.getVariables()));
@@ -71,6 +100,7 @@ public class ConstrainedSchedulingProblem extends SchedulingProblem {
         }
 
         if (totalConstraints != 0) {
+
             for (int i = 0; i < objectives.size(); i++) {
                 solution.setObjective(i, Integer.MAX_VALUE);
             }
