@@ -3,6 +3,7 @@ package edu.iselab.sc.instance;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -19,6 +20,9 @@ public class Container {
     protected List<Integer> dependencies = new ArrayList<>();
 
     protected List<Integer> placements = new ArrayList<>();
+    
+    @JsonAlias("power_consumption")
+    protected Long powerConsumption;
     
     public Container(Integer id, String name) {
         this.id = id;

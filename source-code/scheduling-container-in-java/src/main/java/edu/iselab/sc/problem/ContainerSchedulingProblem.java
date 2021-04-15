@@ -12,14 +12,10 @@ import org.uma.jmetal.solution.integersolution.impl.DefaultIntegerSolution;
 
 import edu.iselab.sc.instance.Instance;
 import edu.iselab.sc.problem.constraint.Constraint;
-import edu.iselab.sc.problem.constraint.JustActivedNodes;
-import edu.iselab.sc.problem.constraint.JustValidPlacements;
-import edu.iselab.sc.problem.objective.AverageNumberOfContainersPerNode;
-import edu.iselab.sc.problem.objective.NodesCohesion;
-import edu.iselab.sc.problem.objective.NodesCoupling;
-import edu.iselab.sc.problem.objective.NumberOfChangesRequired;
-import edu.iselab.sc.problem.objective.NumberOfSelectedNodes;
+import edu.iselab.sc.problem.objective.NumberOfContainers;
+import edu.iselab.sc.problem.objective.NumberOfNodes;
 import edu.iselab.sc.problem.objective.Objective;
+import edu.iselab.sc.problem.objective.PowerConsumption;
 import edu.iselab.sc.util.RandomUtils;
 import lombok.Getter;
 
@@ -40,15 +36,18 @@ public class ContainerSchedulingProblem extends AbstractIntegerProblem {
 
         this.instance = instance;
         this.constraints = Arrays.asList(
-            new JustValidPlacements(),
-            new JustActivedNodes()
+//              new OnlyValidDependencies()
+//            new OnlyValidPlacements(),
+//            new OnlyActivedNodes(),
+//            new SatisfyMaxPowerConsumption()
         );
         this.objectives = Arrays.asList(
-            new NumberOfSelectedNodes(), 
-            new AverageNumberOfContainersPerNode(),
-            new NodesCohesion(),
-            new NodesCoupling(),
-            new NumberOfChangesRequired()
+            new NumberOfContainers(),
+            new PowerConsumption(),
+            new NumberOfNodes()
+//            new AverageNumberOfContainersPerNode(),
+//            new NodesCoupling(),
+//            new NumberOfChangesRequired()
         );
 
         // JMetal's Settings
@@ -57,7 +56,7 @@ public class ContainerSchedulingProblem extends AbstractIntegerProblem {
         setNumberOfConstraints(constraints.size());
         setName(ContainerSchedulingProblem.class.getSimpleName());
         
-        List<Integer> lowerBounds = Collections.nCopies(getNumberOfVariables(), 0);
+        List<Integer> lowerBounds = Collections.nCopies(getNumberOfVariables(), -1);
         List<Integer> upperBounds = Collections.nCopies(getNumberOfVariables(), instance.getNodes().size() - 1);
 
         setVariableBounds(lowerBounds, upperBounds);

@@ -43,7 +43,7 @@ public class InstanceUtils {
         instance.setName("instance-3");
 
         for (int i = 0; i < numberOfNodes; i++) {
-            instance.getNodes().add(new Node(i, "node_" + i, true));
+            instance.getNodes().add(new Node(i, "node_" + i, true, 1000L));
         }
 
         for (int i = 0; i < numberOfContainers; i++) {

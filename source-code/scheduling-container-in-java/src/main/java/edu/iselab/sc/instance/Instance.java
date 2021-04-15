@@ -85,6 +85,9 @@ public class Instance {
             }
         }
         
+        // -1 means no allocation
+        validNodes.add(-1);
+        
         return validNodes;
     }
     
