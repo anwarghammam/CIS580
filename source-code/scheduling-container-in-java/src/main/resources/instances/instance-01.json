@@ -1,5 +1,7 @@
 {
     "name": "instance-01",
+    "author": "Thiago Ferreira",
+    "description": "Small Instance",
     "nodes": [{
         "id": 0,
         "name": "manager",
@@ -18,34 +20,39 @@
     }],
     "containers": [{
         "id": 0,
-        "name": "p1_creator",
+        "name": "creator",
         "dependencies": [3],
         "placements": [],
-        "power_consumption": 80
+        "power_consumption": 80,
+        "priority": 1
     }, {
         "id": 1,
-        "name": "p1_web",
+        "name": "web",
         "dependencies": [3],
         "placements": [],
-        "power_consumption": 20
+        "power_consumption": 20,
+        "priority": 2
     }, {
         "id": 2,
-        "name": "p1_mongodb",
+        "name": "mongodb",
         "dependencies": [],
         "placements": [1, 2],
-        "power_consumption": 10
+        "power_consumption": 10,
+        "priority": 0
     }, {
         "id": 3,
-        "name": "p1_api",
+        "name": "api",
         "dependencies": [2],
         "placements": [],
-        "powerConsumption": 15
+        "powerConsumption": 15,
+        "priority": 0
     }, {
         "id": 4,
-        "name": "p1_mongodbexpress",
+        "name": "mongodbexpress",
         "dependencies": [2],
         "placements": [],
-        "power_consumption": 3
+        "power_consumption": 3,
+        "priority": 3
     }],
     "currentState": [2, 1, 0, 2, 0]
 }

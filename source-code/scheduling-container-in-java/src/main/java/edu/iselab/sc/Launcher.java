@@ -42,7 +42,7 @@ public class Launcher implements Callable<Integer> {
         public int populationSize = 100;
 
         @Option(names = { "-it", "--iterations" }, description = "max iterations")
-        public int iterations = 100;
+        public int iterations = 1000;
     }
 
     public static void main(String[] args) {

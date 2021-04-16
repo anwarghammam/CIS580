@@ -28,7 +28,10 @@ public class AverageNumberOfContainersPerNode extends Objective {
         double[] values = new double[instance.getNodes().size()];
 
         for (int i = 0; i < variables.size(); i++) {
-            values[variables.get(i)]++;
+
+            if (variables.get(i) != -1) {
+                values[variables.get(i)]++;
+            }
         }
 
         for (int i = 0; i < values.length; i++) {

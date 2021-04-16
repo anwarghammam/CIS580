@@ -16,6 +16,8 @@ public class Container {
     protected Integer id;
 
     protected String name;
+    
+    protected Long priority;
 
     protected List<Integer> dependencies = new ArrayList<>();
 

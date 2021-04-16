@@ -13,6 +13,10 @@ public class Instance {
     
     protected String name;
     
+    protected String author;
+    
+    protected String description;
+    
     protected List<Node> nodes = new ArrayList<>();
     
     protected List<Container> containers = new ArrayList<>();

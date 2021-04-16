@@ -15,19 +15,24 @@ public class SatisfyMaxPowerConsumption extends Constraint {
     @Override
     public double evaluate(Instance instance, List<Integer> variables) {
 
-        long[] sumPowerConsumption = new long[instance.getNodes().size()];
+        long[] totalPowerConsumption = new long[instance.getNodes().size()];
 
         for (int i = 0; i < variables.size(); i++) {
-            sumPowerConsumption[variables.get(i)] += instance.findContainerById(i).getPowerConsumption();
+
+            int nodeId = variables.get(i);
+
+            if (nodeId != -1) {
+                totalPowerConsumption[nodeId] += instance.findContainerById(i).getPowerConsumption();
+            }
         }
 
         int invalids = 0;
 
-        for (int i = 0; i < sumPowerConsumption.length; i++) {
+        for (int i = 0; i < totalPowerConsumption.length; i++) {
 
             Node node = instance.findNodeById(i);
 
-            if (sumPowerConsumption[i] > node.getMaxPowerConsumption()) {
+            if (totalPowerConsumption[i] > node.getMaxPowerConsumption()) {
                 invalids++;
             }
         }

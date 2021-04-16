@@ -12,10 +12,18 @@ import org.uma.jmetal.solution.integersolution.impl.DefaultIntegerSolution;
 
 import edu.iselab.sc.instance.Instance;
 import edu.iselab.sc.problem.constraint.Constraint;
+import edu.iselab.sc.problem.constraint.OnlyActivedNodes;
+import edu.iselab.sc.problem.constraint.OnlyValidPlacements;
+import edu.iselab.sc.problem.constraint.SatisfyDependencies;
+import edu.iselab.sc.problem.constraint.SatisfyMaxPowerConsumption;
+import edu.iselab.sc.problem.objective.AverageNumberOfContainersPerNode;
+import edu.iselab.sc.problem.objective.NodesCoupling;
+import edu.iselab.sc.problem.objective.NumberOfChangesRequired;
 import edu.iselab.sc.problem.objective.NumberOfContainers;
 import edu.iselab.sc.problem.objective.NumberOfNodes;
 import edu.iselab.sc.problem.objective.Objective;
 import edu.iselab.sc.problem.objective.PowerConsumption;
+import edu.iselab.sc.problem.objective.Priority;
 import edu.iselab.sc.util.RandomUtils;
 import lombok.Getter;
 
@@ -36,18 +44,18 @@ public class ContainerSchedulingProblem extends AbstractIntegerProblem {
 
         this.instance = instance;
         this.constraints = Arrays.asList(
-//              new OnlyValidDependencies()
-//            new OnlyValidPlacements(),
-//            new OnlyActivedNodes(),
-//            new SatisfyMaxPowerConsumption()
+            new SatisfyDependencies(),
+            new OnlyValidPlacements(),
+            new OnlyActivedNodes(),
+            new SatisfyMaxPowerConsumption()
         );
         this.objectives = Arrays.asList(
-            new NumberOfContainers(),
             new PowerConsumption(),
-            new NumberOfNodes()
-//            new AverageNumberOfContainersPerNode(),
-//            new NodesCoupling(),
-//            new NumberOfChangesRequired()
+            new NumberOfNodes(),
+            new AverageNumberOfContainersPerNode(),
+            new NodesCoupling(),
+            new NumberOfChangesRequired(),
+            new Priority()
         );
 
         // JMetal's Settings
