@@ -76,19 +76,15 @@ public class Instance {
         List<Integer> validNodes = new ArrayList<>();
         
         for (Node node : nodes) {
-            validNodes.add(node.getId());
+            if (node.isActivated()) {
+                validNodes.add(node.getId());
+            }
         }
 
         if (container.getPlacements().isEmpty()) {
             validNodes.add(-1);
         } else {
             validNodes = container.getPlacements();
-        }
-
-        for (Node node : nodes) {
-            if (!node.isActivated()) {
-                validNodes.remove(node.getId());
-            }
         }
         
         return validNodes;

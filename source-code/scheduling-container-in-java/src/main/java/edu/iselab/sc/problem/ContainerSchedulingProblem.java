@@ -90,6 +90,8 @@ public class ContainerSchedulingProblem extends AbstractIntegerProblem {
                 solution.setObjective(i, Integer.MAX_VALUE);
             }
         }
+        
+        System.out.println(Arrays.toString(solution.getObjectives()));
     }
     
     @Override
