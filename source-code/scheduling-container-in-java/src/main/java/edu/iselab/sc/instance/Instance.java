@@ -79,18 +79,17 @@ public class Instance {
             validNodes.add(node.getId());
         }
 
-        if (!container.getPlacements().isEmpty()) {
+        if (container.getPlacements().isEmpty()) {
+            validNodes.add(-1);
+        } else {
             validNodes = container.getPlacements();
         }
-        
+
         for (Node node : nodes) {
             if (!node.isActivated()) {
                 validNodes.remove(node.getId());
             }
         }
-        
-        // -1 means no allocation
-        validNodes.add(-1);
         
         return validNodes;
     }

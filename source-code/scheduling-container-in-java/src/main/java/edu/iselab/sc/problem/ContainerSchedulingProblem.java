@@ -19,8 +19,6 @@ import edu.iselab.sc.problem.constraint.SatisfyMaxPowerConsumption;
 import edu.iselab.sc.problem.objective.AverageNumberOfContainersPerNode;
 import edu.iselab.sc.problem.objective.NodesCoupling;
 import edu.iselab.sc.problem.objective.NumberOfChangesRequired;
-import edu.iselab.sc.problem.objective.NumberOfContainers;
-import edu.iselab.sc.problem.objective.NumberOfNodes;
 import edu.iselab.sc.problem.objective.Objective;
 import edu.iselab.sc.problem.objective.PowerConsumption;
 import edu.iselab.sc.problem.objective.Priority;
@@ -51,7 +49,7 @@ public class ContainerSchedulingProblem extends AbstractIntegerProblem {
         );
         this.objectives = Arrays.asList(
             new PowerConsumption(),
-            new NumberOfNodes(),
+//            new NumberOfNodes(),
             new AverageNumberOfContainersPerNode(),
             new NodesCoupling(),
             new NumberOfChangesRequired(),
