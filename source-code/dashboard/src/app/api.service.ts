@@ -1,16 +1,17 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpResponse  } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { forkJoin } from 'rxjs';
-
+import 'rxjs/Rx';
 @Injectable({
   providedIn: 'root'
 })
 
 export class ApiService implements OnInit{
- url="http://192.168.179.68:9090/"
+ url="http://192.168.98.101:9090/"
  
  
+
  constructor(private http: HttpClient)  { 
   
  }
@@ -24,7 +25,7 @@ export class ApiService implements OnInit{
    return this.http.get<any>("http://localhost:5002/default", { observe: 'response' });
  }
  newapproach():Observable<HttpResponse<any>>{
-   return this.http.get<any>("http://localhost:5002/new", { observe: 'response' });
+   return this.http.get<any>("http://localhost:5002/newapproach/", { observe: 'response' });
  }
  getnb_nodes()
  {
@@ -65,10 +66,23 @@ export class ApiService implements OnInit{
   consumed_cpu_node(node_id):Observable<HttpResponse<JSON>>{
    return   this.http.get<JSON>(this.url+"api/v1/query?query=100%20-%20(avg(irate(node_cpu_seconds_total{mode=%22idle%22}[5m])*%20on(instance)%20group_left(node_name)%20node_meta{node_id=%22"+node_id+"%22}%20*%20100)%20by%20(node_name))", { observe: 'response' });
   }
+  containers_per_node(node_id):Observable<HttpResponse<JSON>>{
+    return   this.http.get<JSON>(this.url+"api/v1/query?query=sum(rate(container_last_seen{container_label_com_docker_swarm_node_id%3D~%22"+node_id+"%22}[5m]))%20by%20(container_label_com_docker_swarm_service_name)", { observe: 'response' });
+   }
   
   alerts():Observable<HttpResponse<JSON>>{
     return   this.http.get<JSON>(this.url+"api/v1/alerts", { observe: 'response' });
    }
+
+   get_constraints():Observable<HttpResponse<any>>{
+    return this.http.get<any>("http://localhost:5002/getjson/", { observe: 'response' });
+  }
+
+ public update_constraints(entity:any):Observable<any>{
+    return this.http.post<JSON>("http://localhost:5002/update/",JSON.stringify(entity))
+   
+    
+  }
 }
 
 

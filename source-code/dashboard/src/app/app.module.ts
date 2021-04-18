@@ -14,6 +14,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { NgChartjsModule } from 'ng-chartjs';
 import { AlertsComponent } from './alerts/alerts.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { VisualizerComponent } from './visualizer/visualizer.component';
+import { ConstraintsComponent } from './constraints/constraints.component';
 @NgModule({
   imports: [
   
@@ -32,6 +34,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     AdminLayoutComponent,
     AlertsComponent,
+    VisualizerComponent,
+    ConstraintsComponent,
    
     
   ],

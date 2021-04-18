@@ -1,0 +1,38 @@
+<div class="container " style="margin:1em; background-color: gainsboro; width: auto; height: 1500px;">
+    <div class="row">
+    <br>
+        <div *ngFor="let name of nodes_names ; let i = index" class= "col-sm-3" style="margin-right:1em;">
+            <div style="width: 150px">
+            <img style="height: 20px" src="https://icons.iconarchive.com/icons/hopstarter/soft-scraps/256/Button-Blank-Green-icon.png">
+            <strong >&nbsp;&nbsp; {{name}}   </strong>
+        </div>
+            <div >
+            
+               <br>
+
+                <div class="card" style="background-color: cornflowerblue;">
+                    <div class="card-body">
+                    <div class="card-title"></div>
+                    <div class="card-text">
+
+                          <br>
+                           
+                        <div *ngFor="let con of containers[i],let j = index" class="card" [style.border-color]="colors[1]"  style="margin:1em;border: 5px solid;">
+                            <div class="card-body">
+                            <div class="card-title">  {{con}}</div>
+                            <div class="card-text">
+                               <br>
+                            </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+       
+        
+    </div>
+</div>

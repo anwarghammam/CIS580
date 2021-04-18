@@ -44,7 +44,7 @@ export class InfoComponent implements OnInit {
      
     }}
     chart2 = {
-      title: 'Total disk',
+      title: 'Total CPU',
       type: 'Gauge',
       data:[ [
         'disk',0,
@@ -240,7 +240,7 @@ export class InfoComponent implements OnInit {
     .subscribe(
       resp => {
        
-          this.available_disk=100-parseFloat(resp.body['data']['result']['0']['value']['1']);
+          this.available_disk=parseFloat(resp.body['data']['result']['0']['value']['1']);
         
           this.chart2.data= [['consumed CPU',this.available_disk]]
         });
@@ -285,8 +285,8 @@ export class InfoComponent implements OnInit {
       resp => {
         
          this.total_disque=parseFloat(resp.body['data']['result']['0']['value']['1']);
-        
-       
+          console.log("cpu")
+          console.log(this.total_disque)
         });
 
   }

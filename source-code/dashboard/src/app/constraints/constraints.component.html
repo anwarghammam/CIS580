@@ -1,0 +1,24 @@
+<table class="table table-striped" style="margin: 2em;">
+    <thead>
+      <tr >
+        <th scope="col"> # </th>
+        <th *ngFor="let name of nodes ; let i = index" scope="col"> {{name.name}}</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let con of containers ; let j = index" >
+        <th scope="row">{{con.name}}</th>
+        <td *ngFor="let name of nodes ; let i = index"> 
+            <div class="form-check"  >
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change) = "checkboxChanged(i,j)" [checked]="check1[j][i]">
+        
+           </div>
+       </td>
+        
+      </tr>
+      
+    </tbody>
+  </table>
+
+  <button style="margin: 2em;" type="button" (click)="save()" class="btn btn-warning"> <i class="fa fa-folder"></i>Save</button>

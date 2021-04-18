@@ -2,8 +2,8 @@
     <div class="container-fluid">
        
        <div class="row">
-          <div class="col-md-2">
-                <div style = "width: 400px; height: 200px;" >
+          <div class="col-md-3">
+                <div style = "width: 400px; height: 200px; " >
                     <canvas baseChart 
                            [data]="pieChartData" 
    
@@ -15,9 +15,9 @@
                       </canvas>
                 </div>
             </div>
-            <div class="col-md-3" style="margin-top: 50px;">
+            <div class="col-md-3" style="margin-top: 50px; margin-left:5em;">
             
-                <div style = "width: 350px; height: 250px;" >
+                <div style = "width: 250px; height: 250px;" >
                   <google-chart 
             #googlechart
             [title]="chart3.title"
@@ -33,7 +33,7 @@
             </div>
             <div class="col-md-3" style="margin-top: 50px;">
             
-              <div style = "width: 350px; height: 250px;" >
+              <div style = "width: 250px; height: 250px;" >
                 <google-chart 
           #googlechart
           [title]="chart4.title"
@@ -49,8 +49,8 @@
           </div>
       
 
-        <div class="col-md-4">
-          <div style = "width: 100px; height: 250px;" >
+        <div class="col-md-2" style = "width: 20px; height: 50px;" >
+          <div>
            
             <google-chart #chart
           [title]="title1"

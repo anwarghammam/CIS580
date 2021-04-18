@@ -8,7 +8,7 @@ function all(){
  var ctx4 = document.getElementById('myChart4').getContext('2d');
  var ctx5 = document.getElementById('myChart5').getContext('2d');
  var ctx6 = document.getElementById('myChart6').getContext('2d');
- url="http://192.168.179.68:9090/"
+ url="http://192.168.98.101:9090/"
  const query1='100 - (avg(irate(node_cpu_seconds_total{mode="idle"}[5m])  * on(instance) group_left(node_name) node_meta * 100) by (node_name))';
  const query2 = 'sum(node_load5 * on(instance) group_left(node_name) node_meta) by (node_name)';
  
