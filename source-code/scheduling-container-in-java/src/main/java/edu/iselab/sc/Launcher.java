@@ -39,10 +39,10 @@ public class Launcher implements Callable<Integer> {
         public AlgorithmName algorithmName = AlgorithmName.NSGA_III;
 
         @Option(names = { "-p", "--populationSize" }, description = "population size")
-        public int populationSize = 5;
+        public int populationSize = 100;
 
         @Option(names = { "-it", "--iterations" }, description = "max iterations")
-        public int iterations = 15;
+        public int iterations = 100;
     }
 
     public static void main(String[] args) {
