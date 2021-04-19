@@ -52,7 +52,7 @@ class ReschedulingProblem(IntegerProblem,ABC):
         
         self.objectives=[NumberOfNodes(),
                          AverageNbContainersPerNode(),
-                         Coupling(),
+                         #Coupling(),
                          Cohesion(),
                          NumberOfChanges(),
                          EvalPowerConsumption(),
@@ -62,7 +62,7 @@ class ReschedulingProblem(IntegerProblem,ABC):
         self.constraints=[SatisfyDependencies(),
                           PowerConsumption(),
                           PlacementConstraints(),
-                          AvailableNodesConstraint()
+                          #AvailableNodesConstraint()
                           ]
         
         self.number_of_constraints = len(self.constraints)
@@ -82,13 +82,8 @@ class ReschedulingProblem(IntegerProblem,ABC):
             self.number_of_constraints)
         
         for i in range(self.number_of_variables):
-            
-            if (self.Instance.constraints[i]=='NA'):
-                
-                new_solution.variables[i]=int(random.uniform(self.lower_bound[i] * 1.0, self.upper_bound[i] * 1.0))
-            else:
-                valid_nodes=self.Instance.constraints[i]
-                new_solution.variables[i]=random.choice(valid_nodes)
+            valid_nodes=self.Instance.constraints[i]
+            new_solution.variables[i]=random.choice(valid_nodes)
        
         return new_solution   
 

@@ -14,19 +14,10 @@ class PlacementConstraints():
         
         invalid=0
         for i in range(len(instance.constraints)):
-    
-            if (instance.constraints[i]!='NA'):
-                
-                cons=instance.constraints[i]
-                if (type(cons) is int):
-                    if(solution.variables[i] != cons):
-                        invalid=invalid+1
-                        
-                    
-                else:    
             
-                    if(solution.variables[i] not in cons):
-                        invalid=invalid+1
+            cons=instance.constraints[i]
+            if(solution.variables[i] not in cons):
+                invalid=invalid+1
                         
                 
                         

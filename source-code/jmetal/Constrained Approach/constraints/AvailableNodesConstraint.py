@@ -14,8 +14,9 @@ class AvailableNodesConstraint :
         invalids=0
         
         for i in solution.variables:
-            if (i not in active_nodes):
-                invalids=invalids+1
+            if (i!=-1):
+                if (i not in active_nodes):
+                    invalids=invalids+1
                 
         return invalids        
             

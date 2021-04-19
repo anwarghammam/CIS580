@@ -15,7 +15,7 @@ from instance.Instance import Instance
 
 def createInstance(Instance):
     
-    f = open(r"./data.json")
+    f = open(r"./data1.json")
     data = json.load(f)
     
     for i in data['nodes']:

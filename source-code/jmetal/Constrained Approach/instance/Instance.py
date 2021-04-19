@@ -44,17 +44,27 @@ class Instance():
         return active_nodes        
     def get_valid_nodes(self):
         valid_nodes=[]
+        active_nodes=self.active_nodes()
         for c in self.containers:
+            valid_nodes_per_container=[]
             
             constraints_per_container=[]
             if (c.placement!=[]):
                 constraints_per_container=c.placement
-                constraints_per_container.append(-1)
-                valid_nodes.append(constraints_per_container)
+                valid_nodes_per_container= list(set(active_nodes) & set(constraints_per_container))
+                valid_nodes_per_container.append(-1)
+                valid_nodes.append(valid_nodes_per_container)
+                
             
             else :
                 
-                valid_nodes.append('NA')
+               
+                for active_node in active_nodes:
+                    
+                    
+                    valid_nodes_per_container.append(active_node)
+                valid_nodes_per_container.append(-1)
+                valid_nodes.append(valid_nodes_per_container)
         self.constraints=valid_nodes        
         return valid_nodes
     

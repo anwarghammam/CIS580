@@ -24,7 +24,7 @@ from Problem.Instance_from_Json import createInstance
 from instance.Instance import Instance
 from constraints.PlacementConstraints import PlacementConstraints
 from constraints.AvailableNodesConstraint import AvailableNodesConstraint
-
+from constraints.SatisfyDependencies import SatisfyDependencies
 from jmetal.algorithm.multiobjective.nsgaiii import get_extreme_points,get_nadir_point,associate_to_niches,compute_niche_count,niching
 S = TypeVar('S')
 R = TypeVar('R')
@@ -77,9 +77,11 @@ class NSGAIII(NSGAII):
         
         while (len(solutions)!=self.population_size):
             sol=self.population_generator.new(self.problem)
-            solutions.append(sol)
+            if (SatisfyDependencies().evaluate(Instance,sol)==0):
+                solutions.append(sol)
+                print(sol)
        
-       
+        
         return(solutions) 
   
        
@@ -101,7 +103,7 @@ class NSGAIII(NSGAII):
                 
                 self.mutation_operator.execute(solution)
                 # here i will add constraints
-                if((PlacementConstraints().evaluate(Instance,solution))==0 and (AvailableNodesConstraint().evaluate(Instance,solution))==0):
+                if((PlacementConstraints().evaluate(Instance,solution))==0):
                     
                     offspring_population.append(solution)
                 if len(offspring_population) >= self.offspring_population_size:
