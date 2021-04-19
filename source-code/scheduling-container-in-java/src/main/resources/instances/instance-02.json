@@ -23,15 +23,13 @@
         "name": "p1_visualizer",
         "dependencies": [],
         "placements": [0],
-         "power_consumption": 80,
-        "priority": 2
+        
     }, {
         "id": 2,
         "name": "p1_prometheus",
         "dependencies": [8, 9],
         "placements": [0],
-         "power_consumption": 80,
-        "priority": 2
+        
     }, {
         "id": 3,
         "name": "p1_creator",
@@ -51,15 +49,13 @@
         "name": "p1_grafana",
         "dependencies": [2],
         "placements": [1, 2],
-         "power_consumption": 80,
-        "priority": 2
+       
     }, {
         "id": 6,
         "name": "p1_redis",
         "dependencies": [],
         "placements": [],
-         "power_consumption": 80,
-        "priority": 2
+       
     }, {
         "id": 7,
         "name": "p1_rabbitmq",
@@ -72,22 +68,19 @@
         "name": "p1_mongodbexpress",
         "dependencies": [10],
         "placements": [],
-         "power_consumption": 80,
-        "priority": 2
+        
     }, {
         "id": 9,
         "name": "p1_cadvisor",
         "dependencies": [],
         "placements": [],
-         "power_consumption": 80,
-        "priority": 2
+        
     }, {
         "id": 10,
         "name": "p1_mongodb",
         "dependencies": [],
         "placements": [],
-         "power_consumption": 80,
-        "priority": 2
+        
     }, {
         "id": 11,
         "name": "p1_api",
@@ -100,8 +93,7 @@
         "name": "p1_node-exporter",
         "dependencies": [],
         "placements": [],
-         "power_consumption": 80,
-        "priority": 2
+       
     }],
     "currentState": [0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2]
 }
