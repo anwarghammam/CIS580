@@ -1,58 +1,17 @@
-{
-    "name": "instance-01",
-    "author": "Thiago Ferreira",
-    "description": "Small Instance",
-    "nodes": [{
-        "id": 0,
-        "name": "manager",
-        "activated": true,
-        "max_power_consumption": 50
-    }, {
-        "id": 1,
-        "name": "worker_1",
-        "activated": true,
-        "max_power_consumption": 10
-    }, {
-        "id": 2,
-        "name": "worker_2",
-        "activated": true,
-        "max_power_consumption": 420
-    }],
-    "containers": [{
-        "id": 0,
-        "name": "creator",
-        "dependencies": [3],
-        "placements": [],
-        "power_consumption": 80,
-        "priority": 2
-    }, {
-        "id": 1,
-        "name": "web",
-        "dependencies": [3],
-        "placements": [],
-        "power_consumption": 20,
-        "priority": 3
-    }, {
-        "id": 2,
-        "name": "mongodb",
-        "dependencies": [],
-        "placements": [1, 2],
-        "power_consumption": 10,
-        "priority": 1
-    }, {
-        "id": 3,
-        "name": "api",
-        "dependencies": [2],
-        "placements": [],
-        "power_consumption": 15,
-        "priority": 1
-    }, {
-        "id": 4,
-        "name": "mongodbexpress",
-        "dependencies": [2],
-        "placements": [],
-        "power_consumption": 3,
-        "priority": 4
-    }],
-    "currentState": [2, 1, 0, 2, 0]
-}
+{"name": "instance-01", "author": "Thiago Ferreira", "description": "Small Instance",
+ "nodes": [{"id": 0, "name": "manager", "activated": true, "max_power_consumption": 100}, 
+{"id": 1, "name": "worker1", "activated": true, "max_power_consumption": 100},
+ {"id": 2, "name": "worker2", "activated": true, "max_power_consumption": 420}],
+ "containers": [{"id": 0, "name": "D_creator", "dependencies": [3], "placements": [], "power_consumption": 750, "priority": 2}, 
+ {"id": 1, "name": "D_web", "dependencies": [3], "placements": [], "power_consumption": 20, "priority": 3}, 
+ {"id": 2, "name": "D_api", "dependencies": [], "placements": [1, 2], "power_consumption": 10, "priority": 1},
+ {"id": 3, "name": "D_redis", "dependencies": [2], "placements": [0], "power_consumption": 15, "priority": 1}, 
+{"id": 5, "name": "D_nginx", "dependencies": [2], "placements": [], "power_consumption": 3, "priority": 4},
+{"id": 6, "name": "p_grafana", "dependencies": [2], "placements": [], "power_consumption": 3, "priority": 4},
+{"id": 7, "name": "D_visualizer", "dependencies": [2], "placements": [], "power_consumption": 3, "priority": 4},
+{"id": 8, "name": "D_rabbitmq", "dependencies": [2], "placements": [], "power_consumption": 3, "priority": 4},
+{"id": 9, "name": "p_prometheus", "dependencies": [2], "placements": [], "power_consumption": 3, "priority": 4},
+{"id": 10, "name": "D_mongodbexpress", "dependencies": [2], "placements": [], "power_consumption": 3, "priority": 4}
+
+
+], "currentState": [2, 1, 0, 2, 0]}

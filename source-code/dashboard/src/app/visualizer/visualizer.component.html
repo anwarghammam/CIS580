@@ -4,7 +4,7 @@
         <div *ngFor="let name of nodes_names ; let i = index" class= "col-sm-3" style="margin-right:1em;">
             <div style="width: 150px">
             <img style="height: 20px" src="https://icons.iconarchive.com/icons/hopstarter/soft-scraps/256/Button-Blank-Green-icon.png">
-            <strong >&nbsp;&nbsp; {{name}}   </strong>
+            <strong >&nbsp;&nbsp; {{name}}  &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; {{nodes_power_consumption[i]}}W</strong>
         </div>
             <div >
             
@@ -14,14 +14,20 @@
                     <div class="card-body">
                     <div class="card-title"></div>
                     <div class="card-text">
-
+                            
                           <br>
                            
-                        <div *ngFor="let con of containers[i],let j = index" class="card" [style.border-color]="colors[1]"  style="margin:1em;border: 5px solid;">
+                        <div *ngFor="let con of containers[i],let j = index" class="card" [style.border-color]="colors[color[j]]"  style="margin:1em;border: 5px solid;">
                             <div class="card-body">
-                            <div class="card-title">  {{con}}</div>
+                            <div class="card-title">  <span class="badge badge-light">4</span>  &nbsp;&nbsp;  <strong> {{con}} </strong> </div>
                             <div class="card-text">
-                               <br>
+                                <p style=" text-align: center;">
+                                    <br>
+                              {{containers_power_consumption[i][j]}}w
+                            </p>
+                              
+                              
+                              
                             </div>
                             </div>
                         </div>

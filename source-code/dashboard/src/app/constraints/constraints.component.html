@@ -1,4 +1,11 @@
-<table class="table table-striped" style="margin: 2em;">
+
+
+<div class="container" style="width: auto;margin:1em;">
+
+<h3 style="margin: 1em;"> <strong>Placement</strong></h3>
+
+<table class="table table-striped"  style="border: 1px solid black;">
+ 
     <thead>
       <tr >
         <th scope="col"> # </th>
@@ -20,5 +27,132 @@
       
     </tbody>
   </table>
+  <div>
+  
 
-  <button style="margin: 2em;" type="button" (click)="save()" class="btn btn-warning"> <i class="fa fa-folder"></i>Save</button>
+
+</div>
+<br>
+<br>
+  <div style="margin: 1em;" class="row">
+
+    <div class="col-md-10">
+    <h3 > <strong>Power Usage  </strong>  <label class="switch">
+      <input type="checkbox" (click)="poweron()">
+      <span class="slider round"></span>
+    </label></h3> </div>
+    <div class="col-md-2">
+      <!-- Example single danger button -->
+  <div *ngIf="power==true" class="btn-group">
+    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Action
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Action</a>
+      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="#">Something else here</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Separated link</a>
+    </div>
+ 
+    </div>
+    
+   
+   </div>
+</div>
+
+
+
+
+
+
+
+<div *ngIf="power==true" class="row" >
+  <div class="col-md-12">
+  <br>
+  <table class="table table-striped" style="border: 1px solid black;">
+ 
+    <thead>
+      <tr style="background-color: gainsboro;">
+        <th scope="col"> nodes </th>
+        <th *ngFor="let name of nodes ; let i = index" scope="col"> <strong> {{name.name}}</strong></th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr >
+        <th scope="row">Maximum power consumption (W) </th>
+        <td *ngFor="let node of nodes; let i = index"> 
+          <input type="number" [(ngModel)] = "nodes_max_power_consumption[i]" min="0"  max="1000" step="10"/>
+       </td>
+        
+      </tr>
+      
+    </tbody>
+  </table>
+  </div>
+</div>
+<!--
+  table for containers power consumptions
+-->
+
+<div *ngIf="power==true" class="row">
+  <div class="col-md-12">
+  <br>
+  <table class="table table-striped" style="border: 1px solid black;">
+ 
+    <thead>
+      <tr >
+        <th scope="col"> containers </th>
+        <th> <strong> Power Consumption (w)</strong></th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let con of containers ; let j = index" >
+        <th scope="row">{{con.name}} </th>
+        <td> 
+          <input type="number" [(ngModel)]="containers_power_consumption[j]" min="0" max="10000" step="10"/>
+       </td>
+        
+      </tr>
+      
+    </tbody>
+  </table>
+  </div>
+  </div>
+<br>
+<br>
+
+  <div class="row">
+
+  <div class="col-md-5">
+  <div class="form-group" >
+    <label for="file">Choose File (or change manually)</label>
+    <input type="file"
+           id="file"
+           (change)="handleFileInput($event.target.files)">
+</div>
+</div>
+<div class="col-md-5"></div>
+<div class="col-md-2">
+  <button  type="button" (click)="save()" class="btn btn-warning"> <i class="fa fa-folder"></i>Save</button>
+</div>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

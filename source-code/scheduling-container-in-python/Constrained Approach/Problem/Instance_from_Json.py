@@ -10,12 +10,12 @@ import json
 
 from instance.Node import Node
 from instance.Container import Container
-from instance.Instance import Instance
+
 
 
 def createInstance(Instance):
     
-    f = open(r"./data1.json")
+    f = open(r"instance examples/data1.json")
     data = json.load(f)
     
     for i in data['nodes']:

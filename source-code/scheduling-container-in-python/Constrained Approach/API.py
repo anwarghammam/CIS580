@@ -10,7 +10,7 @@ from flask import request
 from flask import Flask, jsonify
 import json
 import subprocess
-from run1 import transform
+from launchAlgo import transform
 from flask_restful import  Api
 from flask_cors import CORS
 app = Flask(__name__)
@@ -20,7 +20,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/getjson/', methods=['GET'])
 def summary():
-    f = open(r"./data.json")
+    f = open(r"instance examples/data.json")
 
     data = json.load(f)
     response = app.response_class(
@@ -38,7 +38,7 @@ def events():
     content = request.get_data()
     c=json.loads(content)
     print(c)
-    with open('./data.json', 'w') as f:
+    with open(r"instance examples/data.json", 'w') as f:
         json.dump(c, f)
     return 'JSON posted'
 

@@ -18,6 +18,8 @@ class SatisfyDependencies():
                 for dep in dependents:
                     if solution.variables[dep]!=-1:
                         invalids=invalids+1
+                    
+                        
         return invalids        
     def getDependents(self,dependencies,i):
         containers=[]
