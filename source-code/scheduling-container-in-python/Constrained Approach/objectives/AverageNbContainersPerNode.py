@@ -16,6 +16,7 @@ class AverageNbContainersPerNode():
         
         occurences=[]
         total=0
+        print(solution)
         nb_variables= list(filter((-1).__ne__, solution.variables))
         for val in collections.Counter(nb_variables).values() :
             

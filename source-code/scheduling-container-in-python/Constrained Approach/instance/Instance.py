@@ -15,6 +15,7 @@ class Instance():
         self.currentState=[]
         self.constraints=[]
         self.dependencies=[]
+        self.images=[]
     def find_container_by_id(self,id):
         for con in self.containers:
             if (con.id ==id):
@@ -25,6 +26,11 @@ class Instance():
             if (n.id ==id):
                 
                return (n)   
+           
+    def getImages(self):
+        for con in self.containers:
+            self.images.append(con.image)
+        
     
     def get_alldependencies(self):
         all_edges=[]
@@ -52,7 +58,11 @@ class Instance():
             if (c.placement!=[]):
                 constraints_per_container=c.placement
                 valid_nodes_per_container= list(set(active_nodes) & set(constraints_per_container))
-                valid_nodes_per_container.append(-1)
+                if(len(valid_nodes_per_container)==1):
+                    
+                    if (self.find_node_by_id(valid_nodes_per_container[0]).maxPowerconsumption<c.powerConsumption):
+                        
+                        valid_nodes_per_container.append(-1)
                 valid_nodes.append(valid_nodes_per_container)
                 
             

@@ -1,0 +1,90 @@
+services:
+  api:
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == manager
+    environment:
+      DATABASE_URL: mongodb://admin:admin@mongodb:27017
+    image: iselabdearborn/docker-grocery-api
+    ports:
+    - 3000:3000
+  creator:
+    depends_on:
+    - api
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == manager
+    environment:
+      API_URL: http://api:3000/api
+    image: iselabdearborn/docker-grocery-creator
+  mongodb:
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == manager
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_ROOT_USERNAME: admin
+    image: webhippie/mongodb:latest
+    ports:
+    - 27017:27017
+  mongodbexpress:
+    depends_on:
+    - mongodb
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == manager
+    environment:
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_SERVER: mongodb
+    image: mongo-express:0.54
+    ports:
+    - 8000:8081
+  nginx:
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == manager
+    image: nginx
+  rabbitmq:
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == manager
+    image: rabbitmq
+  redis:
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == worker1
+    image: redis
+  visualizer:
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == worker2
+    image: dockersamples/visualizer:latest
+    ports:
+    - 8070:8080
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  web:
+    depends_on:
+    - api
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == manager
+    environment:
+      API_URL: http://api:3000/api
+    image: iselabdearborn/docker-grocery-web
+    ports:
+    - 8081:3000
+version: '3.8'
+volumes:
+  data-volume:
+    driver: local

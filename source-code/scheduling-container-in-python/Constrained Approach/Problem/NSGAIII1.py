@@ -79,7 +79,7 @@ class NSGAIII(NSGAII):
             sol=self.population_generator.new(self.problem)
             if (SatisfyDependencies().evaluate(Instance,sol)==0):
                 solutions.append(sol)
-                print(sol)
+                
        
         
         return(solutions) 
@@ -103,7 +103,7 @@ class NSGAIII(NSGAII):
                 
                 self.mutation_operator.execute(solution)
                 # here i will add constraints
-                if((PlacementConstraints().evaluate(Instance,solution))==0):
+                if((PlacementConstraints().evaluate(Instance,solution))==0 and SatisfyDependencies().evaluate(Instance,solution)==0):
                     
                     offspring_population.append(solution)
                 if len(offspring_population) >= self.offspring_population_size:

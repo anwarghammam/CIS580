@@ -12,6 +12,7 @@ export class VisualizerComponent implements OnInit {
   nodes_all=[]
   containers_all=[]
   resp
+  total_power_per_node=[]
   containers_info=[]
   nodes_ids=[]
   containers=[]
@@ -67,7 +68,7 @@ export class VisualizerComponent implements OnInit {
      this.api.containers_per_node(String(val))
      .subscribe(
        resp => {
-          
+          console.log(resp)
           resp.body['data'].result.forEach(element => {
           containers_per_node.push(element['metric']['container_label_com_docker_swarm_service_name'].toString())
         
@@ -88,9 +89,20 @@ export class VisualizerComponent implements OnInit {
            
             
           });
+          let sum=0
+          power_per_node.forEach(element => {
+            
+            sum=sum+parseInt(element)
+ 
+            
+          });
+       
+          this.total_power_per_node.push(sum)
          })
         
-         console.log(power_per_node)
+        
+        
+       
          this.containers_power_consumption.push(power_per_node)
          this.containers_priorities.push(priorities_per_node)
         ;}
@@ -99,6 +111,7 @@ export class VisualizerComponent implements OnInit {
         )
         console.log(this.containers_priorities)
         console.log(this.containers_power_consumption)
+        console.log(this.total_power_per_node)
        
 
       

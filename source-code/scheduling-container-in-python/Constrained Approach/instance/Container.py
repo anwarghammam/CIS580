@@ -7,10 +7,11 @@ Created on Fri Apr 16 14:22:33 2021
 """
 
 class Container:
-    def __init__(self,id,name,dependencies,placement,powerConsumption,priority):
+    def __init__(self,id,name,image,dependencies,placement,powerConsumption,priority):
         
         self.id=id
         self.name=name
+        self.image=image
         self.dependencies=dependencies
         self.placement=placement
         self.powerConsumption=powerConsumption

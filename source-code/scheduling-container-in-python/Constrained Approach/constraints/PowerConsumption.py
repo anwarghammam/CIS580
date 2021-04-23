@@ -18,7 +18,7 @@ class PowerConsumption():
            
             if (var!=-1):
                
-                total_power_consumption[var]=total_power_consumption[var]+Instance.containers[i].powerConsumption
+                total_power_consumption[var]=total_power_consumption[var]+Instance.find_container_by_id(i).powerConsumption
       
             
         invalids=0

@@ -21,6 +21,7 @@ export class ConstraintsComponent implements OnInit {
    nodes=[]
    constraints=[]
    nodes_max_power_consumption=[]
+   new_containers_priorities=[]
    containers_power_consumption=[]
    new_nodes_max_power_consumption=[]
    new_containers_power_consumption=[]
@@ -69,8 +70,10 @@ export class ConstraintsComponent implements OnInit {
       console.log(this.fileToUpload['containers'])
       this.fileToUpload['containers'].forEach(con=> {
         console.log(con['placements'])
+        console.log(con['priority'])
         this.new_constraints.push(con['placements'])
         this.new_containers_power_consumption.push(con['power_consumption'])
+        this.new_containers_priorities.push(con['priority'])
        
 
         
@@ -124,7 +127,7 @@ console.log("new constraints  ",this.new_constraints)
 for (var j = 0; j < this.new_constraints.length;j++){
   this.resp['containers'][j]['placements']=this.new_constraints[j]
   this.resp['containers'][j]['power_consumption']=this.containers_power_consumption[j]
-
+  
 }
 for (var j = 0; j < this.nodes_max_power_consumption.length;j++){
  
@@ -137,7 +140,7 @@ else{
   for (var j = 0; j < this.new_constraints.length;j++){
     this.resp['containers'][j]['placements']=this.new_constraints[j]
     this.resp['containers'][j]['power_consumption']=this.new_containers_power_consumption[j]
-  
+    this.resp['containers'][j]['priority']=this.new_containers_priorities[j]
   }
   for (var j = 0; j < this.nodes_max_power_consumption.length;j++){
    

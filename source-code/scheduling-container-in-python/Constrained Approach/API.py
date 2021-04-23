@@ -20,7 +20,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/getjson/', methods=['GET'])
 def summary():
-    f = open(r"instance examples/data.json")
+    f = open(r"instanceExamples/data.json")
 
     data = json.load(f)
     response = app.response_class(
@@ -38,7 +38,7 @@ def events():
     content = request.get_data()
     c=json.loads(content)
     print(c)
-    with open(r"instance examples/data.json", 'w') as f:
+    with open(r"instanceExamples/data.json", 'w') as f:
         json.dump(c, f)
     return 'JSON posted'
 
@@ -46,7 +46,7 @@ def events():
 
 @app.route('/default/', methods=['GET'])
 def get():
-    cmd = ('ssh root@manager docker stack deploy --compose-file docker-compose_initial.yml p1').split()
+    cmd = ('ssh root@manager docker stack deploy --compose-file initial-docker-compose.yml p').split()
 
     p = subprocess.Popen(cmd,stdout = subprocess.PIPE)
     output, errors = p.communicate()
@@ -61,10 +61,10 @@ def get():
 
 def new_approach():
     transform()
-    # cmd = ('docker-machine ssh manager docker stack deploy --compose-file docker-compose1.yml D ').split()
+    cmd = ('docker-machine ssh manager docker stack deploy --compose-file updated-docker-compose.yml p ').split()
 
-    # p = subprocess.Popen(cmd)
-    # output, errors = p.communicate() 
+    p = subprocess.Popen(cmd)
+    output, errors = p.communicate() 
        
     # print(output)
     # print(errors)

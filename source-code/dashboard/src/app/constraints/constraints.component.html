@@ -4,7 +4,7 @@
 
 <h3 style="margin: 1em;"> <strong>Placement</strong></h3>
 
-<table class="table table-striped"  style="border: 1px solid black;">
+<table class="table table-striped"  style="border: 1px solid black;margin-left: 1em;margin-right: 1em;">
  
     <thead>
       <tr >
@@ -44,7 +44,7 @@
     <div class="col-md-2">
       <!-- Example single danger button -->
   <div *ngIf="power==true" class="btn-group">
-    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ <!--  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Action
     </button>
     <div class="dropdown-menu">
@@ -56,7 +56,7 @@
     </div>
  
     </div>
-    
+    !-->
    
    </div>
 </div>
@@ -105,6 +105,7 @@
       <tr >
         <th scope="col"> containers </th>
         <th> <strong> Power Consumption (w)</strong></th>
+        <th> <strong> Priority</strong></th>
         
       </tr>
     </thead>
@@ -114,6 +115,9 @@
         <td> 
           <input type="number" [(ngModel)]="containers_power_consumption[j]" min="0" max="10000" step="10"/>
        </td>
+       <td> 
+        <input type="number" [(ngModel)]="con.priority" min="1" max="5" step="1"/>
+     </td>
         
       </tr>
       
@@ -123,6 +127,8 @@
   </div>
 <br>
 <br>
+
+
 
   <div class="row">
 

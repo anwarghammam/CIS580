@@ -17,6 +17,7 @@ from jmetal.core.quality_indicator import QualityIndicator,FitnessValue,HyperVol
 from jmetal.util.observer import  ProgressBarObserver
 import numpy as np
 from instance.Instance import Instance
+from extract_data import Data
 import subprocess
 
 from Problem.Instance_from_Json import createInstance
@@ -106,7 +107,7 @@ def transform():
             violated=violated+1
     print()
     print()            
-    print("violated solutions are equal to ", violated/len(front) ,"%  for ", len(front))    
+    #print("violated solutions are equal to ", violated/len(front) ,"%  for ", len(front))    
 
     front_sol1=[]
     resultat=[]
@@ -128,8 +129,8 @@ def transform():
     print(candidate)
         
     
-    print_function_values_to_file(front,r"/home/anwar/Desktop/NSGAIII/test/&-"+str(max_evaluations)+".txt")
-    print_variables_to_file(front, r"/home/anwar/Desktop/NSGAIII/pareto-front-approach1.txt")
+    #print_function_values_to_file(front,r"/home/anwar/Desktop/NSGAIII/test/&-"+str(max_evaluations)+".txt")
+    #print_variables_to_file(front, r"/home/anwar/Desktop/NSGAIII/pareto-front-approach1.txt")
     #print("functions value of the front :")
     print()
     print()
@@ -164,13 +165,19 @@ def transform():
     # print(state)
     # print(candidate_functions)
 
-    # images,containers,initial_state,machines=get_data()
+  
     
-    # keep_trace1(containers,initial_state,machines,r'/home/anwar/Desktop/docker-compose.yml')
-    # keep_trace1(containers,state,machines,r'/home/anwar/Desktop/docker-compose1.yml')
+    Data().updateDockerCompose(Instance.containers,Instance.images,Instance.currentState,Instance.nodes,'instanceExamples/initial-docker-compose.yml')
     
+    services_to_shutdown=Data().updateDockerCompose(Instance.containers,Instance.images,candidate.variables,Instance.nodes,'instanceExamples/updated-docker-compose.yml')
+    for service in services_to_shutdown:
+        #print("docker-machine ssh manager docker service rm" +str(service))
+        cmd = ("docker-machine ssh manager docker service rm "  +str(service)).split()
+
+        p = subprocess.Popen(cmd)
+        output, errors = p.communicate() 
     
     return front
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 
-#transform()
+transform()

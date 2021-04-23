@@ -10,7 +10,7 @@ import 'rxjs/Rx';
 export class ApiService implements OnInit{
  url="http://192.168.98.101:9090/"
  
- 
+ eliminate_services=['p_node-exporter','p_cadvisor','p_prometheus']
 
  constructor(private http: HttpClient)  { 
   
@@ -67,7 +67,7 @@ export class ApiService implements OnInit{
    return   this.http.get<JSON>(this.url+"api/v1/query?query=100%20-%20(avg(irate(node_cpu_seconds_total{mode=%22idle%22}[5m])*%20on(instance)%20group_left(node_name)%20node_meta{node_id=%22"+node_id+"%22}%20*%20100)%20by%20(node_name))", { observe: 'response' });
   }
   containers_per_node(node_id):Observable<HttpResponse<JSON>>{
-    return   this.http.get<JSON>(this.url+"api/v1/query?query=sum(rate(container_last_seen{container_label_com_docker_swarm_node_id%3D~%22"+node_id+"%22}[5m]))%20by%20(container_label_com_docker_swarm_service_name)", { observe: 'response' });
+    return   this.http.get<JSON>(this.url+"api/v1/query?query=sum(rate(container_last_seen{container_label_com_docker_swarm_service_name!=%22"+this.eliminate_services[0]+"%22,container_label_com_docker_swarm_service_name!=%22"+this.eliminate_services[1]+"%22,container_label_com_docker_swarm_service_name!=%22"+this.eliminate_services[2]+"%22,container_label_com_docker_swarm_node_id=~%22"+node_id+"%22}[5m])) by (container_label_com_docker_swarm_service_name)", { observe: 'response' });
    }
   
   alerts():Observable<HttpResponse<JSON>>{

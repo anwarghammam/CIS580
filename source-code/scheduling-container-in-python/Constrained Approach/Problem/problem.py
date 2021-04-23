@@ -54,7 +54,7 @@ class ReschedulingProblem(IntegerProblem,ABC):
                          AverageNbContainersPerNode(),
                          #Coupling(),
                          Cohesion(),
-                         NumberOfChanges(),
+                         #NumberOfChanges(),
                          EvalPowerConsumption(),
                          Priority()
                          ]
@@ -62,7 +62,7 @@ class ReschedulingProblem(IntegerProblem,ABC):
         self.constraints=[SatisfyDependencies(),
                           PowerConsumption(),
                           PlacementConstraints(),
-                          #AvailableNodesConstraint()
+                          AvailableNodesConstraint()
                           ]
         
         self.number_of_constraints = len(self.constraints)

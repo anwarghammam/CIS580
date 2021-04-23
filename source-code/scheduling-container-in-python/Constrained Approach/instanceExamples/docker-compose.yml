@@ -1,0 +1,81 @@
+services:
+  api:
+    deploy:
+      
+    environment:
+      DATABASE_URL: mongodb://admin:admin@mongodb:27017
+    image: iselabdearborn/docker-grocery-api
+    ports:
+    - 3000:3000
+  creator:
+    depends_on:
+    - api
+    
+    environment:
+      API_URL: http://api:3000/api
+    image: iselabdearborn/docker-grocery-creator
+  
+  mongodb:
+   # image: mongo:4.4.2
+    image: webhippie/mongodb:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      #placement:
+      #  constraints: [node.role == worker]
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    
+  mongodbexpress:
+    depends_on:
+      - mongodb 
+    environment:
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_SERVER: mongodb
+    image: mongo-express:0.54
+    ports:
+    - 8000:8081
+  nginx:
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == worker1
+    image: nginx
+ 
+  rabbitmq:
+    
+    image: rabbitmq
+  redis:
+    
+    image: redis
+  visualizer:
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == manager
+    image: dockersamples/visualizer:latest
+    ports:
+    - 8070:8080
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  web:
+    depends_on:
+    - api
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == worker1
+    environment:
+      API_URL: http://api:3000/api
+    image: iselabdearborn/docker-grocery-web
+    ports:
+    - 8081:3000
+version: '3.8'
+volumes:
+  data-volume:
+    driver: local

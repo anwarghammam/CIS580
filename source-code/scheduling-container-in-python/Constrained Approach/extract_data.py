@@ -113,28 +113,42 @@ class Data:
 
 
 
-    def keep_trace1(self,containers,images,state,machines,file):   
-    
-        with open(r'./docker-compose.yml') as file2:
+    def updateDockerCompose(self,containers,images,state,machines,file): 
+        services_to_shutdown=[]
+        eliminate=[]
+        with open(r'instanceExamples/docker-compose.yml') as file2:
   
             compose = yaml.load(file2,Loader=yaml.FullLoader)
-        
-    
+           
+      
         for i,con  in enumerate(images) :
-            for dict in compose['services']:
+           
+            for j,dict in enumerate(compose['services']):
             
-            
+                #print(compose['services'][dict])
                 if str(compose['services'][dict]['image']) in str(con):
+                    
+                    if (state[i]!=-1):
+                        
+                      
+                        name='node.hostname == '+str(machines[state[i]].name)
+                        compose['services'][dict].update({'deploy': {'placement': {'constraints':  [ name ]}}})    
                 
-                    name='node.hostname == '+str(machines[state[i]])
-                    compose['services'][dict].update({'deploy': {'placement': {'constraints':  [ name ]}}})    
+                    else:
+                        eliminate.append(dict)
+                       
+                        services_to_shutdown.append(containers[i].name)
+        
+        for dict in eliminate:
+            del(compose['services'][dict])
+            
                 
-    
         with open(file,'w') as file1:
         
             yaml.dump(compose,file1)  
-        
-        cmd = ('scp '+ file+' root@manager: ').split()
+            
+       
+        cmd = ("docker-machine scp localhost:"+str(file)+"  docker@manager:. ").split()
 
         p = subprocess.Popen(cmd)
         output, errors = p.communicate() 
@@ -144,7 +158,7 @@ class Data:
         # p = subprocess.Popen(cmd)
         # output, errors = p.communicate() 
     
-    
+        return (services_to_shutdown)
 
 
 
@@ -276,34 +290,6 @@ class Data:
          
         return(constraints)
 
-
-    def constraints_violated(self,solution,constraints) -> bool :
-    
-    
-        result=False
-        i=0
-        while (i < len(constraints)):
-    
-            if (constraints[i]=='NA'):
-        
-                i=i+1
-            else:
-                cons=constraints[i]
-                if (type(cons) is int):
-                    if(solution.variables[i] != cons):
-                        result=True
-                        return(result)
-                    else:
-                        i=i+1
-                else:    
-            
-                    if(solution.variables[i] not in cons):
-                        result=True
-                        return(result)
-                
-                    else:
-                        i=i+1      
-        return(result)
 
     def createjson(self,machines,containers,initial_state,images,dependencies,constraints):
         
