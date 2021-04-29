@@ -41,7 +41,7 @@ export class VisualizerComponent implements OnInit {
     this.api.nb_info()
     .subscribe(
       resp => {
-        console.log(resp)
+       
         this.info=resp.body['data']['result']
         
        for (var val of this.info){
@@ -53,32 +53,37 @@ export class VisualizerComponent implements OnInit {
         this.get_containers()
         });
        
-      console.log(this.nodes_names)
+      this.api.all_current_data=this.data1
+     
      
   }
 
 
   get_containers(){
     this.get_constraints()
-         
-    this.nodes_ids.forEach(val=>{
+    
+    this.data1.forEach(val=>{
      let containers_per_node=[]
      let power_per_node=[]
       let priorities_per_node=[]
-     this.api.containers_per_node(String(val))
+     this.api.containers_per_node(String(val[1]))
      .subscribe(
        resp => {
-          console.log(resp)
+         
           resp.body['data'].result.forEach(element => {
           containers_per_node.push(element['metric']['container_label_com_docker_swarm_service_name'].toString())
-        
+          
             
           });
+          
+          val.push(containers_per_node)
+            
+          
 
-          this.containers.push(containers_per_node)
          
           this.containers_info.forEach(element => {
-           
+          
+          
            let index=containers_per_node.indexOf(element['name'])
           
             if (index> -1){
@@ -89,13 +94,18 @@ export class VisualizerComponent implements OnInit {
            
             
           });
+        
+        
           let sum=0
+        
           power_per_node.forEach(element => {
             
             sum=sum+parseInt(element)
  
             
           });
+          val.push(sum)
+         
        
           this.total_power_per_node.push(sum)
          })
@@ -109,9 +119,7 @@ export class VisualizerComponent implements OnInit {
         
         
         )
-        console.log(this.containers_priorities)
-        console.log(this.containers_power_consumption)
-        console.log(this.total_power_per_node)
+      
        
 
       
@@ -125,14 +133,13 @@ export class VisualizerComponent implements OnInit {
     this.api.get_constraints()
     .subscribe(
       resp => {
-        console.log(resp)    
+        
             this.resp=resp.body
-         console.log(resp)
+        
          this.containers_info=resp.body['containers']
          this.nodes_info=resp.body["nodes"]
          
-         console.log(this.containers_info)
-         console.log(this.nodes_info)
+       
            
        this.nodes_info.forEach(element => {
         let index=this.nodes_names.indexOf(element['name'])
@@ -149,7 +156,7 @@ export class VisualizerComponent implements OnInit {
 
 
 
-      console.log(this.nodes_power_consumption)
+    
         
         });
         

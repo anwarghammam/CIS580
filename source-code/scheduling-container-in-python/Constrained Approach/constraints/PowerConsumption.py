@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 # -*- coding: utf-8 -*-
 """
 Created on Fri Apr 16 13:50:38 2021
@@ -18,7 +18,7 @@ class PowerConsumption():
            
             if (var!=-1):
                
-                total_power_consumption[var]=total_power_consumption[var]+Instance.find_container_by_id(i).powerConsumption
+                total_power_consumption[var]=total_power_consumption[var]+Instance.find_container_by_id(i).average_power_consumption_per_minute
       
             
         invalids=0

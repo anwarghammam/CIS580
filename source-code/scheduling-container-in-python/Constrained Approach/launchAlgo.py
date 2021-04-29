@@ -27,57 +27,61 @@ from Problem.Instance_from_Json import createInstance
 solutions=[]
 
 
-instance=Instance()
-Instance=createInstance(instance)
-problem=ReschedulingProblem(instance)
+
 all2=np.zeros([1,5])
 all3=[]
 
 
 
 
-print()
-Instance.print_info('nodes')
-print()
-
-
-print()
-
-print()
-Instance.print_info('currentstate')
-
-
-print()
-
-
-
-print()
-Instance.print_info('constraints')
-
-
-print()
-
-print()
-Instance.print_info('dependencies')
 
 
 
 max_evaluations=2500
 
-algorithm1= NSGAIII(
+
+
+
+ 
+
+def transform(instance):
+   
+    
+    problem=ReschedulingProblem(instance)
+    algorithm1= NSGAIII(
     problem=problem,
     population_size=200,
     reference_directions=UniformReferenceDirectionFactory(problem.number_of_objectives,n_partitions=problem.number_of_objectives),
     mutation=IntegerPolynomialMutation(probability=0.05),
     crossover=IntegerSBXCrossover(probability=0.9),
     termination_criterion=StoppingByEvaluations(max_evaluations=max_evaluations)
-)
+    )
+
+    print()
+    instance.print_info('nodes')
+    print()
 
 
-print()
-algorithm1.observable.register(ProgressBarObserver(max=max_evaluations))    
+    print()
 
-def transform():
+    print()
+    instance.print_info('currentstate')
+
+
+    print()
+
+
+
+    print()
+    instance.print_info('constraints')
+
+
+    print()
+
+    print()
+    instance.print_info('dependencies')
+    print()
+    algorithm1.observable.register(ProgressBarObserver(max=max_evaluations))  
     print()
     print()
     print("Algorithm running....")
@@ -95,7 +99,7 @@ def transform():
         cons=[]
         for i,constraint in enumerate(problem.constraints) :
             
-            cons.append(constraint.evaluate(Instance,sol))
+            cons.append(constraint.evaluate(instance,sol))
          
         
         total_invalids=0
@@ -130,7 +134,7 @@ def transform():
         
     
     #print_function_values_to_file(front,r"/home/anwar/Desktop/NSGAIII/test/&-"+str(max_evaluations)+".txt")
-    #print_variables_to_file(front, r"/home/anwar/Desktop/NSGAIII/pareto-front-approach1.txt")
+    print_variables_to_file(front, r"/home/anwar/Desktop/NSGAIII/pareto-front-approach1.txt")
     #print("functions value of the front :")
     print()
     print()
@@ -167,9 +171,9 @@ def transform():
 
   
     
-    Data().updateDockerCompose(Instance.containers,Instance.images,Instance.currentState,Instance.nodes,'instanceExamples/initial-docker-compose.yml')
+    Data().updateDockerCompose(instance.containers,instance.images,instance.currentState,instance.nodes,'DockerComposeFiles/initial-docker-compose.yml')
     
-    services_to_shutdown=Data().updateDockerCompose(Instance.containers,Instance.images,candidate.variables,Instance.nodes,'instanceExamples/updated-docker-compose.yml')
+    services_to_shutdown=Data().updateDockerCompose(instance.containers,instance.images,candidate.variables,instance.nodes,'DockerComposeFiles/updated-docker-compose.yml')
     for service in services_to_shutdown:
         #print("docker-machine ssh manager docker service rm" +str(service))
         cmd = ("docker-machine ssh manager docker service rm "  +str(service)).split()
@@ -180,4 +184,4 @@ def transform():
     return front
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 
-transform()
+#transform()

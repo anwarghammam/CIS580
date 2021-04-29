@@ -1,6 +1,8 @@
 
 
-function all(){
+function all(data,nodes){
+   
+   
     
  var ctx = document.getElementById('myChart').getContext('2d');
  var ctx2 = document.getElementById('myChart2').getContext('2d');
@@ -8,6 +10,8 @@ function all(){
  var ctx4 = document.getElementById('myChart4').getContext('2d');
  var ctx5 = document.getElementById('myChart5').getContext('2d');
  var ctx6 = document.getElementById('myChart6').getContext('2d');
+ var ctx7 = document.getElementById('myChart7').getContext('2d');
+ var ctx8 = document.getElementById('myChart8').getContext('2d');
  url="http://192.168.98.101:9090/"
 
  
@@ -25,6 +29,165 @@ const query6="sum(rate(container_network_transmit_bytes_total [5m]) * on(contain
  // relative
  const start = -30 * 60 * 1000;
  const end = 0; // now
+colors=['red','blue','orange','green','gray','pink','yellow','white']
+all1=[]
+var i=-1
+var total_energy_per_node=[]
+
+all_running_containers=[]
+nodes.forEach(element => {
+    element[3].forEach(con => {
+        all_running_containers.push(con)
+        
+    });
+
+    
+});
+console.log(all_running_containers)
+ total_energy_per_node = JSON.parse(JSON.stringify(data[0]['energy_per_period']));
+
+total_energy_per_node.forEach(element => {
+      element['y']=0
+        
+   
+    
+});
+
+ data.forEach(element => {
+     i=i+1
+     if (all_running_containers.includes(element['container'])==true)
+     {
+     var s={
+        label: element['container'],
+        borderColor: colors[i],
+        data: element['energy_per_period'].slice(Math.max(element['energy_per_period'].length - 10, 1))  
+     }
+     
+     all1.push(s)}
+     
+ });
+ all_energies=[]
+ console.log(data)
+nodes.forEach(element => {
+    total_energy_per_node1=[]
+    total_energy_per_node1 = JSON.parse(JSON.stringify(total_energy_per_node));
+  element[3].forEach(con_per_node=> {
+    
+      data.forEach(con => {
+        
+          if (String(con['container'])==String(con_per_node)){
+            console.log(con['container'])
+            console.log(con_per_node)
+              console.log(con_per_node)
+              i=0
+            con['energy_per_period'].forEach(line => {
+                total_energy_per_node1[i]['y']= total_energy_per_node1[i]['y']+line['y']
+                i=i+1
+                
+            });
+          }
+          
+      });
+    
+  }
+  );
+ 
+  all_energies.push({'node':element[0],'energy':total_energy_per_node1})
+} ,    
+
+);
+console.log(all_energies)
+
+
+
+i=0
+all2=[]
+    all_energies.forEach(element => {
+    i=i+1
+    var s={
+       label: element['node'],
+       borderColor: colors[i],
+       data: element['energy'].slice(Math.max(element['energy'].length - 10, 1))  
+    }
+    
+    all2.push(s)
+    
+});
+ 
+ 
+
+ 
+  
+  var chart = new Chart(ctx7, {
+    type: 'line',
+    data: { datasets: all1},
+    options: {
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    unit: 'minute',
+                                              
+                },
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'value'
+                }                        
+            }]
+        },
+        title: {
+            display: true,
+            text: 'Total Power Consumption per Container'
+        },
+       
+    },
+    
+  });
+
+
+  var chart = new Chart(ctx8, {
+    type: 'line',
+    data: { datasets: all2},
+    options: {
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    unit: 'minute',
+                                              
+                },
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'value'
+                }                        
+            }]
+        },
+        title: {
+            display: true,
+            text: 'Total Power Consumption per Node'
+        },
+       
+    },
+    
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  var myChart1 = new Chart(ctx, {
     type: 'line',
     data: {
@@ -494,6 +657,4 @@ var myChart6 = new Chart(ctx6, {
 });
 
 
- document.getElementById('updateBtn').addEventListener('click', () => {
-     myChart.update();
- });}
+ ;}

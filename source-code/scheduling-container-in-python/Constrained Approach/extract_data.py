@@ -116,7 +116,7 @@ class Data:
     def updateDockerCompose(self,containers,images,state,machines,file): 
         services_to_shutdown=[]
         eliminate=[]
-        with open(r'instanceExamples/docker-compose.yml') as file2:
+        with open(r'DockerComposeFiles/docker-compose.yml') as file2:
   
             compose = yaml.load(file2,Loader=yaml.FullLoader)
            

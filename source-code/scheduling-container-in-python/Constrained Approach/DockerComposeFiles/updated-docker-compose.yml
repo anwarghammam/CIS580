@@ -1,0 +1,31 @@
+services:
+  api:
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == worker1
+    environment:
+      DATABASE_URL: mongodb://admin:admin@mongodb:27017
+    image: iselabdearborn/docker-grocery-api
+    ports:
+    - 3000:3000
+  creator:
+    depends_on:
+    - api
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == worker1
+    environment:
+      API_URL: http://api:3000/api
+    image: iselabdearborn/docker-grocery-creator
+  redis:
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == manager
+    image: redis
+version: '3.8'
+volumes:
+  data-volume:
+    driver: local

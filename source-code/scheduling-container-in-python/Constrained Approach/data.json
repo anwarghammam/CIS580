@@ -1,1 +1,102 @@
-{"name": "instance-01", "author": "Thiago Ferreira", "description": "Small Instance", "nodes": [{"id": 0, "name": "manager", "activated": true, "max_power_consumption": 50}, {"id": 1, "name": "worker1", "activated": true, "max_power_consumption": 100}, {"id": 2, "name": "worker2", "activated": true, "max_power_consumption": 420}], "containers": [{"id": 0, "name": "creator", "dependencies": [3], "placements": [], "power_consumption": 75, "priority": 2}, {"id": 1, "name": "web", "dependencies": [3], "placements": [], "power_consumption": 20, "priority": 3}, {"id": 2, "name": "mongodb", "dependencies": [], "placements": [1, 2], "power_consumption": 10, "priority": 1}, {"id": 3, "name": "api", "dependencies": [2], "placements": [0], "power_consumption": 15, "priority": 1}, {"id": 4, "name": "mongodbexpress", "dependencies": [2], "placements": [], "power_consumption": 3, "priority": 4}], "currentState": [2, 1, 0, 2, 0]}
+{
+    "name": "instance-02",
+    "nodes": [{
+        "id": 0,
+        "name": "manager",
+        "activated": true,
+         "max_power_consumption": 1000
+    }, {
+        "id": 1,
+        "name": "worker_1",
+        "activated": true,
+         "max_power_consumption": 100
+    }, {
+        "id": 2,
+        "name": "worker_2",
+        "activated": true,
+         "max_power_consumption": 100
+    }],
+    "containers": [{
+        "id": 0,
+        "name": "p_nginx",
+        "image":"node1",
+        "dependencies": [],
+        "placements": [],
+         "power_consumption": 80,
+        "priority": 2
+    }, {
+        "id": 1,
+        "name": "p_visualizer",
+        "image":"node2",
+        "dependencies": [],
+        "placements": [0],
+         "power_consumption": 80,
+        "priority": 0
+    }, {
+        "id": 2,
+        "name": "p_prometheus",
+        "image":"node3",
+        "dependencies": [8, 9],
+        "placements": [0],
+         "power_consumption": 80,
+        "priority": 4
+    }, {
+        "id": 3,
+        "name": "p_creator",
+        "image":"node4",
+        "dependencies": [11],
+        "placements": [],
+         "power_consumption": 80,
+        "priority": 4
+    }, {
+        "id": 4,
+        "name": "p_web",
+        "image":"node5",
+        "dependencies": [11],
+        "placements": [],
+         "power_consumption": 80,
+        "priority": 2
+    }, {
+        "id": 5,
+        "name": "p_grafana",
+        "image":"node6",
+        "dependencies": [2],
+        "placements": [1, 2],
+         "power_consumption": 80,
+        "priority": 2
+    }, {
+        "id": 6,
+        "name": "p_redis",
+        "image":"node7",
+        "dependencies": [],
+        "placements": [],
+         "power_consumption": 80,
+        "priority": 2
+    }, {
+        "id": 7,
+        "name": "p_rabbitmq",
+        "image":"node8",
+        "dependencies": [],
+        "placements": [],
+         "power_consumption": 80,
+        "priority": 2
+    },  {
+        "id": 8,
+        "name": "p_cadvisor",
+        "image":"node9",
+        "dependencies": [],
+        "placements": [],
+         "power_consumption": 80,
+        "priority": 4
+    }, {
+        "id": 9,
+        "name": "p_mongodb",
+        "image":"node10",
+        "dependencies": [],
+        "placements": [],
+         "power_consumption": 80,
+        "priority": 2
+    }],
+    "currentState": [0, 0, 0, 0, 0, 1, 1, 1, 1,2]
+}
+

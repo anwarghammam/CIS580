@@ -60,7 +60,7 @@ class Instance():
                 valid_nodes_per_container= list(set(active_nodes) & set(constraints_per_container))
                 if(len(valid_nodes_per_container)==1):
                     
-                    if (self.find_node_by_id(valid_nodes_per_container[0]).maxPowerconsumption<c.powerConsumption):
+                    if (self.find_node_by_id(valid_nodes_per_container[0]).maxPowerconsumption<c.average_power_consumption_per_minute):
                         
                         valid_nodes_per_container.append(-1)
                 valid_nodes.append(valid_nodes_per_container)

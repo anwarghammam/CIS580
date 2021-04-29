@@ -9,6 +9,7 @@ Created on Thu Apr  8 09:50:11 2021
 from flask import request
 from flask import Flask, jsonify
 import json
+
 import subprocess
 from launchAlgo import transform
 from flask_restful import  Api
@@ -16,10 +17,16 @@ from flask_cors import CORS
 app = Flask(__name__)
 api = Api(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
+from instance.Instance import Instance
+from Problem.Instance_from_Json import createInstance
 
 
+
+instance=Instance()
+Instance=createInstance(instance)
+ 
 @app.route('/getjson/', methods=['GET'])
-def summary():
+def getjson():
     f = open(r"instanceExamples/data.json")
 
     data = json.load(f)
@@ -29,6 +36,16 @@ def summary():
     )
     return response
 
+@app.route('/getenergy', methods=['GET'])
+def getcsv():
+    f = open(r"./energy.json")
+
+    data = json.load(f)
+    response = app.response_class(
+        response=json.dumps(data),
+        mimetype='application/json'
+    )
+    return response
 
 
 @app.route('/update/', methods=['POST'])
@@ -60,7 +77,9 @@ def get():
 @app.route('/newapproach/', methods=['GET'])
 
 def new_approach():
-    transform()
+    
+    
+    transform(Instance)
     cmd = ('docker-machine ssh manager docker stack deploy --compose-file updated-docker-compose.yml p ').split()
 
     p = subprocess.Popen(cmd)

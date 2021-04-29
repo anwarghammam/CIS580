@@ -1,14 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'app/api.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { UiSwitchModule } from 'ngx-toggle-switch';
+import { DatePipe } from '@angular/common';
+import { saveAs } from 'file-saver';
+import { interval, Subject } from 'rxjs';
 declare var $:any;
 
                           
 @Component({
   selector: 'app-constraints',
   templateUrl: './constraints.component.html',
-  styleUrls: ['./constraints.component.css']
+  styleUrls: ['./constraints.component.css'],
+  providers: [DatePipe]
 })
 
 
@@ -29,14 +34,25 @@ export class ConstraintsComponent implements OnInit {
    check1=[]
     resp=[]
     
-
-  constructor(private api: ApiService,private router: Router) { 
+    subscription: Subscription;
+  randomNumber=[]
+  time 
+  momenttime: string;
+  timer: NodeJS.Timer;
+  data=[]
+    
+   
+  constructor(private api: ApiService,private router: Router,public datepipe: DatePipe) { 
     
   }
 
+  
+
   ngOnInit(): void {
+    
     this.get_constraints()
   }
+  
 
   poweron(){
     if (this.power==false){
@@ -105,7 +121,8 @@ export class ConstraintsComponent implements OnInit {
   
 
   save(){
-   
+
+     
     if (this.fileToUpload ==null){
 
     
@@ -176,7 +193,7 @@ this.api.update_constraints(this.resp)
                     align: 'center' ,
                 }
             });
-  window.location.reload();
+  /*window.location.reload();*/
    
 
 
@@ -193,9 +210,10 @@ this.api.update_constraints(this.resp)
          console.log(resp)
          this.containers=resp.body['containers']
          this.nodes=resp.body["nodes"]
-         
+       
          console.log(this.containers)
     console.log(this.nodes)
+   
 
          
 

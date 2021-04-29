@@ -16,14 +16,18 @@ class AverageNbContainersPerNode():
         
         occurences=[]
         total=0
-        print(solution)
+       
         nb_variables= list(filter((-1).__ne__, solution.variables))
         for val in collections.Counter(nb_variables).values() :
             
             occurences.append(val/len(solution.variables))
-        average =sum(occurences)/ len(occurences)
-        for oc in occurences:
-            total+=(oc-average)*(oc-average)
+        if (len(occurences)==0):
+            return(0)
+        else:    
+            average =sum(occurences)/ len(occurences)
+            
+            for oc in occurences:
+                total+=(oc-average)*(oc-average)
             
       
-        return(math.sqrt(total/len(occurences)) )  
+            return(math.sqrt(total/len(occurences)) )  

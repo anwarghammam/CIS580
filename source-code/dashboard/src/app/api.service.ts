@@ -2,6 +2,8 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { forkJoin } from 'rxjs';
+import { interval, Subject } from 'rxjs';
+
 import 'rxjs/Rx';
 @Injectable({
   providedIn: 'root'
@@ -9,17 +11,25 @@ import 'rxjs/Rx';
 
 export class ApiService implements OnInit{
  url="http://192.168.98.101:9090/"
- 
+ all_current_data
  eliminate_services=['p_node-exporter','p_cadvisor','p_prometheus']
-
+ public dataSubject = new Subject<number>();
+  public dataState = this.dataSubject.asObservable();
+  
  constructor(private http: HttpClient)  { 
   
  }
  
  ngOnInit(){
+
+  
  
     
   }
+  public subjectdata1(max): void {
+    interval(30000).subscribe(x => this.dataSubject.next((Math.floor(Math.random() * max))));
+  }
+  
 
  default():Observable<HttpResponse<any>>{
    return this.http.get<any>("http://localhost:5002/default", { observe: 'response' });
@@ -83,6 +93,13 @@ export class ApiService implements OnInit{
    
     
   }
+energy():Observable<HttpResponse<any>>{
+    return this.http.get<any>("http://localhost:5002/getenergy", { observe: 'response' });
+  }
+
+ 
+
+
 }
 
 

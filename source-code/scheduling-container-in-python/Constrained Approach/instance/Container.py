@@ -7,14 +7,15 @@ Created on Fri Apr 16 14:22:33 2021
 """
 
 class Container:
-    def __init__(self,id,name,image,dependencies,placement,powerConsumption,priority):
+    def __init__(self,id,name,image,dependencies,placement,powerConsumption,maxpower,priority):
         
         self.id=id
         self.name=name
         self.image=image
         self.dependencies=dependencies
         self.placement=placement
-        self.powerConsumption=powerConsumption
+        self.MaxpowerConsumption=powerConsumption
+        self.average_power_consumption_per_minute=maxpower
         self.priority=priority
         
         

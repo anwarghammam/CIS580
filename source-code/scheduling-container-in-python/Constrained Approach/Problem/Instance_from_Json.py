@@ -24,7 +24,7 @@ def createInstance(Instance):
         n=Node(i['id'],i['name'],i['activated'],i['max_power_consumption'])
         Instance.nodes.append(n)
     for i in data['containers']:
-        container=Container(i['id'],i['name'],i['image'],i['dependencies'],i['placements'],i['power_consumption'],i['priority'])
+        container=Container(i['id'],i['name'],i['image'],i['dependencies'],i['placements'],i['power_consumption'],0,i['priority'])
         Instance.containers.append(container)
     Instance.currentState=data['currentState']    
     Instance.get_valid_nodes()

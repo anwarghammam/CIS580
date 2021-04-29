@@ -1,10 +1,10 @@
 <div class="container " style="margin:1em; background-color: gainsboro; width: auto; height: 1500px;">
     <div class="row">
     <br>
-        <div *ngFor="let name of nodes_names ; let i = index" class= "col-sm-3" style="margin-right:1em;">
+        <div *ngFor="let node of data1 ; let i = index" class= "col-sm-3" style="margin-right:1em;">
             <div style="width: 150px">
             <img style="height: 20px" src="https://icons.iconarchive.com/icons/hopstarter/soft-scraps/256/Button-Blank-Green-icon.png">
-            <strong >&nbsp;&nbsp; {{name}}  &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ({{total_power_per_node[i]}}/{{nodes_power_consumption[i]}}) W</strong>
+            <strong >&nbsp;&nbsp; {{data1[i][0]}}  &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <!--{{data1[i][4]}}-->(Max {{nodes_power_consumption[i]}})W</strong>
         </div>
             <div >
             
@@ -17,13 +17,13 @@
                             
                           <br>
                            
-                        <div *ngFor="let con of containers[i],let j = index" class="card" [style.border-color]="colors[color[j]]"  style="margin:1em;border: 5px solid;">
+                        <div *ngFor="let con of data1[i][3],let j = index" class="card" [style.border-color]="colors[color[j]]"  style="margin:1em;border: 5px solid;">
                             <div class="card-body">
                             <div class="card-title">  <span class="badge badge-light">{{containers_priorities[i][j]}}</span>  &nbsp;&nbsp;  <strong> {{con}} </strong> </div>
                             <div class="card-text">
                                 <p style=" text-align: center;">
                                     <br>
-                              {{containers_power_consumption[i][j]}}w
+                             <!--{{containers_power_consumption[i][j]}}w--> 
                             </p>
                               
                               
