@@ -97,6 +97,12 @@ energy():Observable<HttpResponse<any>>{
     return this.http.get<any>("http://localhost:5002/getenergy", { observe: 'response' });
   }
 
+  public weights(entity:any):Observable<any>{
+    return this.http.post<JSON>("http://localhost:5002/getweights/",JSON.stringify(entity))
+   
+    
+  }
+
  
 
 

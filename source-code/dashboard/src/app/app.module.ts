@@ -16,6 +16,7 @@ import { AlertsComponent } from './alerts/alerts.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VisualizerComponent } from './visualizer/visualizer.component';
 import { ConstraintsComponent } from './constraints/constraints.component';
+import { ObjectivesComponent } from './objectives/objectives.component';
 @NgModule({
   imports: [
   
@@ -36,6 +37,7 @@ import { ConstraintsComponent } from './constraints/constraints.component';
     AlertsComponent,
     VisualizerComponent,
     ConstraintsComponent,
+    ObjectivesComponent,
    
     
   ],

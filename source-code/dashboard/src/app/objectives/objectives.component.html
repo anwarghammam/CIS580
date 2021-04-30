@@ -1,0 +1,76 @@
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+<div class="row" style=" margin-top: 2em;">
+    <div class="col-md-2">
+
+    </div>
+  <div class="col-md-5">
+    <div class="box box-aqua">
+      <div class="box-header ui-sortable-handle" style="cursor: move;">
+        <i class="ion ion-clipboard"></i>
+        <h3 class="box-title"> <i class="fa fa-wrench" aria-hidden="true"></i> Objectives</h3>
+        
+      </div>
+ 
+      <div class="box-body">
+        <ul class="todo-list ui-sortable">
+          <li>
+            
+            <label><input type="checkbox" class="option-input radio" (click)="onSave(0)"><span class="label-text">Number Of selected nodes</span></label>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+            <input type="number" [(ngModel)]="objectives[0]['Number Of selected nodes']" min="0"  max="1" step="0.1" *ngIf="check[0]==true">
+       
+          </li>
+          <li>
+            
+            <label><input type="checkbox" class="option-input radio" (click)="onSave(1)"><span class="label-text">average containers per node</span></label>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="number" [(ngModel)]="objectives[1]['average containers per node']" min="0"  max="1" step="0.1" *ngIf="check[1]==true">
+          </li>
+          <li>
+            
+            <label><input type="checkbox" class="option-input radio" (click)="onSave(2)"><span class="label-text">Priorities</span></label>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="number" [(ngModel)]="objectives[2]['Priorities']" min="0"  max="1" step="0.1" *ngIf="check[2]==true">
+          </li>
+          <li>
+            
+            <label><input type="checkbox" class="option-input radio" (click)="onSave(3)"><span class="label-text">Cohesion</span></label>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="number" [(ngModel)]="objectives[3]['Cohesion']" min="0"  max="1" step="0.1" *ngIf="check[3]==true">
+          </li>
+          <li>
+            
+            <label><input type="checkbox" class="option-input radio" (click)="onSave(4)"><span class="label-text">Average Power Consumption</span></label>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="number" [(ngModel)]="objectives[4]['Average Power Consumption']" min="0"  max="1" step="0.1" *ngIf="check[4]==true">
+           
+          </li>
+          <li>
+            
+            <label><input type="checkbox" class="option-input radio" (click)="onSave(5)"><span class="label-text"> Number Of Changes</span></label>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="number" [(ngModel)]="objectives[4]['Number Of Changes']" min="0"  max="1" step="0.1" *ngIf="check[5]==true">
+            
+            
+          </li>
+        </ul>
+      </div>
+      <div class="box-footer clearfix no-border">
+      <button type="button" class="btn btn-info pull-right" (click)="savechanges()"><i class="fa fa-upload" aria-hidden="true"></i> Save</button>
+      </div>
+    </div>
+  </div> 
+  
+  <div class="col-md-4"> 
+
+  </div>
+  
+</div>

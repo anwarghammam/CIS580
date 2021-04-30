@@ -23,7 +23,7 @@ from Problem.Instance_from_Json import createInstance
 
 
 instance=Instance()
-Instance=createInstance(instance)
+
  
 @app.route('/getjson/', methods=['GET'])
 def getjson():
@@ -59,6 +59,15 @@ def events():
         json.dump(c, f)
     return 'JSON posted'
 
+@app.route('/getweights/', methods=['POST'])
+def weights():
+    
+
+    content = request.get_data()
+    c=json.loads(content)
+    print(c)
+    return json.dumps(c)
+
 
 
 @app.route('/default/', methods=['GET'])
@@ -79,6 +88,7 @@ def get():
 def new_approach():
     
     
+    Instance=createInstance(instance)
     transform(Instance)
     cmd = ('docker-machine ssh manager docker stack deploy --compose-file updated-docker-compose.yml p ').split()
 
