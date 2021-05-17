@@ -120,7 +120,7 @@ class ReschedulingProblem(IntegerProblem,ABC):
        
         
         
-        
+        print(solution)
         return solution
     
     

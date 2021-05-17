@@ -22,8 +22,7 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
-      #placement:
-      #  constraints: [node.role == worker]
+      c
     ports:
       - 27017:27017
     environment:
@@ -33,6 +32,11 @@ services:
   rabbitmq:
     
     image: rabbitmq
+    
+    placement:
+       constraints:
+        - node.hostname == worker1
+    
   redis:
     
     image: redis

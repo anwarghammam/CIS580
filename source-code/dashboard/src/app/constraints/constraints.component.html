@@ -104,7 +104,7 @@
     <thead>
       <tr >
         <th scope="col"> containers </th>
-        <th> <strong> Power Consumption (w)</strong></th>
+    <!--    <th> <strong> Power Consumption (w)</strong></th> -->
         <th> <strong> Priority</strong></th>
         
       </tr>
@@ -112,9 +112,9 @@
     <tbody>
       <tr *ngFor="let con of containers ; let j = index" >
         <th scope="row">{{con.name}} </th>
-        <td> 
+      <!-- <td> 
           <input type="number" [(ngModel)]="containers_power_consumption[j]" min="0" max="10000" step="10"/>
-       </td>
+       </td> --> 
        <td> 
         <input type="number" [(ngModel)]="con.priority" min="1" max="5" step="1"/>
      </td>

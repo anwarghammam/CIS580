@@ -1,9 +1,6 @@
 services:
   api:
-    deploy:
-      placement:
-        constraints:
-        - node.hostname == worker1
+    deploy: null
     environment:
       DATABASE_URL: mongodb://admin:admin@mongodb:27017
     image: iselabdearborn/docker-grocery-api
@@ -12,18 +9,14 @@ services:
   creator:
     depends_on:
     - api
-    deploy:
-      placement:
-        constraints:
-        - node.hostname == worker2
     environment:
       API_URL: http://api:3000/api
     image: iselabdearborn/docker-grocery-creator
   mongodb:
     deploy:
-      placement:
-        constraints:
-        - node.hostname == manager
+      replicas: 1
+      restart_policy:
+        condition: on-failure
     environment:
       MONGO_INITDB_ROOT_PASSWORD: admin
       MONGO_INITDB_ROOT_USERNAME: admin
@@ -31,22 +24,14 @@ services:
     ports:
     - 27017:27017
   rabbitmq:
-    deploy:
-      placement:
-        constraints:
-        - node.hostname == manager
     image: rabbitmq
   redis:
-    deploy:
-      placement:
-        constraints:
-        - node.hostname == worker1
     image: redis
   visualizer:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker1
+        - node.hostname == manager
     image: dockersamples/visualizer:latest
     ports:
     - 8070:8080

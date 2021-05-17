@@ -2,7 +2,7 @@
     <div class="container-fluid">
        
        <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-4">
                 <div style = "width: 400px; height: 200px; " >
                     <canvas baseChart 
                            [data]="pieChartData" 
@@ -15,7 +15,7 @@
                       </canvas>
                 </div>
             </div>
-            <div class="col-md-3" style="margin-top: 50px; margin-left:5em;">
+            <div class="col-md-4" style="margin-top: 50px; margin-left:5em;">
             
                 <div style = "width: 250px; height: 250px;" >
                   <google-chart 
@@ -49,7 +49,7 @@
           </div>
       
 
-        <div class="col-md-2" style = "width: 20px; height: 50px;" >
+    <!--   <div class="col-md-2" style = "width: 20px; height: 50px;" >
           <div>
            
             <google-chart #chart
@@ -63,7 +63,7 @@
        </google-chart>
            
         </div>
-     </div>
+     </div> --> 
           
     </div>
 
@@ -71,7 +71,7 @@
        <div class="row">
         
            <div class="col-md-3">
-            <div style = "width: 500px; height: 400px;" >
+            <div style = "width: 400px; height: 400px;" >
                            
               <google-chart 
               #googlechart
@@ -84,8 +84,8 @@
                                         </div>
                                       
            </div>
-           <div class="col-md-3">
-            <div style = "width: 500px; height: 400px;" >
+           <div class="col-md-2">
+            <div style = "width: 400px; height: 400px;" >
            <google-chart 
            #googlechart
            [title]="chart2.title"
@@ -97,12 +97,12 @@
               </div>
               </div>
               <div class="col-md-6" >
-                <div style = "width: 300px; height: 200px;" >
+                <div style = "width: 290px; height: 190px;" >
         
                   <google-chart #chart
                   [title]="title3"
                   [type]="type3"
-                 
+                  [columns]="columnNames3"
                   [data]="data3"
                  
                   [options]="options3"

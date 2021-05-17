@@ -171,7 +171,7 @@ export class InfoComponent implements OnInit {
               this.consumed_cpu=parseFloat(resp.body['data']['result']['0']['value']['1']);
                          
                 this.data3.push(
-                              [String(val[0])+" (cpu,mem)",this.consumed_cpu, this.consumed_mem])
+                              [String(val[0]),this.consumed_cpu, this.consumed_mem])
                               
                              
                            ;
@@ -198,8 +198,9 @@ export class InfoComponent implements OnInit {
                  console.log("total containers  "+ this.total_containers)
                  this.pieChartData.push(this.con)
                  this.data.push([val,this.con])
-                 this.chart4.data= [['number of containers',this.total_containers]]
-              
+                 
+                 this.chart4.data= [['number of containers',this.total_containers-7]]
+                   
                })
               ;})
               console.log("total containers  "+ this.total_containers)
@@ -217,8 +218,9 @@ export class InfoComponent implements OnInit {
     this.api.getnb_services()
       .subscribe(
         resp => {
-           
+            
             this.services=parseFloat(resp.body['data']['result']['0']['value']['1']);
+            this.services=this.services
             this.chart3.data= [['nb services',this.services]]
         
           });
@@ -338,7 +340,7 @@ export class InfoComponent implements OnInit {
    title3 = '% resources consumption per node';
    type3= 'ComboChart';
 
-   columnNames3 = ['%','c','me'];
+   columnNames3 = ['ressources','cpu','mem'];
    options3 = {   
       hAxis: {
          title: 'node'
@@ -347,20 +349,8 @@ export class InfoComponent implements OnInit {
          title: '% of consumption'
       },
       seriesType: 'bars',
-      annotation: {
-        "annotations": [{
-                "type": "box",
-                
-                "yScaleID": "y-axis-0",
-                "yMin": 30,
-                "yMax": 55,
-               
-                "borderWidth": 1,
-                "backgroundColor": "rgba(200,60,60,0.25)",
-                "borderColor": "rgba(200,60,60,0.25)"
-            },
-        ]
-    }
+     
+      
    };
    width3 = 550;
    height3 = 200;

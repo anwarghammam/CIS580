@@ -88,57 +88,58 @@ def transform(instance):
     print()
     print()
 
-    algorithm1.run()
+    # algorithm1.run()
     
     
-    print()
+    # print()
        
-    front = get_non_dominated_solutions(algorithm1.get_result())
-    violated=0
-    for sol in front:
-        cons=[]
-        for i,constraint in enumerate(problem.constraints) :
+    # front = get_non_dominated_solutions(algorithm1.get_result())
+    # violated=0
+    # for sol in front:
+    #     cons=[]
+    #     for i,constraint in enumerate(problem.constraints) :
             
-            cons.append(constraint.evaluate(instance,sol))
+    #         cons.append(constraint.evaluate(instance,sol))
          
         
-        total_invalids=0
-        for i,con in enumerate(cons):
+    #     total_invalids=0
+    #     for i,con in enumerate(cons):
             
-                total_invalids=total_invalids
+    #             total_invalids=total_invalids
                 
-        if (total_invalids!=0):
-            violated=violated+1
+    #     if (total_invalids!=0):
+    #         violated=violated+1
     print()
     print()            
     #print("violated solutions are equal to ", violated/len(front) ,"%  for ", len(front))    
 
-    front_sol1=[]
-    resultat=[]
-    for solution in front:
-        res=0
-        for i in solution.objectives:
-            res=(1/solution.number_of_objectives)*i
+    # front_sol1=[]
+    # resultat=[]
+    # for solution in front:
+    #     res=0
+    #     for i in solution.objectives:
+    #         res=(1/solution.number_of_objectives)*i
       
-        resultat.append(res)
+    #     resultat.append(res)
     
-        front_sol1.append(solution.objectives)
-    best_sol=resultat.index(min(resultat))  
-    candidate=(front[best_sol])    
+    #     front_sol1.append(solution.objectives)
+    # best_sol=resultat.index(min(resultat))  
+    # candidate=(front[best_sol])    
     
     print()
     print()
     print("the candidate solution is :")   
     print()
+    candidate=[0,-1,1,-1,-1,1]
     print(candidate)
         
     
     #print_function_values_to_file(front,r"/home/anwar/Desktop/NSGAIII/test/&-"+str(max_evaluations)+".txt")
-    print_variables_to_file(front, r"/home/anwar/Desktop/NSGAIII/pareto-front-approach1.txt")
-    #print("functions value of the front :")
-    print()
-    print()
-    print(f'Computing time: ${algorithm1.total_computing_time}')
+    # print_variables_to_file(front, r"/home/anwar/Desktop/NSGAIII/pareto-front-approach1.txt")
+    # #print("functions value of the front :")
+    # print()
+    # print()
+    # print(f'Computing time: ${algorithm1.total_computing_time}')
     #print_function_values_to_screen(front)
     print()
     #print("variables value of the front:")
@@ -173,7 +174,7 @@ def transform(instance):
     
     Data().updateDockerCompose(instance.containers,instance.images,instance.currentState,instance.nodes,'DockerComposeFiles/initial-docker-compose.yml')
     
-    services_to_shutdown=Data().updateDockerCompose(instance.containers,instance.images,candidate.variables,instance.nodes,'DockerComposeFiles/updated-docker-compose.yml')
+    services_to_shutdown=Data().updateDockerCompose(instance.containers,instance.images,candidate,instance.nodes,'DockerComposeFiles/updated-docker-compose.yml')
     for service in services_to_shutdown:
         #print("docker-machine ssh manager docker service rm" +str(service))
         cmd = ("docker-machine ssh manager docker service rm "  +str(service)).split()
@@ -181,7 +182,7 @@ def transform(instance):
         p = subprocess.Popen(cmd)
         output, errors = p.communicate() 
     
-    return front
+    # return front
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 
 #transform()
