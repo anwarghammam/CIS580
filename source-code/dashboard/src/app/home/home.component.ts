@@ -25,8 +25,13 @@ export class HomeComponent implements OnInit{
         resp => {
           
           this.containers_energy=resp['body']['containers']
-         
-          all(this.containers_energy,this.api.all_current_data)  
+          let url=""
+          this.api.all_current_data.forEach(node => {
+          url=url+String(node[1])+'||'
+    
+});
+           console.log(url)   
+          all(this.containers_energy,this.api.all_current_data,url)  
           console.log(this.api.all_current_data)
       
   })}

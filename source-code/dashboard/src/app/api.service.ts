@@ -10,7 +10,7 @@ import 'rxjs/Rx';
 })
 
 export class ApiService implements OnInit{
- url="http://192.168.98.101:9090/"
+ url="http://192.168.99.100:9090/"
  all_current_data
  eliminate_services=['p_node-exporter','p_cadvisor','p_prometheus']
  public dataSubject = new Subject<number>();
@@ -37,6 +37,12 @@ export class ApiService implements OnInit{
  newapproach():Observable<HttpResponse<any>>{
    return this.http.get<any>("http://localhost:5002/newapproach/", { observe: 'response' });
  }
+ getcpu():Observable<HttpResponse<any>>{
+  return this.http.get<any>("http://localhost:5002/getcpu/", { observe: 'response' });
+}
+getmem():Observable<HttpResponse<any>>{
+  return this.http.get<any>("http://localhost:5002/getmem/", { observe: 'response' });
+}
  getnb_nodes()
  {
   return   this.http.get<JSON>(this.url+"api/v1/query?query=count(node_meta)", { observe: 'response' })

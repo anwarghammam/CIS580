@@ -124,7 +124,7 @@ export class InfoComponent implements OnInit {
   public pieChartData=[3,3,3,3,3,3]
   infos:JSON[]
   public data= [];
- 
+ public names=[]
 
 
   
@@ -145,8 +145,7 @@ export class InfoComponent implements OnInit {
   this.nb_total_mem()  
   this.get_available_mem()
   this.get_available_disk()
-  console.log("oie  "+   this.pieChartData)
-    
+  
   
         }
     
@@ -180,30 +179,33 @@ export class InfoComponent implements OnInit {
                         
                         })
                      
-            
+            console.log(this.data3)
         }
         nb_con(){
+         console.log(this.data1)
          
-         
-          this.nodes_ids.forEach(val=>{
+          this.data1.forEach(val=>{
             
             this.pieChartData=[]
-           this.api.nb_con_node(String(val))
+           this.api.nb_con_node(String(val[1]))
            .subscribe(
              resp => {
                
                  this.con=resp.body['data']['result']['0']['value']['1'];
-                 console.log(this.con)
+                 this.names.push(val[0])
                  this.total_containers+=parseInt(resp.body['data']['result']['0']['value']['1']);
                  console.log("total containers  "+ this.total_containers)
                  this.pieChartData.push(this.con)
-                 this.data.push([val,this.con])
+                 this.data.push([val[1],this.con])
                  
-                 this.chart4.data= [['number of containers',this.total_containers-7]]
+                 this.chart4.data= [['number of containers',this.total_containers]]
                    
                })
               ;})
               console.log("total containers  "+ this.total_containers)
+             
+    
+
               
          }
   
@@ -267,7 +269,9 @@ export class InfoComponent implements OnInit {
         });
        
       console.log(this.data1)
-     
+    
+    
+    
   }
   nb_total_mem(){
     this.api.nb_totalmem()
@@ -300,7 +304,7 @@ export class InfoComponent implements OnInit {
     },
     responsive: true,
   };
-  public pieChartLabels: Label[] = this.nodes_names;
+  public pieChartLabels: Label[] = this.names;
   public pieChartType:string = 'pie';
   public pieChartLegend = true;
   

@@ -24,6 +24,8 @@ from Problem.Instance_from_Json import createInstance
 from constraints.AvailableNodesConstraint import AvailableNodesConstraint
 from constraints.PlacementConstraints import PlacementConstraints
 from constraints.PowerConsumption import PowerConsumption
+from constraints.CpuConstraints import CpuConsumption
+from constraints.MemoryConstraints import MemoryConsumption
 from constraints.SatisfyDependencies import SatisfyDependencies
 from objectives.NumberOfNodes import NumberOfNodes
 from objectives.AverageNbContainersPerNode import AverageNbContainersPerNode
@@ -31,12 +33,23 @@ from objectives.Coupling import Coupling
 from objectives.Cohesion import Cohesion
 from objectives.NumberOfChanges import  NumberOfChanges
 from objectives.PowerConsumption import EvalPowerConsumption
+from objectives.CpuConsumption import EvalCpuConsumption
+from objectives.MemConsumption import EvalMemConsumption
 from objectives.Priority import Priority
 
+All_Objectives=[NumberOfNodes(),
+                AverageNbContainersPerNode(),
+                Priority(),       
+                Cohesion(), 
+            EvalPowerConsumption(),
+             NumberOfChanges(),
+            
+              EvalCpuConsumption(),
+              EvalMemConsumption()]
 
 
-
-
+objs=[]
+weights=[]
 class ReschedulingProblem(IntegerProblem,ABC):
   
     
@@ -50,17 +63,30 @@ class ReschedulingProblem(IntegerProblem,ABC):
         self.initial_state=Instance.currentState
         self.number_of_variables = len(Instance.containers)
         
-        self.objectives=[NumberOfNodes(),
-                         AverageNbContainersPerNode(),
-                         #Coupling(),
-                         Cohesion(),
-                         #NumberOfChanges(),
-                         EvalPowerConsumption(),
-                         Priority()
-                         ]
+        self.objectives=[]
+        
+        for ob in Instance.objectives:
+            
+            for key,value in enumerate((ob)):
+                print(value)
+                objs.append(value)
+               
+                weights.append(ob[value])
+                
+        for ob in Instance.objectives[:-1]:
+            
+            for key,value in enumerate((ob)):
+                
+                self.objectives.append(All_Objectives[int(value)])
+            
+            
+         
+        
         
         self.constraints=[SatisfyDependencies(),
                           PowerConsumption(),
+                          MemoryConsumption(),
+                          CpuConsumption(),
                           PlacementConstraints(),
                           AvailableNodesConstraint()
                           ]
@@ -69,8 +95,11 @@ class ReschedulingProblem(IntegerProblem,ABC):
         self.number_of_objectives = len(self.objectives)
         self.obj_directions = [self.MINIMIZE for i in range(self.number_of_objectives)]
         #self.obj_labels = ['nb_nodes','average_nb_containers_per_node','cohesion','coupling','nb_changes','priority']
-
-        self.lower_bound = self.number_of_variables * [-1]
+        if (weights[-1]==1):
+            print(objs)
+            self.lower_bound = self.number_of_variables * [-1]
+        else:
+            self.lower_bound = self.number_of_variables * [0]
         self.upper_bound = self.number_of_variables * [len(Instance.nodes)]
         
         

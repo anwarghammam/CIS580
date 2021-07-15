@@ -1,8 +1,8 @@
 
 
-function all(data,nodes){
+function all(data,nodes,url_node){
    
-   
+   console.log("nodes  "+ nodes[0][1])
     
  var ctx = document.getElementById('myChart').getContext('2d');
  var ctx2 = document.getElementById('myChart2').getContext('2d');
@@ -12,7 +12,9 @@ function all(data,nodes){
  var ctx6 = document.getElementById('myChart6').getContext('2d');
  var ctx7 = document.getElementById('myChart7').getContext('2d');
  var ctx8 = document.getElementById('myChart8').getContext('2d');
- url="http://192.168.98.101:9090/"
+ var ctx9 = document.getElementById('myChart9').getContext('2d');
+ var ctx10 = document.getElementById('myChart10').getContext('2d');
+ url="http://192.168.99.100:9090/"
 
  
  const query1='100 - (avg(irate(node_cpu_seconds_total{mode="idle"}[5m])  * on(instance) group_left(node_name) node_meta * 100) by (node_name))';
@@ -22,6 +24,11 @@ function all(data,nodes){
  const query4 ='sum((node_memory_MemTotal_bytes/1000000 - node_memory_MemFree_bytes/1000000 - node_memory_Cached_bytes/1000000 - node_memory_Buffers_bytes/1000000 - node_memory_Slab_bytes/1000000) * on(instance) group_left(node_name) node_meta) by (node_name)'
 const query5="sum(rate(container_network_receive_bytes_total[5m]) * on(container_label_com_docker_swarm_node_id) group_left(node_name) node_meta) by (node_name)"
 const query6="sum(rate(container_network_transmit_bytes_total [5m]) * on(container_label_com_docker_swarm_node_id) group_left(node_name) node_meta) by (node_name)" 
+
+
+const query9='topk(10, avg_over_time(container_memory_usage_bytes{container_label_com_docker_swarm_node_id=~"'+String(url_node)+'", id=~"/docker/.*"}[5m])/1000/1000)'
+console.log(query9)
+const query10='topk(10, sum(irate(container_cpu_usage_seconds_total{container_label_com_docker_swarm_node_id=~"'+String(url_node)+'", id=~"/docker/.*"}[5m])) by (name) * 100 )'
 // const query = 'node_load1';
  // // absolute
  // const start = new Date(new Date().getTime() - (60 * 60 * 1000));
@@ -173,9 +180,182 @@ all2=[]
     
   });
 
+                 
+     
 
 
 
+
+
+
+
+
+
+
+
+
+
+ var myChart9 = new Chart(ctx9, {
+    type: 'line',
+    data: {
+        },
+    options: {
+       title: {
+           display: true,
+           text: 'memory usage in MB per Container '
+       },
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    unit: 'minute',
+                                              
+                },
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'value'
+                }                        
+            }]
+        },
+        plugins: {
+            'datasource-prometheus': {
+                prometheus: {
+                    endpoint: url,
+                   
+                },
+                query: query9,
+                timeRange: {
+                    type: 'relative',
+                    start:start,
+                    end: end,
+                    msUpdateInterval: 5 * 1000,
+                },
+            },
+        
+        },
+      
+    annotation: {
+      
+       drawTime: 'afterDatasetsDraw', 
+       events: ['click'],
+       dblClickSpeed: 350, 
+       annotations: [{
+        drawTime: 'afterDraw', // overrides annotation.drawTime if set
+        id: 'a-line-1', // optional
+        type: 'line',
+        mode: 'vertical',
+        scaleID: 'x-axis-0',
+        value:new Date() ,
+        borderColor: 'black',
+        borderWidth: 2,
+
+           onClick: function(e) {
+               // `this` is bound to the annotation element
+               this.options.value=new Date();
+               
+           }
+                 }]
+   }
+              
+            },
+
+    plugins: [
+        ChartDatasourcePrometheusPlugin,
+        
+      
+       
+    ],
+ });         
+       
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ var myChart10 = new Chart(ctx10, {
+    type: 'line',
+    data: {
+        },
+    options: {
+       title: {
+           display: true,
+           text: '% of cpu usage per container '
+       },
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    unit: 'minute',
+                                              
+                },
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'value'
+                }                        
+            }]
+        },
+        plugins: {
+            'datasource-prometheus': {
+                prometheus: {
+                    endpoint: url,
+                   
+                },
+                query: query10,
+                timeRange: {
+                    type: 'relative',
+                    start:start,
+                    end: end,
+                    msUpdateInterval: 5 * 1000,
+                },
+            },
+        
+        },
+      
+    annotation: {
+      
+       drawTime: 'afterDatasetsDraw', 
+       events: ['click'],
+       dblClickSpeed: 350, 
+       annotations: [{
+        drawTime: 'afterDraw', // overrides annotation.drawTime if set
+        id: 'a-line-1', // optional
+        type: 'line',
+        mode: 'vertical',
+        scaleID: 'x-axis-0',
+        value:new Date() ,
+        borderColor: 'black',
+        borderWidth: 2,
+
+           onClick: function(e) {
+               // `this` is bound to the annotation element
+               this.options.value=new Date();
+               
+           }
+                 }]
+   }
+              
+            },
+
+    plugins: [
+        ChartDatasourcePrometheusPlugin,
+        
+      
+       
+    ],
+ });
 
 
 
@@ -498,20 +678,19 @@ var myChart4 = new Chart(ctx4, {
     ],
 });
 
-
 var myChart5 = new Chart(ctx5, {
     type: 'line',
     data: {},
     options: {
        title: {
            display: true,
-           text: 'received network traffic per node'
+           text: 'Received network traffic per node'
        },
         scales: { xAxes: [{
             type: 'time',
             time: {
                 unit: 'minute',
-                                         
+                                        
             },
             display: true,
             scaleLabel: {
@@ -522,7 +701,7 @@ var myChart5 = new Chart(ctx5, {
         plugins: {
             'datasource-prometheus': {
                 prometheus: {
-                    endpoint: url,
+                    endpoint: url ,
                    
                 },
                 query: query5,
@@ -533,47 +712,58 @@ var myChart5 = new Chart(ctx5, {
                     msUpdateInterval: 5 * 1000,
                 },
             },
-        
+        },
     
-            annotation: {
-       
-                drawTime: 'afterDatasetsDraw', // (default)
-                events: ['click'],
-                // Mouse events to enable on each annotation.
-                // Should be an array of one or more browser-supported mouse events
-                // See https://developer.mozilla.org/en-US/docs/Web/Events
+    annotation: {
+       // Defines when the annotations are drawn.
+       // This allows positioning of the annotation relative to the other
+       // elements of the graph.
+       //
+       // Should be one of: afterDraw, afterDatasetsDraw, beforeDatasetsDraw
+       // See http://www.chartjs.org/docs/#advanced-usage-creating-plugins
+       drawTime: 'afterDatasetsDraw', // (default)
+
+       // Mouse events to enable on each annotation.
+       // Should be an array of one or more browser-supported mouse events
+       // See https://developer.mozilla.org/en-US/docs/Web/Events
+       events: ['click'],
+
+       // Double-click speed in ms used to distinguish single-clicks from
+       // double-clicks whenever you need to capture both. When listening for
+       // both click and dblclick, click events will be delayed by this
+       // amount.
+       dblClickSpeed: 350, // ms (default)
+
+       // Array of annotation configuration objects
+       // See below for detailed descriptions of the annotation options
+       annotations: [{
+        drawTime: 'afterDraw', // overrides annotation.drawTime if set
+        id: 'a-line-1', // optional
+        type: 'line',
+        mode: 'vertical',
+        scaleID: 'x-axis-0',
+        value:new Date() ,
+        borderColor: 'black',
+        borderWidth: 2,
+
+           onClick: function(e) {
+               // `this` is bound to the annotation element
+               this.options.value=new Date();
+              
                
-         
-                // Double-click speed in ms used to distinguish single-clicks from
-                // double-clicks whenever you need to capture both. When listening for
-                // both click and dblclick, click events will be delayed by this
-                // amount.
-                 // ms (default)
-         
-                // Array of annotation configuration objects
-                // See below for detailed descriptions of the annotation options
-                annotations: [{
-                 drawTime: 'afterDraw', // overrides annotation.drawTime if set
-                 id: 'a-line-1', // optional
-                 type: 'line',
-                 mode: 'vertical',
-                 scaleID: 'x-axis-0',
-                 value:new Date() ,
-                 borderColor: 'black',
-                 borderWidth: 2,
-         
-                    onClick: function(e) {
-                        // `this` is bound to the annotation element
-                        this.options.value=new Date();
-                        
-                    }
-                          }]
-            }  }},
+           }
+                 }]
+   }},
 
     plugins: [
         ChartDatasourcePrometheusPlugin,
     ],
 });
+
+
+
+          
+
 
 var myChart6 = new Chart(ctx6, {
     type: 'line',

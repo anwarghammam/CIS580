@@ -79,6 +79,12 @@ def transform(instance):
     print()
 
     print()
+    instance.print_info('objectives')
+
+
+    print()
+
+    print()
     instance.print_info('dependencies')
     print()
     algorithm1.observable.register(ProgressBarObserver(max=max_evaluations))  
@@ -88,12 +94,12 @@ def transform(instance):
     print()
     print()
 
-    # algorithm1.run()
+    algorithm1.run()
     
     
-    # print()
+    print()
        
-    # front = get_non_dominated_solutions(algorithm1.get_result())
+    front = get_non_dominated_solutions(algorithm1.get_result())
     # violated=0
     # for sol in front:
     #     cons=[]
@@ -113,24 +119,30 @@ def transform(instance):
     print()            
     #print("violated solutions are equal to ", violated/len(front) ,"%  for ", len(front))    
 
-    # front_sol1=[]
-    # resultat=[]
-    # for solution in front:
-    #     res=0
-    #     for i in solution.objectives:
-    #         res=(1/solution.number_of_objectives)*i
-      
-    #     resultat.append(res)
+    front_sol1=[]
+    resultat=[]
+    weights=[]
+    for ob in instance.objectives:
     
-    #     front_sol1.append(solution.objectives)
-    # best_sol=resultat.index(min(resultat))  
-    # candidate=(front[best_sol])    
+        for key,value in enumerate((ob)):
+            weights.append(ob[value])
+        
+    for solution in front:
+        res=0
+        for i,ob in enumerate(solution.objectives[:-1]):
+            res=weights[i]*ob
+      
+        resultat.append(res)
+    
+        front_sol1.append(solution.objectives)
+    best_sol=resultat.index(min(resultat))  
+    candidate=(front[best_sol])    
     
     print()
     print()
     print("the candidate solution is :")   
     print()
-    candidate=[0,-1,1,-1,-1,1]
+   
     print(candidate)
         
     
@@ -172,17 +184,18 @@ def transform(instance):
 
   
     
-    Data().updateDockerCompose(instance.containers,instance.images,instance.currentState,instance.nodes,'DockerComposeFiles/initial-docker-compose.yml')
+    # Data().updateDockerCompose(instance.containers,instance.images,instance.currentState,instance.nodes,'DockerComposeFiles/initial-docker-compose.yml')
     
-    services_to_shutdown=Data().updateDockerCompose(instance.containers,instance.images,candidate,instance.nodes,'DockerComposeFiles/updated-docker-compose.yml')
-    for service in services_to_shutdown:
-        #print("docker-machine ssh manager docker service rm" +str(service))
-        cmd = ("docker-machine ssh manager docker service rm "  +str(service)).split()
+    # services_to_shutdown=Data().updateDockerCompose(instance.containers,instance.images,candidate,instance.nodes,'DockerComposeFiles/updated-docker-compose.yml')
+    # for service in services_to_shutdown:
+    #     #print("docker-machine ssh manager docker service rm" +str(service))
+    #     cmd = ("docker-machine ssh manager docker service rm "  +str(service)).split()
 
-        p = subprocess.Popen(cmd)
-        output, errors = p.communicate() 
+    #     p = subprocess.Popen(cmd)
+    #     output, errors = p.communicate() 
     
     # return front
 #-----------------------------------------------------------------------------------------------------------------------------------------------
-
-#transform()
+instance=Instance()
+Instance=createInstance(instance)
+transform(Instance)

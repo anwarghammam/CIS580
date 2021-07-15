@@ -9,7 +9,7 @@ Created on Thu Apr  8 09:50:11 2021
 from flask import request
 from flask import Flask, jsonify
 import json
-
+import requests 
 import subprocess
 from launchAlgo import transform
 from flask_restful import  Api
@@ -66,6 +66,13 @@ def weights():
     content = request.get_data()
     c=json.loads(content)
     print(c)
+    with open(r"./instanceExamples/data.json", "r") as file:
+        
+        data= json.load(file)
+        data['objectives']=c
+                        
+    with open(r"./instanceExamples/data.json", "w") as file:
+        json.dump(data, file)
     return json.dumps(c)
 
 
@@ -82,6 +89,86 @@ def get():
     result=jsonify("done")
        
     return (result)
+
+@app.route('/getcpu/', methods=['GET'])
+def get_cpu_per_container():
+    Instance=createInstance(instance)
+    for node in Instance.nodes:
+        print(node.cluster_id)
+        r = requests.get('http://192.168.99.100:9090/api/v1/query?query=sum(irate(container_cpu_usage_seconds_total%7Bcontainer_label_com_docker_swarm_node_id%3D~"'+str(node.cluster_id)+'"%2C%20id%3D~"%2Fdocker%2F.*"%7D%5B5m%5D))%20by%20(name)%20*%20100%20&g0.tab=1')
+        print(json.loads(r.text)['data']['result'])
+        for metric in json.loads(r.text)['data']['result']:
+            
+            name=(metric['metric']['name'])
+            
+            with open(r"./instanceExamples/data.json", "r") as file:
+                data= json.load(file)
+            for con in data['containers']:
+                if (con['name'] in name):
+                    
+                    con['cpu_usage']=float(metric['value'][1])
+                        
+            with open(r"./instanceExamples/data.json", "w") as file:
+                
+                json.dump(data, file)
+
+        
+        
+    return (jsonify('done'))
+
+@app.route('/getmem/', methods=['GET'])
+def get_mem_per_container():
+    Instance=createInstance(instance)
+    for node in Instance.nodes:
+        print(node.cluster_id)
+        r = requests.get('http://192.168.99.100:9090/api/v1/query?query=avg_over_time(container_memory_usage_bytes%7Bcontainer_label_com_docker_swarm_node_id%3D~"'+str(node.cluster_id)+'"%2C%20id%3D~"%2Fdocker%2F.*"%7D%5B5m%5D)%2F1024%2F1024&g0.tab=1')
+       
+        print(json.loads(r.text)['data']['result'])
+        for metric in json.loads(r.text)['data']['result']:
+            
+            name=(metric['metric']['name'])
+            with open(r"./instanceExamples/data.json", "r") as file:
+                data= json.load(file)
+            for con in data['containers']:
+                if (con['name'] in name):
+                    
+                    con['mem_usage']=float(metric['value'][1])
+                        
+            with open(r"./instanceExamples/data.json", "w") as file:
+                
+                json.dump(data, file)
+
+        
+        
+    return (jsonify('done'))
+
+
+@app.route('/getMaxmem/', methods=['GET'])
+def get_Maxmem_penode():
+    Instance=createInstance(instance)
+    for node in Instance.nodes:
+        print(node.cluster_id)
+        r = requests.get('http://192.168.99.100:9090/api/v1/query?query=sum(node_memory_MemTotal_bytes%20*%20on(instance)%20group_left(node_name)%20node_meta%7Bnode_id%3D~"'+str(node.cluster_id)+'"%7D)%2F1000%2F1000&g0.tab=1')
+       
+        print(json.loads(r.text)['data']['result'][0]['value'][1])
+       
+        with open(r"./instanceExamples/data.json", "r") as file:
+            data= json.load(file)
+            for con in data['nodes']:
+                
+                if (con['name'] == node.name):
+                    
+                    con['Maxmem']=float(json.loads(r.text)['data']['result'][0]['value'][1])
+                        
+            with open(r"./instanceExamples/data.json", "w") as file:
+                
+                json.dump(data, file)
+
+        
+        
+    return (jsonify('done'))
+
+
 
 @app.route('/newapproach/', methods=['GET'])
 

@@ -16,6 +16,7 @@ class Instance():
         self.constraints=[]
         self.dependencies=[]
         self.images=[]
+        self.objectives=[]
     def find_container_by_id(self,id):
         for con in self.containers:
             if (con.id ==id):
@@ -49,6 +50,12 @@ class Instance():
                 
         return active_nodes        
     def get_valid_nodes(self):
+        objs=[]
+        weights=[]
+        for ob in self.objectives:
+            for key,value in enumerate((ob)):
+                objs.append(value)
+                weights.append(ob[value])
         valid_nodes=[]
         active_nodes=self.active_nodes()
         for c in self.containers:
@@ -58,11 +65,13 @@ class Instance():
             if (c.placement!=[]):
                 constraints_per_container=c.placement
                 valid_nodes_per_container= list(set(active_nodes) & set(constraints_per_container))
-                if(len(valid_nodes_per_container)==1):
+                if (weights[-1]==1):
                     
-                    if (self.find_node_by_id(valid_nodes_per_container[0]).maxPowerconsumption<c.average_power_consumption_per_minute):
+                    if(len(valid_nodes_per_container)==1):
+                       
+                        if (self.find_node_by_id(valid_nodes_per_container[0]).maxPowerconsumption<c.average_power_consumption_per_minute):
                         
-                        valid_nodes_per_container.append(-1)
+                            valid_nodes_per_container.append(-1)
                 valid_nodes.append(valid_nodes_per_container)
                 
             
@@ -70,10 +79,10 @@ class Instance():
                 
                
                 for active_node in active_nodes:
-                    
-                    
                     valid_nodes_per_container.append(active_node)
-                valid_nodes_per_container.append(-1)
+                if (weights[-1]==1):
+                    
+                    valid_nodes_per_container.append(-1)
                 valid_nodes.append(valid_nodes_per_container)
         self.constraints=valid_nodes        
         return valid_nodes
@@ -89,6 +98,8 @@ class Instance():
                 print("containers " + str(i)+" "+ n.name)  
         if name=="currentstate":
             print("current state : " + str(self.currentState)) 
+        if name=="objectives":
+            print("objectives : " + str(self.objectives))     
         if name=="constraints":
             print("constraints : " + str(self.constraints))   
         if name=="dependencies":
