@@ -20,22 +20,27 @@ class EvalCpuConsumption():
     
     def evaluate(self,Instance,solution):
         
-        total_cpu_consumption=[0 for i in range(len(Instance.nodes))]
+        total_cpu_consumption_per_node=[0 for i in range(len(Instance.nodes))]
+        total_consumed_cpu=0
         #print(solution.variables)
         #print(total_power_consumption)
+        
         for i,var in enumerate(solution.variables):
            
             if (var!=-1):
                
-                total_cpu_consumption[var]=total_cpu_consumption[var]+Instance.find_container_by_id(i).cpu_usage
-      
-        average =sum(total_cpu_consumption)/ len(total_cpu_consumption)
+                total_cpu_consumption_per_node[var]=total_cpu_consumption_per_node[var]+Instance.find_container_by_id(i).cpu_usage
+                total_consumed_cpu+=Instance.find_container_by_id(i).cpu_usage
+        for i,cpu in enumerate(total_cpu_consumption_per_node):
+            
+            total_cpu_consumption_per_node[i]=total_cpu_consumption_per_node[i]/total_consumed_cpu
+        average =sum(total_cpu_consumption_per_node)/len(total_cpu_consumption_per_node)
         total=0
-        for cpu_per_node in total_cpu_consumption:
+        for cpu_per_node in total_cpu_consumption_per_node:
             
             total+=(cpu_per_node-average)*(cpu_per_node-average)
     
-        return(math.sqrt(total/len(total_cpu_consumption)) )      
+        return(math.sqrt(total/len(total_cpu_consumption_per_node)))      
         
             
     

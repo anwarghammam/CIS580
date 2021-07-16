@@ -1,4 +1,76 @@
 services:
+  haproxy:
+     image: dockercloud/haproxy:latest
+     restart: unless-stopped
+     volumes:
+         - "/var/run/docker.sock:/var/run/docker.sock"
+     environment:
+         MODE: tcp
+     expose:
+         - 5671
+         - 5672
+         - 8000
+         - 9000
+     links:
+         - cbemq
+         - cbeapp
+         - cbedbadmin
+  cbeapp:
+     image: semprini/cbe-utilities
+     restart: unless-stopped
+     environment:
+         - DBENGINE=postgresql
+         - DBHOST=cbedb
+         - DBNAME=cbe
+         - DBPASSWORD=super
+         - DBUSER=super
+         - MQHOST=cbemq
+         - MQUSER=super
+         - MQPASSWORD=super
+         - MQRESTSERVER=cbe.sphinx.co.nz
+         - MQRESTPORT=443
+         - MQRESTPROTOCOL=https
+         - SUNAME=super
+         - SUEMAIL=super@super.com
+         - SUPASS=super
+     depends_on:
+          - cbedb
+          - cbemq
+     ports:
+        - "8000:8000"
+            
+  cbedb:
+     image: postgres:latest
+     restart: unless-stopped
+     volumes:
+        - "db-data:/var/lib/postgresql/data"
+     environment:
+        POSTGRES_PASSWORD: super
+        POSTGRES_USER: super
+        POSTGRES_DB: cbe
+            
+  cbemq:
+     image: rabbitmq:3-management-alpine
+     restart: unless-stopped
+     environment:
+         RABBITMQ_DEFAULT_USER: super
+         RABBITMQ_DEFAULT_PASS: super
+         TCP_PORTS: "5672,5671"
+     ports:
+       - '8080:15672'
+       - 5671
+       - 5672
+
+  cbedbadmin:
+     image: dpage/pgadmin4
+     restart: unless-stopped
+     environment:
+          PGADMIN_DEFAULT_EMAIL: super@super.com
+          PGADMIN_DEFAULT_PASSWORD: super
+     ports:
+        - 80
+     links:
+        - cbedb
   api:
     deploy:
       
@@ -22,29 +94,122 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
-      c
+      
     ports:
       - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
- 
+  mongodb:
+   # image: mongo:4.4.2
+    image: webhippie/mongodb:latest
+    
+  mongodb1:
+   # image: mongo:4.4.2
+    image: webhippie/mongodb:latest  
+  wordpress2:
+    image: wordpress
+  wordpress3:
+    image: wordpress
+  wordpress4:
+    image: wordpress
+  wordpress5:
+    image: wordpress
+  wordpress6:
+    image: wordpress
+  wordpress7:
+    image: wordpress
+  wordpress8:
+    image: wordpress
+  wordpress9:
+    image: wordpress
   rabbitmq:
     
     image: rabbitmq
+  rabbitmq1:
     
-    placement:
-       constraints:
-        - node.hostname == worker1
+    image: rabbitmq  
+  rabbitmq2:
     
-  redis:
+    image: rabbitmq    
+  rabbitmq3:
     
+    image: rabbitmq  
+  nginx:
+    image: nginx
+  node:
+    image: node
+  redis5:
     image: redis
+  redis:
+    image: redis
+     
+  redis9:
+    
+    image: mongo
+  redis1:
+    image: mongo 
+  redis2:
+    image: mongo  
+  db:
+    image: mongo
+  db2:
+    image: mongo
+    
+  db3:
+    image: mongo 
+  db4:
+    image: mongo
+  db5:
+    image: mongo
+  db6:
+    image: mongo
+    
+  db7:
+    image: mongo 
+  db8:
+    image: mongo  
+  rabbitmq4:                       
+                                   
+    image: rabbitmq
+  rabbitmq6:                       
+                                   
+    image: rabbitmq                    
+                                       
+  redis7:                               
+                                       
+    image: mongo                     
+                                       
+  redis8:                               
+                                       
+    image: mongo   
+  rabbitmq5:                       
+                                   
+    image: rabbitmq                    
+                                       
+  redis9:                               
+                                       
+    image: mongo                     
+                                       
+  redis:                               
+                                       
+    image: mongo  
+  grafana0:
+     image: grafana/grafana
+  grafana1:
+     image: grafana/grafana
+     
+  grafana2:
+     image: grafana/grafana
+  grafana3:
+     image: grafana/grafana
+  grafana4:
+     image: grafana/grafana
   visualizer:
     deploy:
       placement:
         constraints:
-        - node.hostname == manager
+        - node.hostname == default
     image: dockersamples/visualizer:latest
     ports:
     - 8070:8080
@@ -53,5 +218,7 @@ services:
   
 version: '3.8'
 volumes:
+  db-data:
   data-volume:
     driver: local
+

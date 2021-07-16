@@ -24,7 +24,7 @@ class Data:
         with  open(r"./test3.txt",'w') as file :
     
     
-            cmd = ('ssh root@manager docker node ls').split()
+            cmd = ('docker-machine ssh default docker node ls').split()
 
             p = subprocess.Popen(cmd,stdout=file)
             output, errors = p.communicate()
@@ -58,7 +58,7 @@ class Data:
             images1=[]
         #please change this path with the right one for you
             with  open(r"./test3.txt",'w') as file :
-                cmd = ('ssh root@'+str(machine)+' docker ps ').split()
+                cmd = ('docker-machine ssh '+str(machine)+' docker ps ').split()
 
                 p = subprocess.Popen(cmd,stdout=file)
                 output, errors = p.communicate()
@@ -148,7 +148,7 @@ class Data:
             yaml.dump(compose,file1)  
             
        
-        cmd = ("docker-machine scp localhost:"+str(file)+"  docker@manager:. ").split()
+        cmd = ("docker-machine scp localhost:"+str(file)+"  docker@default:. ").split()
 
         p = subprocess.Popen(cmd)
         output, errors = p.communicate() 
@@ -166,19 +166,19 @@ class Data:
     
         all_dependencies=[]
     #images,containers,initial_state,machines=get_data()
-        cmd = ('scp root@manager:docker-compose.yml /home/anwar/Desktop').split()
+        # cmd = ('scp root@manager:docker-compose.yml /home/anwar/Desktop').split()
 
-        p = subprocess.Popen(cmd)
-        output, errors = p.communicate() 
-        with open(r'/home/anwar/Desktop/docker-compose.yml') as file:
+        # p = subprocess.Popen(cmd)
+        # output, errors = p.communicate() 
+        with open(r'DockerComposeFiles/docker-compose.yml') as file:
         
    
             compose = yaml.load(file,Loader=yaml.FullLoader)
        
             for dict in compose['services']:
                 key=[]
-           
-            
+               
+                print(compose['services'][dict].get('depends_on'))
                 if((compose['services'][dict].get('depends_on') is not None)):
                
                
@@ -204,24 +204,47 @@ class Data:
                                 if (str(dep) in str(con)) and ((k,j) not in all_dependencies):
                                     all_dependencies.append((k,j))
                             
+                if((compose['services'][dict].get('links') is not None)):
+               
+               
+                    key=[]
+                    for k,con in enumerate(containers):
+                    
+                        if (str(dict) in str(con)) :
+                            key.append(k)
+                     
                 
+                    dependencies=compose['services'][dict]['links']
+                # print(dependencies)
+                    images1=[]
+                    for dep in dependencies:
+                        images1.append(compose['services'][dep]['image'])
+                # print(images)    
+                    for dep in images1:
+                    
+                        for j,con in enumerate(images):
+                        
+                            for k in key:
+                            
+                                if (str(dep) in str(con)) and ((k,j) not in all_dependencies):
+                                    all_dependencies.append((k,j))
                
                             
              
-                if((compose['services'][dict].get('links') is not None)):
-                    image=compose['services'][dict]['image']
-                    for k,con in enumerate(containers):
-                        if (str(image) in str(con)):
-                            key=k
+                # if((compose['services'][dict].get('links') is not None)):
+                #     image=compose['services'][dict]['image']
+                #     for k,con in enumerate(containers):
+                #         if (str(image) in str(con)):
+                #             key=k
                         
-                    dependencies=compose['services'][dict]['links']
-                    images=[]
-                    for dep in dependencies:
-                        images.append(compose['services'][dep]['image'])
-                    for dep in images:
-                        for j,con in enumerate(containers):
-                            if (str(dep) in str(con)) and  ((key,j) not in all_dependencies):
-                                all_dependencies.append((key,j))
+                #     dependencies=compose['services'][dict]['links']
+                #     images=[]
+                #     for dep in dependencies:
+                #         images.append(compose['services'][dep]['image'])
+                #     for dep in images:
+                #         for j,con in enumerate(containers):
+                #             if (str(dep) in str(con)) and  ((key,j) not in all_dependencies):
+                #                 all_dependencies.append((key,j))
         
         return (all_dependencies)  
 
@@ -229,13 +252,14 @@ class Data:
     def get_constraints(self,machines,roles,images):
     
     
-        with open(r'./docker-compose.yml') as file:
+        with open(r'DockerComposeFiles/docker-compose.yml') as file:
             compose = yaml.load(file,Loader=yaml.FullLoader)
             constraints=[]
             for dict in compose['services']:
+                
                 constraints.append("chey")
         
-       
+            
             for dict in compose['services']:
         
                 if(compose['services'][dict].get('image') in images):
@@ -248,7 +272,7 @@ class Data:
                     container_index=images.index(image_name)
                 
                 if((compose['services'][dict].get('deploy') is  None)):
-            
+                    print(container_index)
                     constraints[container_index]='NA'
             
 
@@ -305,7 +329,7 @@ class Data:
                 nodes.append(one_node)
             for i,n in enumerate(containers):
         
-                one_container ={'id':i,'name': n,'image':images[i],'dependencies':[],'placements':constraints[i]}
+                one_container ={'id':i,'name': n,'image':images[i],'dependencies':[],'placements':[]}
                 print(one_container['dependencies'])
                 cons.append(one_container)    
       
@@ -316,8 +340,15 @@ class Data:
             
             
             entry['nodes']=nodes  
-            entry['current_state']=initial_state
+            entry['currentState']=initial_state
             entry['containers']=cons
             json.dump(entry, file)
         return('done')
     
+data=Data()
+    
+print(data.get_nodes())
+images,containers,roles,initial_state,machines=data.get_data()
+dependencies=data.get_dependencies(images,containers)
+#print(data.get_constraints(machines, roles, images))
+data.createjson(machines,containers,initial_state,images,dependencies,[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]])

@@ -46,15 +46,21 @@ export class VisualizerComponent implements OnInit {
   /* this.api.getcpu()
             .subscribe(
               resp => {
-                
+                console.log(resp)
               
                 });
      this.api.getmem()
                 .subscribe(
                   resp => {
                     
-                  
-                    }); */
+                    console.log(resp)
+                    }); 
+    this.api.getTotalMem()
+                    .subscribe(
+                      resp => {
+                        
+                        console.log(resp)
+                        });  */
     this.color = [Math.floor((Math.random() * 6) + 1),Math.floor((Math.random() * 6) + 1),Math.floor((Math.random() * 6) + 1),Math.floor((Math.random() * 6) + 1),Math.floor((Math.random() * 6) + 1),Math.floor((Math.random() * 6) + 1),Math.floor((Math.random() * 6) + 1)]
    
     

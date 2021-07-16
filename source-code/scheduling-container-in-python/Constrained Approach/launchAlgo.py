@@ -129,7 +129,8 @@ def transform(instance):
         
     for solution in front:
         res=0
-        for i,ob in enumerate(solution.objectives[:-1]):
+        for i,ob in enumerate(solution.objectives):
+            
             res=weights[i]*ob
       
         resultat.append(res)
@@ -184,18 +185,18 @@ def transform(instance):
 
   
     
-    # Data().updateDockerCompose(instance.containers,instance.images,instance.currentState,instance.nodes,'DockerComposeFiles/initial-docker-compose.yml')
+    Data().updateDockerCompose(instance.containers,instance.images,instance.currentState,instance.nodes,'DockerComposeFiles/initial-docker-compose.yml')
     
-    # services_to_shutdown=Data().updateDockerCompose(instance.containers,instance.images,candidate,instance.nodes,'DockerComposeFiles/updated-docker-compose.yml')
-    # for service in services_to_shutdown:
-    #     #print("docker-machine ssh manager docker service rm" +str(service))
-    #     cmd = ("docker-machine ssh manager docker service rm "  +str(service)).split()
+    services_to_shutdown=Data().updateDockerCompose(instance.containers,instance.images,candidate.variables,instance.nodes,'DockerComposeFiles/updated-docker-compose.yml')
+    for service in services_to_shutdown:
+        #print("docker-machine ssh manager docker service rm" +str(service))
+        cmd = ("docker-machine ssh manager docker service rm "  +str(service)).split()
 
     #     p = subprocess.Popen(cmd)
     #     output, errors = p.communicate() 
     
-    # return front
-#-----------------------------------------------------------------------------------------------------------------------------------------------
-instance=Instance()
-Instance=createInstance(instance)
-transform(Instance)
+    return front
+# #-----------------------------------------------------------------------------------------------------------------------------------------------
+# instance=Instance()
+# Instance=createInstance(instance)
+# transform(Instance)

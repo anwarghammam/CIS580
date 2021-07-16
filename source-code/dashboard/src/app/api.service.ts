@@ -43,6 +43,9 @@ export class ApiService implements OnInit{
 getmem():Observable<HttpResponse<any>>{
   return this.http.get<any>("http://localhost:5002/getmem/", { observe: 'response' });
 }
+getTotalMem():Observable<HttpResponse<any>>{
+  return this.http.get<any>("http://localhost:5002/getMaxmem/", { observe: 'response' });
+}
  getnb_nodes()
  {
   return   this.http.get<JSON>(this.url+"api/v1/query?query=count(node_meta)", { observe: 'response' })

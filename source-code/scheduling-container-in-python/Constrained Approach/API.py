@@ -94,9 +94,9 @@ def get():
 def get_cpu_per_container():
     Instance=createInstance(instance)
     for node in Instance.nodes:
-        print(node.cluster_id)
+      
         r = requests.get('http://192.168.99.100:9090/api/v1/query?query=sum(irate(container_cpu_usage_seconds_total%7Bcontainer_label_com_docker_swarm_node_id%3D~"'+str(node.cluster_id)+'"%2C%20id%3D~"%2Fdocker%2F.*"%7D%5B5m%5D))%20by%20(name)%20*%20100%20&g0.tab=1')
-        print(json.loads(r.text)['data']['result'])
+        
         for metric in json.loads(r.text)['data']['result']:
             
             name=(metric['metric']['name'])
@@ -120,10 +120,10 @@ def get_cpu_per_container():
 def get_mem_per_container():
     Instance=createInstance(instance)
     for node in Instance.nodes:
-        print(node.cluster_id)
+       
         r = requests.get('http://192.168.99.100:9090/api/v1/query?query=avg_over_time(container_memory_usage_bytes%7Bcontainer_label_com_docker_swarm_node_id%3D~"'+str(node.cluster_id)+'"%2C%20id%3D~"%2Fdocker%2F.*"%7D%5B5m%5D)%2F1024%2F1024&g0.tab=1')
        
-        print(json.loads(r.text)['data']['result'])
+      
         for metric in json.loads(r.text)['data']['result']:
             
             name=(metric['metric']['name'])
@@ -174,10 +174,10 @@ def get_Maxmem_penode():
 
 def new_approach():
     
-    
+   
     Instance=createInstance(instance)
     transform(Instance)
-    cmd = ('docker-machine ssh manager docker stack deploy --compose-file updated-docker-compose.yml p ').split()
+    cmd = ('docker-machine ssh default docker stack deploy --compose-file updated-docker-compose.yml p ').split()
 
     p = subprocess.Popen(cmd)
     output, errors = p.communicate() 
