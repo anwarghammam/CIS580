@@ -24,7 +24,7 @@ class Data:
         with  open(r"./test3.txt",'w') as file :
     
     
-            cmd = ('docker-machine ssh default docker node ls').split()
+            cmd = ('docker-machine ssh manager docker node ls').split()
 
             p = subprocess.Popen(cmd,stdout=file)
             output, errors = p.communicate()
@@ -122,11 +122,13 @@ class Data:
            
       
         for i,con  in enumerate(images) :
+            
+            
            
             for j,dict in enumerate(compose['services']):
-            
+                
                 #print(compose['services'][dict])
-                if str(compose['services'][dict]['image']) in str(con):
+                if (str(compose['services'][dict]['image']) in str(con)) and (dict in str(containers[i].name)):
                     
                     if (state[i]!=-1):
                         
@@ -148,7 +150,7 @@ class Data:
             yaml.dump(compose,file1)  
             
        
-        cmd = ("docker-machine scp localhost:"+str(file)+"  docker@default:. ").split()
+        cmd = ("docker-machine scp localhost:"+str(file)+"  docker@manager:. ").split()
 
         p = subprocess.Popen(cmd)
         output, errors = p.communicate() 
@@ -349,6 +351,8 @@ data=Data()
     
 print(data.get_nodes())
 images,containers,roles,initial_state,machines=data.get_data()
+print(containers)
 dependencies=data.get_dependencies(images,containers)
+print(dependencies)
 #print(data.get_constraints(machines, roles, images))
-data.createjson(machines,containers,initial_state,images,dependencies,[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]])
+#data.createjson(machines,containers,initial_state,images,dependencies,[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]])

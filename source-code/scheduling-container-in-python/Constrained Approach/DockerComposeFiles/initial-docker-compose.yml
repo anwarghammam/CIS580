@@ -40,7 +40,7 @@ services:
     deploy:
       placement:
         constraints:
-        - node.hostname == default
+        - node.hostname == manager
     environment:
       POSTGRES_DB: cbe
       POSTGRES_PASSWORD: super
@@ -98,25 +98,25 @@ services:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == worker1
     image: mongo
   db3:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == worker1
     image: mongo
   db4:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == worker1
     image: mongo
   db5:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == manager
     image: mongo
   db6:
     deploy:
@@ -128,7 +128,7 @@ services:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == manager
     image: mongo
   db8:
     deploy:
@@ -146,13 +146,13 @@ services:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == manager
     image: grafana/grafana
   grafana2:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == worker1
     image: grafana/grafana
   grafana3:
     deploy:
@@ -164,7 +164,7 @@ services:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == worker1
     image: grafana/grafana
   haproxy:
     deploy:
@@ -196,7 +196,7 @@ services:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker1
+        - node.hostname == manager
     image: webhippie/mongodb:latest
   nginx:
     deploy:
@@ -238,19 +238,19 @@ services:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == manager
     image: rabbitmq
   rabbitmq5:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == manager
     image: rabbitmq
   rabbitmq6:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == worker1
     image: rabbitmq
   redis:
     deploy:
@@ -268,25 +268,25 @@ services:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == manager
     image: mongo
   redis5:
     deploy:
       placement:
         constraints:
-        - node.hostname == default
+        - node.hostname == manager
     image: redis
   redis7:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == manager
     image: mongo
   redis8:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == manager
     image: mongo
   redis9:
     deploy:
@@ -298,7 +298,7 @@ services:
     deploy:
       placement:
         constraints:
-        - node.hostname == default
+        - node.hostname == manager
     image: dockersamples/visualizer:latest
     ports:
     - 8070:8080
@@ -314,25 +314,25 @@ services:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == worker1
     image: wordpress
   wordpress4:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == manager
     image: wordpress
   wordpress5:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == worker1
     image: wordpress
   wordpress6:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == manager
     image: wordpress
   wordpress7:
     deploy:
@@ -344,13 +344,13 @@ services:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == worker1
     image: wordpress
   wordpress9:
     deploy:
       placement:
         constraints:
-        - node.hostname == worker2
+        - node.hostname == worker1
     image: wordpress
 version: '3.8'
 volumes:

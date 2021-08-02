@@ -14,7 +14,7 @@ function all(data,nodes,url_node){
  var ctx8 = document.getElementById('myChart8').getContext('2d');
  var ctx9 = document.getElementById('myChart9').getContext('2d');
  var ctx10 = document.getElementById('myChart10').getContext('2d');
- url="http://192.168.99.100:9090/"
+ url="http://192.168.99.103:9090/"
 
  
  const query1='100 - (avg(irate(node_cpu_seconds_total{mode="idle"}[5m])  * on(instance) group_left(node_name) node_meta * 100) by (node_name))';

@@ -10,7 +10,7 @@ import 'rxjs/Rx';
 })
 
 export class ApiService implements OnInit{
- url="http://192.168.99.100:9090/"
+ url="http://192.168.99.103:9090/"
  all_current_data
  eliminate_services=['p_node-exporter','p_cadvisor','p_prometheus']
  public dataSubject = new Subject<number>();

@@ -84,7 +84,7 @@ class ReschedulingProblem(IntegerProblem,ABC):
         
         
         self.constraints=[SatisfyDependencies(),
-                          PowerConsumption(),
+                          #PowerConsumption(),
                           MemoryConsumption(),
                           CpuConsumption(),
                           PlacementConstraints(),
