@@ -14,6 +14,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/info', title: 'General info', icon:'education_atom', class: '' },
     { path: '/constraints', title: 'constraints',  icon:'ui-1_bell-53', class: '' },
     { path: '/alerts', title: 'alerts',  icon:'ui-1_bell-53', class: '' },
+    { path: '/exectime', title: 'exectime',  icon:'ui-1_bell-53', class: '' },
    
 ];
 

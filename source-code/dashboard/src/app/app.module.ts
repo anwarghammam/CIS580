@@ -17,6 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VisualizerComponent } from './visualizer/visualizer.component';
 import { ConstraintsComponent } from './constraints/constraints.component';
 import { ObjectivesComponent } from './objectives/objectives.component';
+import { ExectimeComponent } from './exectime/exectime.component';
 @NgModule({
   imports: [
   
@@ -38,6 +39,7 @@ import { ObjectivesComponent } from './objectives/objectives.component';
     VisualizerComponent,
     ConstraintsComponent,
     ObjectivesComponent,
+    ExectimeComponent,
    
     
   ],

@@ -34,6 +34,9 @@ export class ApiService implements OnInit{
  default():Observable<HttpResponse<any>>{
    return this.http.get<any>("http://localhost:5002/default", { observe: 'response' });
  }
+ exectime():Observable<HttpResponse<any>>{
+  return this.http.get<any>("http://localhost:5002/getexectime/", { observe: 'response' });
+}
  newapproach():Observable<HttpResponse<any>>{
    return this.http.get<any>("http://localhost:5002/newapproach/", { observe: 'response' });
  }

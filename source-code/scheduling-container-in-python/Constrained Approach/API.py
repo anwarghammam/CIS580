@@ -176,11 +176,24 @@ def new_approach():
     
    
     Instance=createInstance(instance)
-    transform(Instance)
+    time=transform(Instance)
+    y = {"containers":len(Instance.containers),
+     "exectime": round(time, 2)
+   
+    }
+    with open(r"./instanceExamples/exec.json", "r") as file:
+        data= json.load(file)
+        data["times"].append(y)
+           
+                        
+    with open(r"./instanceExamples/exec.json", "w") as file:
+        json.dump(data, file)
+
     cmd = ('docker-machine ssh default docker stack deploy --compose-file updated-docker-compose.yml p ').split()
 
     p = subprocess.Popen(cmd)
     output, errors = p.communicate() 
+  
        
     # print(output)
     # print(errors)
@@ -192,11 +205,20 @@ def new_approach():
        
 
        
-    result=jsonify("done")
+    result=jsonify(time)
        
     return (result)  
+@app.route('/getexectime/', methods=['GET'])
 
+def gettimes():
+    f = open(r"./instanceExamples/exec.json", "r")
 
+    data = json.load(f)
+    response = app.response_class(
+        response=json.dumps(data),
+        mimetype='application/json'
+    )
+    return response   
 
 if __name__ == '__main__':
      app.run(port='5002')       

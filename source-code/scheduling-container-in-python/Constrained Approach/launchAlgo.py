@@ -19,7 +19,7 @@ import numpy as np
 from instance.Instance import Instance
 from extract_data import Data
 import subprocess
-
+import time
 from Problem.Instance_from_Json import createInstance
 
 
@@ -93,7 +93,7 @@ def transform(instance):
     print("Algorithm running....")
     print()
     print()
-
+    start_time = time.time()
     algorithm1.run()
     
     
@@ -187,16 +187,24 @@ def transform(instance):
     
     Data().updateDockerCompose(instance.containers,instance.images,instance.currentState,instance.nodes,'DockerComposeFiles/initial-docker-compose.yml')
     
-    services_to_shutdown=Data().updateDockerCompose(instance.containers,instance.images,candidate.variables,instance.nodes,'DockerComposeFiles/updated-docker-compose.yml')
-    for service in services_to_shutdown:
-        #print("docker-machine ssh manager docker service rm" +str(service))
-        cmd = ("docker-machine ssh manager docker service rm "  +str(service)).split()
+    #services_to_shutdown=Data().updateDockerCompose(instance.containers,instance.images,candidate.variables,instance.nodes,'DockerComposeFiles/updated-docker-compose.yml')
+    # for service in services_to_shutdown:
+    #     #print("docker-machine ssh manager docker service rm" +str(service))
+    #     cmd = ("docker-machine ssh manager docker service rm "  +str(service)).split()
 
-    #     p = subprocess.Popen(cmd)
-    #     output, errors = p.communicate() 
-    
-    return front
+    # #     p = subprocess.Popen(cmd)
+    # #     output, errors = p.communicate() 
+    print("--- %s seconds ---" % (time.time() - start_time))
+    print(f'Computing time: ${algorithm1.total_computing_time}')
+    times=[]
+    times.append(time.time() - start_time)
+    times.append(algorithm1.total_computing_time)
+    return time.time() - start_time
 # #-----------------------------------------------------------------------------------------------------------------------------------------------
 # instance=Instance()
 # Instance=createInstance(instance)
+
+
+
+
 # transform(Instance)

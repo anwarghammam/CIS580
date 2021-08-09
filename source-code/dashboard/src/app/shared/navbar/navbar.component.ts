@@ -80,13 +80,27 @@ export class NavbarComponent implements OnInit{
                 this.api.newapproach()
                   .subscribe(
                     resp => {
-                        console.log("approach"+resp);
+                        console.log(resp);
+                        
+                        const msg=("Execution time is equal to ".concat(Number(resp.body[0]).toFixed(2).toString())).concat(" Seconds");
+                        var color = Math.floor((Math.random() * 4) + 1);
+                        $.notify({
+                           
+                            message: msg
+                        },{
+                            type: type[color],
+                            timer: 1000,
+                            placement: {
+                                from: from,
+                                align: align
+                            }
+                        });
                     
                       });
                     /**  window.location.reload() */
                     }
                  
-                    
+                   
         
         
       

@@ -1,0 +1,23 @@
+
+<div class="container" style="width: auto;margin:5em;">
+
+
+    <div class="col-4"></div>
+    <div class="col-4">
+   <div *ngFor="let time of times" class="row">
+   <div class="col">
+   <p> <strong> {{time.containers}} containers</strong></p> 
+   </div>
+   <div class="col">
+       <div class="progress">
+        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{time.exectime}}%" aria-valuenow="{{time.exectime}}" aria-valuemin="0" aria-valuemax="60">{{time.exectime}} Sec</div>
+      </div>
+   </div>
+
+   </div>
+
+</div>
+
+<div class="col-4"></div>
+  
+  </div>
