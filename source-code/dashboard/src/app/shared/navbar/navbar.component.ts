@@ -82,7 +82,7 @@ export class NavbarComponent implements OnInit{
                     resp => {
                         console.log(resp);
                         
-                        const msg=("Execution time is equal to ".concat(Number(resp.body[0]).toFixed(2).toString())).concat(" Seconds");
+                        const msg=("Execution time is equal to ".concat(Number(resp.body).toFixed(2).toString())).concat(" Seconds");
                         var color = Math.floor((Math.random() * 4) + 1);
                         $.notify({
                            

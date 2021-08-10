@@ -18,9 +18,12 @@ import { VisualizerComponent } from './visualizer/visualizer.component';
 import { ConstraintsComponent } from './constraints/constraints.component';
 import { ObjectivesComponent } from './objectives/objectives.component';
 import { ExectimeComponent } from './exectime/exectime.component';
+import { GoogleChartsModule } from 'angular-google-charts';
+
 @NgModule({
   imports: [
-  
+   
+    GoogleChartsModule,
     ChartsModule,
     BrowserAnimationsModule,
     FormsModule,

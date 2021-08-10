@@ -15,7 +15,7 @@ from instance.Instance import Instance
 
 def createInstance(Instance):
     
-    f = open(r"instanceExamples/data.json")
+    f = open(r"instanceExamples/Instance100.json")
    
     data = json.load(f)
     

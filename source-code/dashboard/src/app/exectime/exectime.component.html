@@ -10,7 +10,7 @@
    </div>
    <div class="col">
        <div class="progress">
-        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{time.exectime}}%" aria-valuenow="{{time.exectime}}" aria-valuemin="0" aria-valuemax="60">{{time.exectime}} Sec</div>
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{time.exectime}}%" aria-valuenow="{{time.exectime}}" aria-valuemin="0" aria-valuemax="20">{{time.exectime}} Sec</div>
       </div>
    </div>
 
@@ -20,4 +20,16 @@
 
 <div class="col-4"></div>
   
+
+
+<google-chart style="width: 500px"
+[type]="chartData.type" 
+[data]="chartData.data" 
+[columns]="chartData.columnNames" 
+[options]="chartData.options" 
+[width]="chartData.width"
+[height]="chartData.height">
+  
+</google-chart>
   </div>
+ 

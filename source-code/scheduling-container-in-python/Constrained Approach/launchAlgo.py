@@ -199,7 +199,7 @@ def transform(instance):
     times=[]
     times.append(time.time() - start_time)
     times.append(algorithm1.total_computing_time)
-    return time.time() - start_time
+    return algorithm1.total_computing_time
 # #-----------------------------------------------------------------------------------------------------------------------------------------------
 # instance=Instance()
 # Instance=createInstance(instance)
