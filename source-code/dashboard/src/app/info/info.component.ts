@@ -118,9 +118,12 @@ export class InfoComponent implements OnInit {
   public consumed_mem
   public consumed_cpu
   public data3=[]
+  public total_resources=[]
   public info =[]
   public nodes_ids=[]
   public nodes_names=[]
+  public total_cpu
+  public total_mem
   public pieChartData=[3,3,3,3,3,3]
   infos:JSON[]
   public data= [];
@@ -135,8 +138,7 @@ export class InfoComponent implements OnInit {
 
   ngOnInit() {
     this.nb_info()
-    
-
+   
   this.nb_total_dis() 
   
  
@@ -145,41 +147,45 @@ export class InfoComponent implements OnInit {
   this.nb_total_mem()  
   this.get_available_mem()
   this.get_available_disk()
-  
+ 
   
         }
     
-        consumed_ressources(){
+        consumed_ressources()
+        
+        {
+
+          
           this.data1.forEach(val=>{
             
-          this.api.consumed_mem_node(String(val[1])).subscribe(
-            resp => {
-              
-                this.consumed_mem=parseFloat(resp.body['data']['result']['0']['value']['1']);
-              
-              
-               
-          
-              });
-           
-                 
-          this.api.consumed_cpu_node(String(val[1])).subscribe(
-                resp => {
-                  console.log("anwar 3  " + val) 
-                  
-              this.consumed_cpu=parseFloat(resp.body['data']['result']['0']['value']['1']);
-                         
-                this.data3.push(
-                              [String(val[0]),this.consumed_cpu, this.consumed_mem])
-                              
-                             
-                           ;
-                      
-                          });
+            forkJoin([this.api.consumed_mem_node(String(val[1])), 
+            this.api.consumed_cpu_node(String(val[1]))]).subscribe(data => {
+ 
+             this.consumed_mem=parseFloat(data[0].body['data']['result']['0']['value']['1']);
+ 
+              this.consumed_cpu=parseFloat(data[1].body['data']['result']['0']['value']['1']);
+              this.data3.push(
+                [String(val[0]),this.consumed_cpu, this.consumed_mem])
+           });
+
+
+
+
+           forkJoin([this.api.total_cpu_node(String(val[1])), 
+           this.api.total_mem_node(String(val[1]))]).subscribe(data => {
+
+            this.total_mem=parseFloat(data[0].body['data']['result']['0']['value']['1']);
+
+             this.total_cpu=parseFloat(data[1].body['data']['result']['0']['value']['1']);
+             this.total_resources.push(
+               [String(val[0]),this.total_cpu, this.total_mem])
+          });
+                
                         
                         })
                      
             console.log(this.data3)
+           
         }
         nb_con(){
          console.log(this.data1)
@@ -337,6 +343,19 @@ export class InfoComponent implements OnInit {
    
    width1 = 400;
    height1 = 200;
+
+    /*table2*/
+    title2 = "total ressources";
+    type2 = 'Table';
+    
+    columnNames2=["node_name", "Total Cpu (cores)","Total Memory (GB)"];
+    options2 = { 
+      alternatingRowStyle:true,
+      showRowNumber:true  
+    };
+    
+    width2 = 400;
+    height2 = 200;
 
 
 

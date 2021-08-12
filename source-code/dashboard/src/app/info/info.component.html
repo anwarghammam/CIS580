@@ -21,7 +21,6 @@
                   <google-chart 
             #googlechart
             [title]="chart3.title"
-            
             [type]="chart3.type"
             [data]="chart3.data"
             [options]="chart3.options">
@@ -49,22 +48,7 @@
           </div>
       
 
-    <!--   <div class="col-md-2" style = "width: 20px; height: 50px;" >
-          <div>
-           
-            <google-chart #chart
-          [title]="title1"
-          [type]="type1"
-          [data]="data1"
-        
-          [options]="options1"
-          [width]="width1"
-          [height]="height1">
-       </google-chart>
-           
-        </div>
-     </div> --> 
-          
+   
     </div>
 
           
@@ -119,8 +103,39 @@
 
     <div class="row">
       
-      
-  
+           <div class="col-md-3">
+          <div>
+           
+            <google-chart #chart
+          [title]="title1"
+          [type]="type1"
+          [data]="data1"
+          [columns]="columnNames1"
+          [options]="options1"
+          [width]="width1"
+          [height]="height1">
+       </google-chart>
+           
+        </div>
+     </div> 
+     <div class="col-md-3"> </div>
+
+     <div class="col-md-3"  >
+      <div>
+       
+        <google-chart #chart
+      [title]="title2"
+      [type]="type2"
+      [data]="total_resources"
+      [columns]="columnNames2"
+      [options]="options2"
+      [width]="width2"
+      [height]="height2">
+   </google-chart>
+       
+    </div>
+ </div> 
+
 
     </div>    
         

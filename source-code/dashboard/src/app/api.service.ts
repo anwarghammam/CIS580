@@ -88,6 +88,15 @@ getTotalMem():Observable<HttpResponse<any>>{
   consumed_cpu_node(node_id):Observable<HttpResponse<JSON>>{
    return   this.http.get<JSON>(this.url+"api/v1/query?query=100%20-%20(avg(irate(node_cpu_seconds_total{mode=%22idle%22}[5m])*%20on(instance)%20group_left(node_name)%20node_meta{node_id=%22"+node_id+"%22}%20*%20100)%20by%20(node_name))", { observe: 'response' });
   }
+
+  total_cpu_node(node_id):Observable<HttpResponse<JSON>>{
+    return   this.http.get<JSON>(this.url+"api/v1/query?query=count(node_cpu_seconds_total%7Bmode%3D%22idle%22%7D%20*%20on(instance)%20group_left(node_name)%20node_meta%7Bnode_id%3D~%22"+node_id+"%22%7D)&g0.tab=1", { observe: 'response' });
+   }
+
+   total_mem_node(node_id):Observable<HttpResponse<JSON>>{
+    return   this.http.get<JSON>(this.url+"api/v1/query?query=sum(node_memory_MemTotal_bytes%20*%20on(instance)%20group_left(node_name)%20node_meta%7Bnode_id%3D~%22"+node_id+"%22%7D%2F1000%2F1000%2F1000)&g0.tab=1", { observe: 'response' });
+   }
+   
   containers_per_node(node_id):Observable<HttpResponse<JSON>>{
     return   this.http.get<JSON>(this.url+"api/v1/query?query=sum(rate(container_last_seen{container_label_com_docker_swarm_service_name!=%22"+this.eliminate_services[0]+"%22,container_label_com_docker_swarm_service_name!=%22"+this.eliminate_services[1]+"%22,container_label_com_docker_swarm_service_name!=%22"+this.eliminate_services[2]+"%22,container_label_com_docker_swarm_node_id=~%22"+node_id+"%22}[5m])) by (container_label_com_docker_swarm_service_name)", { observe: 'response' });
    }
