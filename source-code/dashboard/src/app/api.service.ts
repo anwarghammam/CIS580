@@ -115,7 +115,7 @@ getTotalMem():Observable<HttpResponse<any>>{
     
   }
 energy():Observable<HttpResponse<any>>{
-    return this.http.get<any>("http://localhost:5002/getenergy", { observe: 'response' });
+    return this.http.get<any>("http://localhost:5002/getenergy/", { observe: 'response' });
   }
 
   public weights(entity:any):Observable<any>{

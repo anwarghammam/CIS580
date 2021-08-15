@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit{
   
 
   ngOnInit() {
-    
+   
    
       this.api.energy()
       .subscribe(

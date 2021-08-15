@@ -36,7 +36,7 @@ def getjson():
     )
     return response
 
-@app.route('/getenergy', methods=['GET'])
+@app.route('/getenergy/', methods=['GET'])
 def getcsv():
     f = open(r"./energy.json")
 
@@ -54,7 +54,7 @@ def events():
 
     content = request.get_data()
     c=json.loads(content)
-    print(c)
+    #print(c)
     with open(r"instanceExamples/data.json", 'w') as f:
         json.dump(c, f)
     return 'JSON posted'
@@ -65,7 +65,7 @@ def weights():
 
     content = request.get_data()
     c=json.loads(content)
-    print(c)
+    #print(c)
     with open(r"./instanceExamples/data.json", "r") as file:
         
         data= json.load(file)
@@ -95,7 +95,7 @@ def get_cpu_per_container():
     Instance=createInstance(instance)
     for node in Instance.nodes:
       
-        r = requests.get('http://192.168.99.100:9090/api/v1/query?query=sum(irate(container_cpu_usage_seconds_total%7Bcontainer_label_com_docker_swarm_node_id%3D~"'+str(node.cluster_id)+'"%2C%20id%3D~"%2Fdocker%2F.*"%7D%5B5m%5D))%20by%20(name)%20*%20100%20&g0.tab=1')
+        r = requests.get('http://192.168.99.103:9090/api/v1/query?query=sum(irate(container_cpu_usage_seconds_total%7Bcontainer_label_com_docker_swarm_node_id%3D~"'+str(node.cluster_id)+'"%2C%20id%3D~"%2Fdocker%2F.*"%7D%5B5m%5D))%20by%20(name)%20*%20100%20&g0.tab=1')
         
         for metric in json.loads(r.text)['data']['result']:
             
@@ -121,7 +121,7 @@ def get_mem_per_container():
     Instance=createInstance(instance)
     for node in Instance.nodes:
        
-        r = requests.get('http://192.168.99.100:9090/api/v1/query?query=avg_over_time(container_memory_usage_bytes%7Bcontainer_label_com_docker_swarm_node_id%3D~"'+str(node.cluster_id)+'"%2C%20id%3D~"%2Fdocker%2F.*"%7D%5B5m%5D)%2F1024%2F1024&g0.tab=1')
+        r = requests.get('http://192.168.99.103:9090/api/v1/query?query=avg_over_time(container_memory_usage_bytes%7Bcontainer_label_com_docker_swarm_node_id%3D~"'+str(node.cluster_id)+'"%2C%20id%3D~"%2Fdocker%2F.*"%7D%5B5m%5D)%2F1024%2F1024&g0.tab=1')
        
       
         for metric in json.loads(r.text)['data']['result']:
@@ -147,22 +147,23 @@ def get_mem_per_container():
 def get_Maxmem_penode():
     Instance=createInstance(instance)
     for node in Instance.nodes:
-        print(node.cluster_id)
-        r = requests.get('http://192.168.99.100:9090/api/v1/query?query=sum(node_memory_MemTotal_bytes%20*%20on(instance)%20group_left(node_name)%20node_meta%7Bnode_id%3D~"'+str(node.cluster_id)+'"%7D)%2F1000%2F1000&g0.tab=1')
+        #print(node.cluster_id)
+        r = requests.get('http://192.168.99.103:9090/api/v1/query?query=sum(node_memory_MemTotal_bytes%20*%20on(instance)%20group_left(node_name)%20node_meta%7Bnode_id%3D~"'+str(node.cluster_id)+'"%7D)%2F1000%2F1000&g0.tab=1')
        
-        print(json.loads(r.text)['data']['result'][0]['value'][1])
+        #print(json.loads(r.text)['data']['result'][0]['value'][1])
        
         with open(r"./instanceExamples/data.json", "r") as file:
             data= json.load(file)
-            for con in data['nodes']:
+        for con in data['nodes']:
                 
-                if (con['name'] == node.name):
-                    
-                    con['Maxmem']=float(json.loads(r.text)['data']['result'][0]['value'][1])
+            if (con['name'] == node.name):
+                
+               
+                con['Maxmem']=float(json.loads(r.text)['data']['result'][0]['value'][1])
                         
-            with open(r"./instanceExamples/data.json", "w") as file:
-                
-                json.dump(data, file)
+        with open(r"./instanceExamples/data.json", "w") as file:
+            
+            json.dump(data, file)
 
         
         
@@ -189,7 +190,7 @@ def new_approach():
     with open(r"./instanceExamples/exec.json", "w") as file:
         json.dump(data, file)
 
-    cmd = ('docker-machine ssh default docker stack deploy --compose-file updated-docker-compose.yml p ').split()
+    cmd = ('docker-machine ssh manager docker stack deploy --compose-file updated-docker-compose.yml p ').split()
 
     p = subprocess.Popen(cmd)
     output, errors = p.communicate() 

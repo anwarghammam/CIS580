@@ -12,7 +12,6 @@ services:
          - 8000
          - 9000
      links:
-         - cbemq
          - cbeapp
          - cbedbadmin
   cbeapp:
@@ -35,7 +34,6 @@ services:
          - SUPASS=super
      depends_on:
           - cbedb
-          - cbemq
      ports:
         - "8000:8000"
             
@@ -49,17 +47,6 @@ services:
         POSTGRES_USER: super
         POSTGRES_DB: cbe
             
-  cbemq:
-     image: rabbitmq:3-management-alpine
-     restart: unless-stopped
-     environment:
-         RABBITMQ_DEFAULT_USER: super
-         RABBITMQ_DEFAULT_PASS: super
-         TCP_PORTS: "5672,5671"
-     ports:
-       - '8080:15672'
-       - 5671
-       - 5672
 
   cbedbadmin:
      image: dpage/pgadmin4
@@ -101,99 +88,97 @@ services:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
   mongodb:
-   # image: mongo:4.4.2
-    image: webhippie/mongodb:latest
+    image: mongo:4.4.2
+    #image: webhippie/mongodb:latest
     
   mongodb1:
-   # image: mongo:4.4.2
-    image: webhippie/mongodb:latest  
+    image: mongo:4.4.2
+    #image: webhippie/mongodb:latest  
   wordpress2:
-    image: wordpress
+    image: wordpress:latest
   wordpress3:
-    image: wordpress
+    image: wordpress:latest
   wordpress4:
-    image: wordpress
+    image: wordpress:latest
   wordpress5:
-    image: wordpress
+    image: wordpress:latest
   wordpress6:
-    image: wordpress
+    image: wordpress:latest
   wordpress7:
-    image: wordpress
+    image: wordpress:latest
   wordpress8:
-    image: wordpress
+    image: wordpress:latest
   wordpress9:
-    image: wordpress
+    image: wordpress:latest
   rabbitmq:
     
-    image: rabbitmq
+    image: rabbitmq:latest
   rabbitmq1:
     
-    image: rabbitmq  
+    image: rabbitmq:latest
   rabbitmq2:
     
-    image: rabbitmq    
+    image: rabbitmq:latest  
   rabbitmq3:
     
-    image: rabbitmq  
+    image: rabbitmq:latest 
   nginx:
-    image: nginx
-  node:
-    image: node
+    image: nginx:latest
   redis5:
-    image: redis
+    image: redis:latest
   redis:
-    image: redis
+    image: redis:latest
      
   redis9:
     
-    image: mongo
+    image: mongo:latest
   redis1:
-    image: mongo 
+    image: mongo:latest
   redis2:
-    image: mongo  
+    image: mongo:latest 
   db:
-    image: mongo
+    image: mongo:latest
   db2:
-    image: mongo
+    image: mongo:latest
     
   db3:
-    image: mongo 
+    image: mongo:latest
   db4:
-    image: mongo
+    image: mongo:latest
   db5:
-    image: mongo
+    image: mongo:latest
   db6:
-    image: mongo
+    image: mongo:latest
     
   db7:
-    image: mongo 
+    image: mongo:latest
   db8:
-    image: mongo  
+    image: mongo:latest 
   rabbitmq4:                       
                                    
-    image: rabbitmq
+    image: rabbitmq:latest
   rabbitmq6:                       
                                    
-    image: rabbitmq                    
+    image: rabbitmq:latest                    
                                        
   redis7:                               
                                        
-    image: mongo                     
+    image: mongo:latest                    
                                        
   redis8:                               
                                        
-    image: mongo   
+    image: mongo:latest   
   rabbitmq5:                       
                                    
-    image: rabbitmq                    
+    image: rabbitmq:latest                    
                                        
   redis9:                               
                                        
-    image: mongo                     
+    image: mongo:latest                     
                                        
   redis:                               
                                        
-    image: mongo  
+    image: mongo:latest  
   grafana0:
      image: grafana/grafana
   grafana1:
@@ -205,17 +190,7 @@ services:
      image: grafana/grafana
   grafana4:
      image: grafana/grafana
-  visualizer:
-    deploy:
-      placement:
-        constraints:
-        - node.hostname == default
-    image: dockersamples/visualizer:latest
-    ports:
-    - 8070:8080
-    volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
-  
+
 version: '3.8'
 volumes:
   db-data:

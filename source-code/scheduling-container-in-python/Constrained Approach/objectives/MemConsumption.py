@@ -17,10 +17,10 @@ class EvalMemConsumption():
                
                 total_mem_consumption[var]=total_mem_consumption[var]+Instance.find_container_by_id(i).mem_usage
                 total_consumed_mem+=Instance.find_container_by_id(i).mem_usage
-        print(total_mem_consumption)
+       
         for i,mem in enumerate(total_mem_consumption):
             total_mem_consumption[i]=total_mem_consumption[i]/total_consumed_mem
-        print("after",total_mem_consumption)
+        
         average =sum(total_mem_consumption)/ len(total_mem_consumption)
         total=0
         for mem_per_node in total_mem_consumption:

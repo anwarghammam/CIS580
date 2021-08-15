@@ -1,4 +1,6 @@
-{"nodes": [{"id": 0, "cluster_id": "gk94vbxl8kq5mw8jln0p52d3l", "name": "default", "activated": true, "max_power_consumption": 1000, "Maxmem": 1033.252864}, {"id": 1, "cluster_id": "wl5o54qlu608muoc52xfsvkv7", "name": "worker1", "activated": true, "max_power_consumption": 1000, "Maxmem": 1033.252864}, {"id": 2, "cluster_id": "tesd3xeryphjyppytzbeji09u", "name": "worker2", "activated": true, "max_power_consumption": 1000, "Maxmem": 1033.252864}], "currentState": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,2], 
+{"nodes":[{"id": 0, "cluster_id": "kim0q47elc60neo1g7cnfdqb6", "name": "manager", "activated": true, "max_power_consumption": 1000, "Maxmem": 2000},
+ {"id": 1, "cluster_id": "j2uzo9bq28m4p1s25deqcpsdf", "name": "worker1", "activated": true, "max_power_consumption": 1000, "Maxmem": 500},
+ {"id": 2, "cluster_id": "5qf8raxnz76b53eegjpf8ip9o", "name": "worker2", "activated": true, "max_power_consumption": 1000, "Maxmem": 500}], "currentState": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,2], 
 "containers": [
 
 {"id": 0, "name": "p_redis6.1.84mkxj9hki0o4q5aaxflb8sfv", "image": "redis:latest", "dependencies": [], "placements": [], "priority": 4, "average_power_consumption_per_minute": 31.833333333333332, "power_consumption": 50, "cpu_usage": 0.14109452666673405, "mem_usage": 63.3984375}, 

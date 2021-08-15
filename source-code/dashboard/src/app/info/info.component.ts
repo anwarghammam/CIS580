@@ -174,9 +174,9 @@ export class InfoComponent implements OnInit {
            forkJoin([this.api.total_cpu_node(String(val[1])), 
            this.api.total_mem_node(String(val[1]))]).subscribe(data => {
 
-            this.total_mem=parseFloat(data[0].body['data']['result']['0']['value']['1']);
+            this.total_cpu=parseFloat(data[0].body['data']['result']['0']['value']['1']);
 
-             this.total_cpu=parseFloat(data[1].body['data']['result']['0']['value']['1']);
+             this.total_mem=parseFloat(data[1].body['data']['result']['0']['value']['1']);
              this.total_resources.push(
                [String(val[0]),this.total_cpu, this.total_mem])
           });

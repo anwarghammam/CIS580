@@ -43,7 +43,7 @@ export class VisualizerComponent implements OnInit {
 
   ngOnInit(): void {
 
-  /* this.api.getcpu()
+   this.api.getcpu()
             .subscribe(
               resp => {
                 console.log(resp)
@@ -60,7 +60,7 @@ export class VisualizerComponent implements OnInit {
                       resp => {
                         
                         console.log(resp)
-                        });  */
+                        });  
     this.color = [Math.floor((Math.random() * 6) + 1),Math.floor((Math.random() * 6) + 1),Math.floor((Math.random() * 6) + 1),Math.floor((Math.random() * 6) + 1),Math.floor((Math.random() * 6) + 1),Math.floor((Math.random() * 6) + 1),Math.floor((Math.random() * 6) + 1)]
    
     
@@ -84,7 +84,7 @@ export class VisualizerComponent implements OnInit {
        
         
          console.log(element)
-          element['priorities']=[]
+         element['priorities']=[]
          element['containers'].forEach(con => {
 
           this.containers_info.forEach(con_info => {

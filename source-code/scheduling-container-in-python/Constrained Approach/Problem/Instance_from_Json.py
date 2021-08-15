@@ -15,21 +15,21 @@ from instance.Instance import Instance
 
 def createInstance(Instance):
     
-    f = open(r"instanceExamples/Instance100.json")
+    f = open(r"instanceExamples/data.json")
    
     data = json.load(f)
     
     for i in data['nodes']:
         
-        print(i['max_power_consumption'])
+      
         n=Node(i['id'],i['cluster_id'],i['name'],i['activated'],i['max_power_consumption'],i['Maxmem'])
-        print(n.maxPowerconsumption)
+     
         Instance.nodes.append(n)
     for i in data['containers']:
-        print(i)
-        print(i['cpu_usage'])
+       
+       
         container=Container(i['id'],i['name'],i['image'],i['dependencies'],i['placements'],i['power_consumption'],i['average_power_consumption_per_minute'],i['priority'],i['cpu_usage'],i['mem_usage'])
-        print(container.cpu_usage)
+       
      
         Instance.containers.append(container)
     Instance.currentState=data['currentState']    

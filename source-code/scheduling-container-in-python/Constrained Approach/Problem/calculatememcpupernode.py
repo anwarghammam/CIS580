@@ -17,17 +17,16 @@ Created on Fri Apr 16 15:56:23 2021
 
 import json
 
-from instance.Node import Node
-from instance.Container import Container
-from instance.Instance import Instance
 
-solution=[2, 0, 0, 1, 0, 2, 0, 1, 1, 1, 1, 1, 2, 2, 1, 2, 2, 2, 1, 0, 1, 0, 0, 0, 2, 2, 2, 1, 2, 0, 0, 1, 1, 2, 1, 1, 2, 2, 1, 0, 1, 1, 0, 2, 2, 0, 2, 0, 0, 1, 1, 2, 0, 1, 2, 2, 0, 0, 2, 1, 0, 0, 2, 1, 1, 2, 2, 1, 0, 1, 0, 0, 2, 0, 2, 0, 2, 0, 0, 1, 0, 0, 1, 2, 2, 2, 0, 2, 2, 1, 2, 1, 2, 0, 2, 1, 0, 2, 1, 0]
+
+
+solution=[2, 0, 0, 0, 0, 2, 1, 0, 0, 1, 2, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 1, 0, 1, 1, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 1, 2, 0, 0, 2, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 1, 1, 2, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 1, 0, 0, 0, 2, 0, 2, 1]
 def createInstance():
     
     total_cpu=[0,0,0]
     total_mem=[0,0,0]
        
-    f = open(r"../instanceExamples/Instance100.json")
+    f = open(r"../instanceExamples/data.json")
    
     data = json.load(f)
     i=0

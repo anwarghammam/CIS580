@@ -185,15 +185,15 @@ def transform(instance):
 
   
     
-    Data().updateDockerCompose(instance.containers,instance.images,instance.currentState,instance.nodes,'DockerComposeFiles/initial-docker-compose.yml')
+    #Data().updateDockerCompose(instance.containers,instance.images,instance.currentState,instance.nodes,'DockerComposeFiles/initial-docker-compose.yml')
     
-    #services_to_shutdown=Data().updateDockerCompose(instance.containers,instance.images,candidate.variables,instance.nodes,'DockerComposeFiles/updated-docker-compose.yml')
+    # services_to_shutdown=Data().updateDockerCompose(instance.containers,instance.images,candidate.variables,instance.nodes,'DockerComposeFiles/updated-docker-compose.yml')
     # for service in services_to_shutdown:
     #     #print("docker-machine ssh manager docker service rm" +str(service))
     #     cmd = ("docker-machine ssh manager docker service rm "  +str(service)).split()
 
-    # #     p = subprocess.Popen(cmd)
-    # #     output, errors = p.communicate() 
+    #     p = subprocess.Popen(cmd)
+    #     output, errors = p.communicate() 
     print("--- %s seconds ---" % (time.time() - start_time))
     print(f'Computing time: ${algorithm1.total_computing_time}')
     times=[]

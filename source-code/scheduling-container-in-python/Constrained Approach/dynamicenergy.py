@@ -28,6 +28,7 @@ with open(r'./energy.json', mode='w', encoding='utf-8') as file:
     entry={}
     containers=[]
     for con in instance.containers:
+    
         con={'container':con.name,'energy_per_period':[]}
         containers.append(con)
     entry['containers']=containers

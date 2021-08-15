@@ -80,7 +80,8 @@
 
               </div>
               </div>
-              <div class="col-md-6" >
+              <div class="col-md-6" *ngIf="data3.length===data1.length" >
+              
                 <div style = "width: 290px; height: 190px;" >
         
                   <google-chart #chart
@@ -103,7 +104,7 @@
 
     <div class="row">
       
-           <div class="col-md-3">
+           <div class="col-md-3"  *ngIf="data3.length===data1.length">
           <div>
            
             <google-chart #chart
@@ -120,7 +121,7 @@
      </div> 
      <div class="col-md-3"> </div>
 
-     <div class="col-md-3"  >
+     <div class="col-md-3"  *ngIf="total_resources.length===data1.length" >
       <div>
        
         <google-chart #chart
