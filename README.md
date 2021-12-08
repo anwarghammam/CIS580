@@ -91,7 +91,7 @@ $ vi docker-compose.yml (to create the file)
 $ copy the content of the docker-compose file in this new created file and save it
 $ docker stack deploy --compose-file docker-compose.yml p
 ```
-<strong> PS: you can always check the services you have on your cluster using: </strong>
+<strong> PS: you can always check the services you have on your cluster from the manager node using: </strong>
 
 ```bash
 
@@ -105,18 +105,23 @@ $ docker service ls
 $ docker ps
 
 ```
-## FrontEnd
+
+Once the environment and the containers are ready, we will enable our backend API that runs the scheudlers and collects the data needed for the algorithm and run our dashboard
+
+## DASHBOARD
 <br>
 Before running the app, there are some changes that you have to do since you are using your own docker machines.
 <br> </br>
 Please go to <strong> src/app/home/chart.js </strong> and replace the variable <strong> url </strong> with "http://your-manager-ip:9090".
  <br> </br>   
-Also, go to <strong> src/app/api.service.ts </strong> and replace the variable <strong> url </strong> with "http://your_manager-ip:9090" and the three variables <strong> manager_id, worker1_id  and  worker2_id</strong> with your nodes ids that you can find by running the command <strong> docker node ls </strong> on the manager. 
+Also, please go to <strong> src/app/api.service.ts </strong> and replace the variable <strong> url </strong> with "http://your_manager-ip:9090" 
 
  <br/><br/>
+ 
+ this changes has to be autoamtically coded from our side, but because of deadlines, we modify the values manually. For sure, we can do it later.
 Now, open a terminal on the dashboard project and run the following command:
-```bash
 
+```bash
 $ npm install
 $ ng serve 
 ```
