@@ -81,11 +81,15 @@ For every machine we will have a node-exporter and a cadvisor containers running
 
 ## Using an example of a docker project
 
-Now, we will create a docker project on the cluster using a docker-compose file that I created with 50 containers
+Now, we will create a docker project on the cluster and run containers using a docker-compose file that I created with 50 containers
+First, you will find this docker-compose file in 'CIS580/source-code/scheduling-container-in-python/Constrained Approach/DockerComposeFiles/docker-compose.yml'
+After you have to access the manager node using ssh, create the file and then deploy it. Please follow these following instructions:
 ```bash
 
-$ cd Monitoring-Docker-Swarm/
-$ docker stack deploy --compose-file cbe-app.yml p1
+$ docker-machine ssh manager
+$ vi docker-compose.yml (to create the file)
+$ copy the content of the docker-compose file in this new created file and save it
+$ docker stack deploy --compose-file docker-compose.yml p
 ```
 <strong> PS: you can always check the services you have on your cluster using: </strong>
 
