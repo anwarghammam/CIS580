@@ -108,6 +108,21 @@ $ docker ps
 
 Once the environment and the containers are ready, we will enable our backend API that runs the scheudlers and collects the data needed for the algorithm and run our dashboard
 
+## BackEnd
+
+<br> </br>
+First, you need to run the backend (in the Jmetal repository). Please go to you Anaconda Prompt (Anaconda needs to be installed on your host) and run the <strong> API.py </strong> file using the following command:
+<br> </br>
+```bash
+
+$ python3 API.py
+```
+
+It will run our Api !
+<br></br>
+And now everything is ready! you can test the demo in the dashboard.
+
+
 ## DASHBOARD
 <br>
 Before running the app, there are some changes that you have to do since you are using your own docker machines.
@@ -122,8 +137,8 @@ Also, please go to <strong> src/app/api.service.ts </strong> and replace the var
 Now, open a terminal on the dashboard project and run the following command:
 
 ```bash
-$ npm install
-$ ng serve 
+$ npm install // To install the dependecnies
+$ ng serve   // to run the app
 ```
 Please access on your browser http://localhost:4200. If everything is working well, you are going to see the following webpage.
 
@@ -135,49 +150,7 @@ Please access on your browser http://localhost:4200. If everything is working we
 </div>
 <br> </br>
 
-## BackEnd
-First we will need to access the machines using ssh root@the_machine_name so first go to /etc/hosts in your host and add for each @ip the vm's name. For example :
-```bash
-
- 192.168.1.19 manager
- 192.168.1.20 worker1
- etc..
-```
-<br> </br>
-Now, you need to run the backend (in the Jmetal repository). Please go to you Anaconda Prompt (Anaconda needs to be installed on your host) and run the <strong> app.py </strong> file using the following command:
-<br> </br>
-```bash
-
-$ python app.py
-```
-Please change as well the paths for the files (such as tghe docker-compose files) with your own paths
-
-It will run our Api !
-<br></br>
-And now everything is ready! you can test the demo in the dashboard.
-
-## Usage
-
-The following steps are just another version on how to install this project in your machine. This is made based on a Windows machine. Other operating systems are supposed to be a bit different.
-
-1. Install Virtualbox and its extension pack 
-2. Install Python 
-3. Install Docker Desktop
-4. Install [Docker Machine](https://docs.docker.com/machine/install-machine/)
-5. Please ake sure you have VT-X/AMD-v enabled on your BIOS. This is mandatory. It is possible to face some problems if Hyper-V is enabled on Windows. Then, keep it disabled since it may have some conflict with Virtualbox
-6. Creating machines on Virtualbox. Run the following commands:
-    * `docker-machine.exe create --virtualbox-no-vtx-check "manager"`
-    * `docker-machine.exe create --virtualbox-no-vtx-check "worker1"`
-    * `docker-machine.exe create --virtualbox-no-vtx-check "worker2"`
-7. You need to know what is the manager's IP
-	* `docker-machine.exe ip manager`
-8. You need to install Docker Swarm in a "manager" node. So access the manager node
-    * `docker-machine.exe ssh "manager"`
-9. Install Docker Swarm. Access  
-    * `docker swarm init --advertise-addr 192.168.99.100`
-10. When Swarm is successfully started, you need to "connect" or "add" nodes to it. Use the command displayed to access each created node and run it. This command looks the following:
-    * `docker swarm join --token <TOKE> 192.168.99.100:2377`
-
+Now, everything is ready to go!!
 
 ## Useful Commands
 
