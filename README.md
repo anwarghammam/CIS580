@@ -36,7 +36,7 @@ Now, you are ready create a docker machine, please run the following command on 
 ```
 docker-machine create --driver virtualbox "the machine's name" 
 ```
-Please make sure to give the following names to the created machines : "Manager" , "Worker1", "Worker2" since we used them in our code.
+Please make sure to give the following names to the created machines : "manager" , "worker1", "worker2" since we used them in our code.
 <br> </br>
 You can verify the creation of the machines by running:
 ```
@@ -45,7 +45,7 @@ $ docker-machine ls
 
 At this point, we have to create a swarm where one of the machine is a manager and the two others are workers (or nodes).
 First, connect to the manager using <strong> docker-machine ssh "its name" </strong> .
-Then, to create the swarm, you have first to get the IP address of your manager using <strong> "ifconfig" </strong> and then run the following command:
+Then, to create the swarm, you have first to get the IP address of your manager using <strong> "ifconfig" </strong> and <strong> "ip addr" </strong> and then run the following command:
 ```
 $ docker swarm init --advertise-addr ip-adress
 ```
@@ -56,30 +56,32 @@ Next, you can check the swarm members using:
 $ docker node ls
 ```
 
-Now we have to install some services for Docker Swarm monitoring (to expose Docker engine and container metrics in our project)
+Now we have to install some services for Docker Swarm monitoring in the manager machine (to expose Docker engine and container metrics in our project)
 
 <p> Services :</p> 
 
-* prometheus (metrics database) `http://<swarm-ip>:9090`
+* prometheus (metrics database) `http://<swarm-manager-ip>:9090`
 * node-exporter (host metrics collector)
-* cadvisor (containers metrics collector)
-* dockerd-exporter (Docker daemon metrics collector)
-* grafana (visualize metrics) `http://<swarm-ip>:3000`
+
     
 ## Install
 ```bash
-$ git clone https://github.com/anwarghammam/docker-swarm-monitoring-arm64
-$ cd docker-swarm-monitoring-arm64/
-$ docker stack deploy --compose-file docker-compose.yml prom
+$ git clone https://github.com/anwarghammam/Monitoring-Docker-Swarm
+$ cd Monitoring-Docker-Swarm/
+$ docker stack deploy --compose-file docker-compose.yml p
 ```
-### If your machines support the arm32 architecture change the prometheus image in docker-compose from anwargh/prometheus:arch64 to anwargh/prometheus:arch32
-you can check the containers in every machine using: 
+
+you can check the containers running in every machine using: 
 
 ```
 docker ps
 ```
+
+For every machine we will have a node-exporter and a cadvisor containers running since these containers are golabl, it means that they have to run in every node in the cluster to extract the needed metrics. However, only one prometheus in the manager (we need one instance for collecting data from both nodes)
+
 ## Using an example of a docker project
-Now, you will create a docker project on the cluster using the yaml file cbe-app.yml that exists on the Monitoring-Docker-Swarm repository 
+
+Now, we will create a docker project on the cluster using a docker-compose file that I created with 50 containers
 ```bash
 
 $ cd Monitoring-Docker-Swarm/
