@@ -1,8 +1,8 @@
 
 
-function all(data,nodes,url_node){
+function all(nodes,url_node){
    
-   console.log("nodes  "+ nodes[0][1])
+   console.log(nodes)
     
  var ctx = document.getElementById('myChart').getContext('2d');
  var ctx2 = document.getElementById('myChart2').getContext('2d');
@@ -10,11 +10,12 @@ function all(data,nodes,url_node){
  var ctx4 = document.getElementById('myChart4').getContext('2d');
  var ctx5 = document.getElementById('myChart5').getContext('2d');
  var ctx6 = document.getElementById('myChart6').getContext('2d');
- var ctx7 = document.getElementById('myChart7').getContext('2d');
- var ctx8 = document.getElementById('myChart8').getContext('2d');
- var ctx9 = document.getElementById('myChart9').getContext('2d');
- var ctx10 = document.getElementById('myChart10').getContext('2d');
- url="http://192.168.99.103:9090/"
+ // var ctx7 = document.getElementById('myChart7').getContext('2d');
+ // var ctx8 = document.getElementById('myChart8').getContext('2d');
+
+ //var ctx9 = document.getElementById('myChart9').getContext('2d');
+ //var ctx10 = document.getElementById('myChart10').getContext('2d');
+ url="http://192.168.99.108:9090/"
 
  
  const query1='100 - (avg(irate(node_cpu_seconds_total{mode="idle"}[5m])  * on(instance) group_left(node_name) node_meta * 100) by (node_name))';
@@ -37,7 +38,7 @@ const query10='topk(10, sum(irate(container_cpu_usage_seconds_total{container_la
  const start = -30 * 60 * 1000;
  const end = 0; // now
 colors=['red','blue','orange','green','gray','pink','yellow','white']
-all1=[]
+/*all1=[]
 var i=-1
 var total_energy_per_node=[]
 
@@ -125,7 +126,7 @@ all2=[]
 
  
   
-  var chart = new Chart(ctx7, {
+ var chart = new Chart(ctx7, {
     type: 'line',
     data: { datasets: all1},
     options: {
@@ -150,10 +151,10 @@ all2=[]
        
     },
     
-  });
+  }); */
 
 
-  var chart = new Chart(ctx8, {
+  /*var chart = new Chart(ctx8, {
     type: 'line',
     data: { datasets: all2},
     options: {
@@ -178,24 +179,12 @@ all2=[]
        
     },
     
-  });
+  });*/
 
-                 
-     
-
+    
 
 
-
-
-
-
-
-
-
-
-
-
- var myChart9 = new Chart(ctx9, {
+ /*var myChart9 = new Chart(ctx9, {
     type: 'line',
     data: {
         },
@@ -358,7 +347,7 @@ all2=[]
  });
 
 
-
+*/
 
 
 

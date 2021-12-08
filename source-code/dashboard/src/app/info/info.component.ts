@@ -181,7 +181,7 @@ export class InfoComponent implements OnInit {
                [String(val[0]),this.total_cpu, this.total_mem])
           });
                 
-                        
+                        console.log(this.total_resources)
                         })
                      
             console.log(this.data3)

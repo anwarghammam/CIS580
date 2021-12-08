@@ -39,7 +39,7 @@ export class ConstraintsComponent implements OnInit {
   time 
   momenttime: string;
   timer: NodeJS.Timer;
-  data=[]
+  
     
    
   constructor(private api: ApiService,private router: Router,public datepipe: DatePipe) { 
@@ -51,6 +51,7 @@ export class ConstraintsComponent implements OnInit {
   ngOnInit(): void {
     
     this.get_constraints()
+    console
   }
   
 

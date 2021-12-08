@@ -170,8 +170,19 @@ services:
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
   mongodb:
-    image: mongo:4.4.2
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == worker1
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_ROOT_USERNAME: admin
+    image: webhippie/mongodb:latest
+    ports:
+    - 27017:27017
   mongodb1:
+    image: mongo:4.4.2
+  mongodb11:
     image: mongo:4.4.2
   nginx:
     deploy:
@@ -179,12 +190,6 @@ services:
         constraints:
         - node.hostname == worker1
     image: nginx:latest
-  rabbitmq:
-    deploy:
-      placement:
-        constraints:
-        - node.hostname == worker2
-    image: rabbitmq:latest
   rabbitmq1:
     deploy:
       placement:
@@ -221,17 +226,13 @@ services:
         constraints:
         - node.hostname == worker1
     image: rabbitmq:latest
+  rabbitmq9:
+    image: rabbitmq:latest
   redis:
-    deploy:
-      placement:
-        constraints:
-        - node.hostname == worker2
-    image: mongo:latest
+    image: redis:latest
   redis1:
-    deploy:
-      placement:
-        constraints:
-        - node.hostname == worker2
+    image: mongo:latest
+  redis13:
     image: mongo:latest
   redis2:
     deploy:
@@ -264,6 +265,10 @@ services:
         - node.hostname == worker2
     image: mongo:latest
   wordpress2:
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == worker2
     image: wordpress:latest
   wordpress3:
     deploy:
@@ -290,6 +295,10 @@ services:
         - node.hostname == manager
     image: wordpress:latest
   wordpress7:
+    deploy:
+      placement:
+        constraints:
+        - node.hostname == worker2
     image: wordpress:latest
   wordpress8:
     deploy:

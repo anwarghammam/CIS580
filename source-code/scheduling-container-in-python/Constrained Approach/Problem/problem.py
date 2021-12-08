@@ -100,7 +100,7 @@ class ReschedulingProblem(IntegerProblem,ABC):
             self.lower_bound = self.number_of_variables * [-1]
         else:
             self.lower_bound = self.number_of_variables * [0]
-        self.upper_bound = self.number_of_variables * [len(Instance.nodes)]
+        self.upper_bound = self.number_of_variables * [len(Instance.nodes)-1]
         
         
     def create_solution(self) -> IntegerSolution:
@@ -124,10 +124,8 @@ class ReschedulingProblem(IntegerProblem,ABC):
             objectives.append(val)
             
         
-        
-        for cons in enumerate(self.constraints) :
-            
-            
+ 
+        for cons in enumerate(self.constraints):
            
             val=cons[1].evaluate(self.Instance,solution)
             solution.constraints[cons[0]]=val
@@ -142,22 +140,23 @@ class ReschedulingProblem(IntegerProblem,ABC):
                 solution.objectives[i]=100000
             
             
-        else:  
-        
+        else: 
+       
             for i,obj in enumerate(objectives):
+            
+            
                 solution.objectives[i]=obj
        
-        
+            
         
         print(solution)
         return solution
     
+    def get_name(self):
+        return('ReschedulingProblem')
     
-     
-
        
         
         
         
-    def get_name(self):
-        return 'ReschedulingProblem'    
+   

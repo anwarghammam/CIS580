@@ -22,13 +22,14 @@ class EvalCpuConsumption():
         
         total_cpu_consumption_per_node=[0 for i in range(len(Instance.nodes))]
         total_consumed_cpu=0
-        #print(solution.variables)
+       
         #print(total_power_consumption)
         
         for i,var in enumerate(solution.variables):
            
             if (var!=-1):
-               
+                print(var)
+                print(Instance.find_container_by_id(i).cpu_usage)
                 total_cpu_consumption_per_node[var]=total_cpu_consumption_per_node[var]+Instance.find_container_by_id(i).cpu_usage
                 total_consumed_cpu+=Instance.find_container_by_id(i).cpu_usage
         for i,cpu in enumerate(total_cpu_consumption_per_node):

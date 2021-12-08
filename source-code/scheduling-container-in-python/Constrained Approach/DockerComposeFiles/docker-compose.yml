@@ -87,7 +87,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
-  mongodb:
+  mongodb11:
     image: mongo:4.4.2
     #image: webhippie/mongodb:latest
     
@@ -110,7 +110,7 @@ services:
     image: wordpress:latest
   wordpress9:
     image: wordpress:latest
-  rabbitmq:
+  rabbitmq9:
     
     image: rabbitmq:latest
   rabbitmq1:
@@ -124,18 +124,7 @@ services:
     image: rabbitmq:latest 
   nginx:
     image: nginx:latest
-  redis5:
-    image: redis:latest
-  redis:
-    image: redis:latest
-     
-  redis9:
-    
-    image: mongo:latest
-  redis1:
-    image: mongo:latest
-  redis2:
-    image: mongo:latest 
+  
   db:
     image: mongo:latest
   db2:
@@ -152,6 +141,9 @@ services:
     
   db7:
     image: mongo:latest
+  visualizer:
+  
+    image: dockersamples/visualizer:latest
   db8:
     image: mongo:latest 
   rabbitmq4:                       
@@ -159,8 +151,27 @@ services:
     image: rabbitmq:latest
   rabbitmq6:                       
                                    
-    image: rabbitmq:latest                    
-                                       
+    image: rabbitmq:latest     
+  rabbitmq:                       
+                                   
+    image: rabbitmq:latest     
+  redis5:
+    image: redis:latest
+    
+  redis6:
+    image: redis:latest
+  redis10:
+    image: redis:latest
+  redis:
+    image: redis:latest
+     
+  redis9:
+    
+    image: mongo:latest
+  redis1:
+    image: mongo:latest
+  redis2:
+    image: mongo:latest                                      
   redis7:                               
                                        
     image: mongo:latest                    
@@ -172,12 +183,7 @@ services:
                                    
     image: rabbitmq:latest                    
                                        
-  redis9:                               
-                                       
-    image: mongo:latest                     
-                                       
-  redis:                               
-                                       
+  redis13:                                                        
     image: mongo:latest  
   grafana0:
      image: grafana/grafana
