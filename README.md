@@ -209,16 +209,7 @@ Contributions to the this project are very welcome! We can't do this alone! Feel
 
 ## Authors
 
-* **Anwar Ghammam** - *Initial work*
+* **Anwar Ghammam** 
+*  **Nour Haj Salem**
 
-See also the list of [contributors](https://github.com/iselab-dearborn/many-objective-container-scheduling/graphs/contributors) who participated in this project.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-
-## Powered by
-
-<p float="left">
-    <img src="https://user-images.githubusercontent.com/114015/77862143-99351b80-71e7-11ea-84b2-62038634f314.png" height="58px"/>
-</p>
