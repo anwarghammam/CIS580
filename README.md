@@ -22,7 +22,7 @@ chmod +x /tmp/docker-machine && sudo cp /tmp/docker-machine /usr/local/bin/docke
 If you have not yet installed Docker for Windows, please see this link https://docs.docker.com/docker-for-windows/install/ for an explanation.
 To Create machines locally using VirtualBox https://www.virtualbox.org/. This driver requires VirtualBox 5+ to be installed on your host. Using VirtualBox 4.3+ should work but will give you a warning. Older versions will refuse to work. 
 
-Now, you are ready create a docker machine, please run the following command on your cmd:
+Now, you are ready to create a docker machine, please run the following command on your cmd:
 ```
 docker-machine create --driver virtualbox "the machine's name" 
 ```
@@ -33,7 +33,7 @@ You can verify the creation of the machines by running:
 $ docker-machine ls
 ```
 
-At this point, we have to create a swarm where one of the machine is a manager and the two others are workers (or nodes).
+At this point, we have to create a swarm where one of the machine is a manager and the two others are workers.
 First, connect to the manager using <strong> docker-machine ssh "its name" </strong> .
 Then, to create the swarm, you have first to get the IP address of your manager using <strong> "ifconfig" </strong> and <strong> "ip addr" </strong> and then run the following command:
 ```
@@ -52,6 +52,7 @@ Now we have to install some services for Docker Swarm monitoring in the manager 
 
 * prometheus (metrics database) `http://<swarm-manager-ip>:9090`
 * node-exporter (host metrics collector)
+* cAdvisor (containers metrics collector)
 
     
 ## Install
@@ -71,7 +72,7 @@ For every machine we will have a node-exporter and a cadvisor containers running
 
 ## Using an example of a docker project
 
-Now, we will create a docker project on the cluster and run containers using a docker-compose file that I created with 50 containers
+Now, we will create a docker project on the cluster and run containers using a docker-compose file that I created with 50 containers.
 First, you will find this docker-compose file in 'CIS580/source-code/scheduling-container-in-python/Constrained Approach/DockerComposeFiles/docker-compose.yml'
 After you have to access the manager node using ssh, create the file and then deploy it. Please follow these following instructions:
 ```bash
@@ -96,12 +97,12 @@ $ docker ps
 
 ```
 
-Once the environment and the containers are ready, we will enable our backend API that runs the scheudlers and collects the data needed for the algorithm and run our dashboard
+Once the environment and the containers are ready, we will enable our backend API that runs the scheduler and collects the data needed for the algorithm and run our dashboard
 
 ## BackEnd
 
 <br> </br>
-First, you need to run the backend (in the Jmetal repository). Please go to you Anaconda Prompt (Anaconda needs to be installed on your host) and run the <strong> API.py </strong> file using the following command:
+First, you need to run the backend (in the "scheduling-container-in-python" repository). Please go to you Anaconda Prompt (Anaconda needs to be installed on your host so you can install all needed dependencies for the project) and run the <strong> API.py </strong> file using the following command:
 <br> </br>
 ```bash
 
