@@ -2,16 +2,6 @@
 
 Many-objective Container Scheduling
 
-[![GitHub Release](https://img.shields.io/github/release/iselab-dearborn/many-objective-container-scheduling.svg)](https://github.com/iselab-dearborn/many-objective-container-scheduling/releases/latest)
-[![GitHub contributors](https://img.shields.io/github/contributors/iselab-dearborn/many-objective-container-scheduling.svg)](https://github.com/iselab-dearborn/many-objective-container-scheduling/graphs/contributors)
-[![GitHub stars](https://img.shields.io/github/stars/iselab-dearborn/many-objective-container-scheduling.svg)](https://github.com/iselab-dearborn/many-objective-container-scheduling)
-[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
-[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
-
-The original paper was published at:
-
-> To be Announced 
-
 ## How to Install
 
 This project is built based on basically two technologies described as follows:
