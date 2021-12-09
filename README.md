@@ -135,7 +135,7 @@ Please access on your browser http://localhost:4200. If everything is working we
 
 <div align="center">
     <kbd>
-        <img src="https://github.com/iselab-dearborn/many-objective-container-scheduling/blob/main/screenshots/dashboard.png"/>
+        <img src="https://github.com/anwarghammam/CIS580/blob/main/web3%20(1).png"/>
     </kbd>
     <br/><br/>
 </div>
