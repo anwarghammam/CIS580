@@ -181,19 +181,6 @@ docker-machine.exe create --virtualbox-no-vtx-check "manager"
 ```
 
 
-
-
-
-
-
-
-
-
-
-## Questions or Suggestions
-
-Feel free to create <a href="https://github.com/iselab-dearborn/many-objective-container-scheduling/issues">issues</a> here as you need
-
 ## Contribute
 
 Contributions to the this project are very welcome! We can't do this alone! Feel free to fork this project, work on it and then make a pull request.
